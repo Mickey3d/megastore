@@ -1,6 +1,6 @@
-// src/Surikat/CommunityBundle/SurikatCommunityBundle.php
-
 <?php
+
+// src/Surikat/CommunityBundle/SurikatCommunityBundle.php
 
 namespace App\Surikat\CommunityBundle;
 
