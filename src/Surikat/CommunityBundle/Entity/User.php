@@ -3,11 +3,13 @@
 namespace App\Surikat\CommunityBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @ORM\Table(name="user")
  */
-class User
+class User implements UserInterface, \Serializable
 {
     /**
      * @ORM\Id()
@@ -136,9 +138,16 @@ class User
         return $this;
     }
 
-    public function getRoles()
+    public function getRoles(): array
     {
-        return $this->roles;
+      $roles = $this->roles;
+
+      // To be sure we have at less One Role
+      if (empty($roles)) {
+          $roles[] = 'ROLE_USER';
+      }
+
+      return array_unique($roles);
     }
 
     public function setRoles($roles): self
@@ -207,4 +216,46 @@ class User
 
         return $this;
     }
+
+    /**
+    * Give back the salt which serve to encode the password
+    *
+    * {@inheritdoc}
+    */
+    public function getSalt(): ?string
+    {
+    // See "Do you need to use a Salt?" at https://symfony.com/doc/current/cookbook/security/entity_provider.html
+    // we're using bcrypt in security.yml to encode the password, so
+    // the salt value is built-in and you don't have to generate one
+
+    return null;
+  }
+
+  /**
+  * Removes sensitive data from the user.
+  *
+  * {@inheritdoc}
+  */
+  public function eraseCredentials(): void
+  {
+    // We don't need thos method beacuase we don't use plainPassword
+    // But it is madatory because implemented in the interface of UserInterface
+    // $this->plainPassword = null;
+  }
+
+  /**
+  * {@inheritdoc}
+  */
+  public function serialize(): string
+  {
+      return serialize([$this->id, $this->username, $this->password]);
+  }
+
+  /**
+  * {@inheritdoc}
+  */
+  public function unserialize($serialized): void
+  {
+      [$this->id, $this->username, $this->password] = unserialize($serialized, ['allowed_classes' => false]);
+  }
 }
