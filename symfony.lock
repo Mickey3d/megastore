@@ -65,6 +65,9 @@
             "ref": "66070ea553247b0cd5275e21d0fe5399a25f40be"
         }
     },
+    "egulias/email-validator": {
+        "version": "2.1.4"
+    },
     "hillrange/ckeditor": {
         "version": "0.1",
         "recipe": {
@@ -109,6 +112,9 @@
             "version": "4.0",
             "ref": "aaddfdf43cdecd4cf91f992052d76c2cadc04543"
         }
+    },
+    "swiftmailer/swiftmailer": {
+        "version": "v6.0.2"
     },
     "symfony/asset": {
         "version": "v4.0.7"
