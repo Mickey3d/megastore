@@ -1,6 +1,6 @@
 <?php
 // App/Events.php
-namespace App\Surikat\CommunityBundle;
+namespace App;
 /**
  * This class defines the names of all the events dispatched in
  * our project. It's not mandatory to create a
