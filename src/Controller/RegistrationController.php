@@ -1,17 +1,18 @@
 <?php
 // src/Surikat/CommunityBundle/Controller/RegistrationController.php
 
-namespace App\Surikat\CommunityBundle\Controller;
+namespace App\Controller;
 
-use App\Surikat\CommunityBundle\Form\UserType;
-use App\Surikat\CommunityBundle\Entity\User;
-use App\Surikat\CommunityBundle\Events;
+use App\Form\UserType;
+use App\Entity\User;
+use App\Events;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\GenericEvent;
+
 
 class RegistrationController extends Controller
 {
@@ -39,7 +40,7 @@ class RegistrationController extends Controller
             return $this->redirectToRoute('security_login');
         }
         return $this->render(
-            'register.html.twig',
+            'Surikat/CommunityBundle/templates/register.html.twig',
             array('form' => $form->createView())
         );
     }

@@ -5,6 +5,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
+
 class IndexController extends Controller
 {
     /**
@@ -19,6 +20,6 @@ class IndexController extends Controller
      */
     public function admin()
     {
-        return $this->render('Admin/index.html.twig');
+        return $this->render('SurikatCommunityBundle:Admin:index.html.twig');
     }
 }

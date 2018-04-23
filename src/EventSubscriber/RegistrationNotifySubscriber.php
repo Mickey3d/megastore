@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Surikat\CommunityBundle\EventSubscriber;
+namespace App\EventSubscriber;
 
-use App\Surikat\CommunityBundle\Entity\User;
-use App\Surikat\CommunityBundle\Events;
+use App\Entity\User;
+use App\Events;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\EventDispatcher\GenericEvent;
 

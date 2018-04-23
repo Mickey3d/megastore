@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Surikat\CommunityBundle\Repository;
+namespace AppRepository;
 
-use App\Surikat\CommunityBundle\Entity\User;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 

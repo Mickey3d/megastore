@@ -1,7 +1,7 @@
 <?php
 // src/Surikat/CommunityBundle/Controller/SecurityController.php
 
-namespace App\Surikat\CommunityBundle\Controller;
+namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
