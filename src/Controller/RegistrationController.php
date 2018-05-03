@@ -1,5 +1,5 @@
 <?php
-// src/Surikat/CommunityBundle/Controller/RegistrationController.php
+// src/Controller/RegistrationController.php
 
 namespace App\Controller;
 
@@ -40,7 +40,7 @@ class RegistrationController extends Controller
             return $this->redirectToRoute('security_login');
         }
         return $this->render(
-            'Surikat/CommunityBundle/templates/register.html.twig',
+            'register.html.twig',
             array('form' => $form->createView())
         );
     }

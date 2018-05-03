@@ -1,0 +1,23 @@
+.navbar .nav-item.avatar .dropdown-toggle img {
+    height: 35px; }
+
+.navbar .nav-item.avatar .dropdown-toggle {
+    padding: 0; }
+
+.nav-item a {
+  padding-bottom: 0px;
+  padding-top: 0px; }
+
+#mainContent {
+  margin-top: 100px;
+}
+
+.dropleft .dropdown-toggle::before {
+    display: none; !important
+}
+
+.center {
+    text-align: center; }
+
+.align-items-center {
+     align-items: center; }

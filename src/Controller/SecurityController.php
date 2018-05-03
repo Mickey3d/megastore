@@ -1,5 +1,5 @@
 <?php
-// src/Surikat/CommunityBundle/Controller/SecurityController.php
+// src/Controller/SecurityController.php
 
 namespace App\Controller;
 

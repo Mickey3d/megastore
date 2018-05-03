@@ -8,6 +8,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @ORM\Table(name="user")
+ * @ORM\HasLifecycleCallbacks
  */
 class User implements UserInterface, \Serializable
 {
@@ -230,6 +231,22 @@ class User implements UserInterface, \Serializable
 
     return null;
   }
+
+
+    /**
+    *
+    * @ORM\PrePersist
+    * @ORM\PreUpdate
+    */
+    public function updatedTimestamps()
+    {
+      $this->setUpdatedAt(new \DateTime(date('Y-m-d H:i:s')));
+
+      if($this->getCreatedAt() == null)
+      {
+          $this->setCreatedAt(new \DateTime(date('Y-m-d H:i:s')));
+      }
+    }
 
   /**
   * Removes sensitive data from the user.

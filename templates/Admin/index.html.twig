@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}
-    Bienvenue {{ app.user.username }} !
+{% block content %}
+    {{ "Welcome"|trans }} {{ app.user.username }} !
 
 {% endblock %}

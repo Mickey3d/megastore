@@ -20,6 +20,6 @@ class IndexController extends Controller
      */
     public function admin()
     {
-        return $this->render('SurikatCommunityBundle:Admin:index.html.twig');
+        return $this->render('Admin/index.html.twig');
     }
 }

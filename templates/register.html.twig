@@ -1,17 +1,44 @@
 {# templates/register.html.twig #}
 {% extends 'base.html.twig' %}
 
-{% block body %}
+  {% block content %}
+    <div class="container-fluid d-flex justify-content-center center">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-signin">
+            <h1 class="h3 mb-3 font-weight-normal">{{ "Please Register"|trans }}</h1>
+            {{ form_start(form) }}
+            {{ form_label(form.firstName)}}
+            {{ form_widget(form.firstName,
+                {'attr': {'class': 'form-control','placeholder': 'First Name', 'autofocus': 'autofocus' }}) }}
+            {{ form_label(form.lastName)}}
+            {{ form_widget(form.lastName,
+                {'attr': {'class': 'form-control','placeholder': 'Last Name', 'autofocus': 'autofocus' }}) }}
+            {{ form_label(form.username)}}
+            {{ form_widget(form.username,
+                {'attr': {'class': 'form-control','placeholder': 'Username', 'autofocus': 'autofocus' }}) }}
+            {{ form_label(form.email)}}
+            {{ form_widget(form.email,
+                {'attr': {'class': 'form-control','placeholder': 'Email address', 'autofocus': 'autofocus' }}) }}
+            {{ form_label(form.password.first)}}
+            {{ form_widget(form.password.first,
+                {'attr': {'class': 'form-control','placeholder': 'Password', 'autofocus': 'autofocus' }}) }}
+            {{ form_label(form.password.second)}}
+            {{ form_widget(form.password.second,
+                {'attr': {'class': 'form-control','placeholder': 'Confirm Password', 'autofocus': 'autofocus' }}) }}
 
-{{ form_start(form) }}
-    {{ form_row(form.firstName) }}
-    {{ form_row(form.lasttName) }}
-    {{ form_row(form.username) }}
-    {{ form_row(form.email) }}
-    {{ form_row(form.password.first) }}
-    {{ form_row(form.password.second) }}
-
-    <button type="submit">S'inscrire !</button>
-{{ form_end(form) }}
+            <button class="btn btn-lg btn-primary btn-block" type="submit">{{ "Register"|trans }}</button>
+            {{ form_end(form) }}
+            <div class="checkbox mb-3">
+              <label>
+                <input type="checkbox" value="remember-me">
+                {{ "Remember Me"|trans }}
+              </label>
+            </div>
+            <p class="mt-5 mb-3 text-muted">&copy; 2018-2019</p>
+          </div>
+        </div>
+      </div>
+    </div>
 
 {% endblock %}

@@ -16,4 +16,4 @@ easy_admin:
 
     entities:
         User:
-            class: App\Surikat\CommunityBundle\Entity\User
+            class: App\Entity\User

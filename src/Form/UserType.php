@@ -1,5 +1,5 @@
 <?php
-// /src/Surikat/CommunityBundle/Form/UserType.php
+// /src/Form/UserType.php
 
 namespace App\Form;
 
