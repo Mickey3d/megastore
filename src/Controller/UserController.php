@@ -24,7 +24,7 @@ class UserController extends Controller
     }
 
     /**
-     * @Route("/new", name="user_new", methods="GET|POST")
+     * @Route("/admin/user/new", name="user_new", methods="GET|POST")
      */
     public function new(Request $request): Response
     {
@@ -75,7 +75,7 @@ class UserController extends Controller
     }
 
     /**
-     * @Route("/{id}", name="user_delete", methods="DELETE")
+     * @Route("/admin/user/{id}", name="user_delete", methods="DELETE")
      */
     public function delete(Request $request, User $user): Response
     {
