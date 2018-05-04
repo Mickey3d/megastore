@@ -3,7 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Form\User1Type;
+use App\Form\User\UserProfileType;
+use App\Form\User\UserAdminType;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,29 +25,6 @@ class UserController extends Controller
     }
 
     /**
-     * @Route("/admin/user/new", name="user_new", methods="GET|POST")
-     */
-    public function new(Request $request): Response
-    {
-        $user = new User();
-        $form = $this->createForm(User1Type::class, $user);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($user);
-            $em->flush();
-
-            return $this->redirectToRoute('user_index');
-        }
-
-        return $this->render('user/new.html.twig', [
-            'user' => $user,
-            'form' => $form->createView(),
-        ]);
-    }
-
-    /**
      * @Route("/{id}", name="user_show", methods="GET")
      */
     public function show(User $user): Response
@@ -59,7 +37,7 @@ class UserController extends Controller
      */
     public function edit(Request $request, User $user): Response
     {
-        $form = $this->createForm(User1Type::class, $user);
+        $form = $this->createForm(UserProfileType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -69,6 +47,49 @@ class UserController extends Controller
         }
 
         return $this->render('user/edit.html.twig', [
+            'user' => $user,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/admin/user/new", name="admin_user_new", methods="GET|POST")
+     */
+    public function adminNewUser(Request $request): Response
+    {
+        $user = new User();
+        $form = $this->createForm(UserAdminType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
+
+            return $this->redirectToRoute('user_index');
+        }
+
+        return $this->render('admin/user/new.html.twig', [
+            'user' => $user,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/admin/user/{id}/edit", name="admin_user_edit", methods="GET|POST")
+     */
+    public function adminEditUser(Request $request, User $user): Response
+    {
+        $form = $this->createForm(UserAdminType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('admin_user_edit', ['id' => $user->getId()]);
+        }
+
+        return $this->render('admin/user/edit.html.twig', [
             'user' => $user,
             'form' => $form->createView(),
         ]);
