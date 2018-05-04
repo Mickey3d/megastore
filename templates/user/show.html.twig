@@ -3,59 +3,66 @@
 {% block title %}User{% endblock %}
 
 {% block content %}
-    <h1>{{ "User"|trans }}</h1>
+  <h1>{{ "User"|trans }}</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>{{ "Username"|trans }}</th>
-                <td>{{ user.username }}</td>
-            </tr>
-            <tr>
-                <th>{{ "Firstname"|trans }}</th>
-                <td>{{ user.firstName }}</td>
-            </tr>
-            <tr>
-                <th>{{ "Lastname"|trans }}</th>
-                <td>{{ user.lastName }}</td>
-            </tr>
-            <tr>
-                <th>{{ "Email"|trans }}</th>
-                <td>{{ user.email }}</td>
-            </tr>
-            <tr>
-                <th>{{ "Roles"|trans }}</th>
-                <td>{{ user.roles|join(', ')  }}</td>
-            </tr>
-            <tr>
-                <th>{{ "Phone"|trans }}</th>
-                <td>{{ user.phone }}</td>
-            </tr>
-            <tr>
-                <th>{{ "Created at"|trans }}</th>
-                <td>{{ user.CreatedAt ? user.CreatedAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>{{ "Updated at"|trans }}</th>
-                <td>{{ user.UpdatedAt ? user.UpdatedAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>{{ "Enabled"|trans }}</th>
-                <td>{{ user.enabled ? 'Yes' : 'No' }}</td>
-            </tr>
-            <tr>
-                <th>{{ "Restricted"|trans }}</th>
-                <td>{{ user.restricted ? 'Yes' : 'No' }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('user_index') }}">{{ "Back to list"|trans }}</a>
-
-    {% if is_granted("ROLE_SUPER_ADMIN") or (user.id == app.user.id) %}
-    <a href="{{ path('user_edit', {'id': user.id}) }}">{{ "Edit"|trans }}</a>
-    {% endif %}
-    {% if is_granted("ROLE_SUPER_ADMIN") %}
-    {{ include('user/_delete_form.html.twig') }}
-    {% endif %}
+  <table class="table">
+    <tbody>
+      <tr>
+        <th>{{ "Username"|trans }}</th>
+        <td>{{ user.username }}</td>
+      </tr>
+      <tr>
+        <th>{{ "Firstname"|trans }}</th>
+        <td>{{ user.firstName }}</td>
+      </tr>
+      <tr>
+        <th>{{ "Lastname"|trans }}</th>
+        <td>{{ user.lastName }}</td>
+      </tr>
+      <tr>
+        <th>{{ "Email"|trans }}</th>
+        <td>{{ user.email }}</td>
+      </tr>
+      <tr>
+        <th>{{ "Roles"|trans }}</th>
+        <td>{{ user.roles|join(', ')  }}</td>
+      </tr>
+      <tr>
+        <th>{{ "Phone"|trans }}</th>
+        <td>{{ user.phone }}</td>
+      </tr>
+      <tr>
+        <th>{{ "Created at"|trans }}</th>
+        <td>{{ user.CreatedAt ? user.CreatedAt|date('Y-m-d H:i:s') : '' }}</td>
+      </tr>
+      <tr>
+        <th>{{ "Updated at"|trans }}</th>
+        <td>{{ user.UpdatedAt ? user.UpdatedAt|date('Y-m-d H:i:s') : '' }}</td>
+      </tr>
+      <tr>
+        <th>{{ "Enabled"|trans }}</th>
+        <td>{{ user.enabled ? 'Yes' : 'No' }}</td>
+      </tr>
+      <tr>
+        <th>{{ "Restricted"|trans }}</th>
+        <td>{{ user.restricted ? 'Yes' : 'No' }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="row">
+    <div class="col-md-12 center">
+      <a class="btn btn-primary btn-lg float-left" href="{{ path('user_index') }}">{{ "Back to list"|trans }}</a>
+      <div class="col-md-12 d-flex justify-content-center">
+        {% if user.id == app.user.id %}
+          <a class="btn btn-success btn-md" href="{{ path('user_edit', {'id': user.id}) }}">{{ "Edit my Profile"|trans }}</a>
+        {% endif %}
+        <a class="btn btn-warning btn-md" href="{{ path('user_show', {'id': user.id}) }}">{{ "Show"|trans }}</a>
+        {% if is_granted("ROLE_SUPER_ADMIN") %}
+          <a class="btn btn-info btn-md" href="{{ path('admin_user_edit', {'id': user.id}) }}">{{ "Administrator Edit"|trans }}</a>
+          {{ include('user/_delete_form.html.twig') }}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+<hr />
 {% endblock %}

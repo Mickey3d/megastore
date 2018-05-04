@@ -4,55 +4,79 @@
 {% endblock %}
 
 {% block content %}
-  <h1>{{ "User Index"|trans }}</h1>
-  {% if is_granted("ROLE_ADMIN") %}
-    <a class="btn btn-primary btn-lg" href="{{ path('admin_user_new') }}">{{ "Create new User"|trans }}</a>
-  {% endif %}
-  <table class="table">
-    <thead>
-      <tr>
-        <th>{{ "USername"|trans }}</th>
-        <th>{{ "Firstname"|trans }}</th>
-        <th>{{ "Lastname"|trans }}</th>
-        <th>{{ "Email"|trans }}</th>
-        <th>{{ "Roles"|trans }}</th>
-        <th>{{ "Phone"|trans }}</th>
-        <th>{{ "Created at"|trans }}</th>
-        <th>{{ "Updated at"|trans }}</th>
-        <th>{{ "Enabled"|trans }}</th>
-        <th>{{ "Restricted"|trans }}</th>
-        <th>{{ "Actions"|trans }}</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for user in users %}
-        <tr>
-          <td>{{ user.username }}</td>
-          <td>{{ user.firstName }}</td>
-          <td>{{ user.lastName }}</td>
-          <td>{{ user.email }}</td>
-          <td>{{ user.roles|join(', ') }}</td>
-          <td>{{ user.phone }}</td>
-          <td>{{ user.CreatedAt ? user.CreatedAt|date('Y-m-d H:i:s') : '' }}</td>
-          <td>{{ user.UpdatedAt ? user.UpdatedAt|date('Y-m-d H:i:s') : '' }}</td>
-          <td>{{ user.enabled ? 'Yes' : 'No' }}</td>
-          <td>{{ user.restricted ? 'Yes' : 'No' }}</td>
-          <td>
-            {% if user.id == app.user.id %}
-              <a class="btn btn-success btn-md" href="{{ path('user_edit', {'id': user.id}) }}">{{ "Edit my Profile"|trans }}</a>
-            {% endif %}
-            <a class="btn btn-warning btn-md" href="{{ path('user_show', {'id': user.id}) }}">{{ "Show"|trans }}</a>
-            {% if is_granted("ROLE_SUPER_ADMIN") %}
-              <a class="btn btn-info btn-md" href="{{ path('admin_user_edit', {'id': user.id}) }}">{{ "Edit"|trans }}</a>
-            {% endif %}
-          </td>
-        </tr>
-      {% else %}
-        <tr>
-          <td colspan="13">{{ "No User found"|trans }}</td>
-        </tr>
-      {% endfor %}
-    </tbody>
-  </table>
 
+  <h1 class="text-muted text-uppercase center">{{ "User Index"|trans }}</h1>
+  <div id="accordion">
+    <div class="card">
+      <div class="card-header" id="headingOne">
+        <button class="btn btn-light" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          Dashboard
+          <i class="fas fa-tachometer-alt"></i>
+        </button>
+        {% if is_granted("ROLE_ADMIN") %}
+          <a class="btn btn-primary btn-lg" href="{{ path('admin_user_new') }}">{{ "Create new User"|trans }}</a>
+        {% endif %}
+        <a class="btn btn-success btn-md" href="{{ path('user_edit', {'id': app.user.id}) }}">{{ "Edit my Profile"|trans }}</a>
+        <a class="float-right badge badge-light badge-pill badge-sm" href="#user-table-content" alt="User Table Content">User List <i class="fas fa-angle-down"></i></a>
+      </div>
+
+      <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+        <div class="card-body">
+          Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a
+          bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table,
+          raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section id="user-table-content">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>{{ "Username"|trans }}</th>
+          <th>{{ "Firstname"|trans }}</th>
+          <th>{{ "Lastname"|trans }}</th>
+          <th>{{ "Email"|trans }}</th>
+          <th>{{ "Roles"|trans }}</th>
+          <th>{{ "Phone"|trans }}</th>
+          <th>{{ "Created at"|trans }}</th>
+          <th>{{ "Updated at"|trans }}</th>
+          <th>{{ "Enabled"|trans }}</th>
+          <th>{{ "Restricted"|trans }}</th>
+          <th>{{ "Actions"|trans }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for user in users %}
+          <tr>
+            <td>
+
+              {{ user.username }}
+
+            </td>
+            <td>{{ user.firstName }}</td>
+            <td>{{ user.lastName }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.roles|join(', ') }}</td>
+            <td>{{ user.phone }}</td>
+            <td>{{ user.CreatedAt ? user.CreatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            <td>{{ user.UpdatedAt ? user.UpdatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            <td>{{ user.enabled ? 'Yes' : 'No' }}</td>
+            <td>{{ user.restricted ? 'Yes' : 'No' }}</td>
+            <td class="center">
+              <a class="btn btn-warning btn-md m-1" href="{{ path('user_show', {'id': user.id}) }}">{{ "Show"|trans }}</a>
+              {% if is_granted("ROLE_SUPER_ADMIN") %}
+                <a class="btn btn-info btn-sm m-1" href="{{ path('admin_user_edit', {'id': user.id}) }}">{{ "Edit"|trans }}</a>
+              {% endif %}
+            </td>
+          </tr>
+        {% else %}
+          <tr>
+            <td colspan="13">{{ "No User found"|trans }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </section>
 {% endblock %}

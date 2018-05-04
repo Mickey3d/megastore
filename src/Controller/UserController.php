@@ -25,6 +25,15 @@ class UserController extends Controller
     }
 
     /**
+     * @Route("/user-card-index", name="user_index_card_view", methods="GET")
+     */
+    public function indexCardView(UserRepository $userRepository): Response
+    {
+        return $this->render('user/index_card_view.html.twig', ['users' => $userRepository->findAll()]);
+    }
+
+
+    /**
      * @Route("/{id}", name="user_show", methods="GET")
      */
     public function show(User $user): Response

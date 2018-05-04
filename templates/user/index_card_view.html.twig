@@ -1,0 +1,111 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ "User Index Card View"|trans }}
+{% endblock %}
+
+{% block content %}
+
+  <h1 class="text-muted text-uppercase center">{{ "User Index"|trans }}</h1>
+  <div id="accordion">
+    <div class="card">
+      <div class="card-header" id="headingOne">
+        <button class="btn btn-light" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          Dashboard
+          <i class="fas fa-tachometer-alt"></i>
+        </button>
+        {% if is_granted("ROLE_ADMIN") %}
+          <a class="btn btn-primary btn-lg" href="{{ path('admin_user_new') }}">{{ "Create new User"|trans }}</a>
+        {% endif %}
+        <a class="btn btn-success btn-md" href="{{ path('user_edit', {'id': app.user.id}) }}">{{ "Edit my Profile"|trans }}</a>
+        <a class="float-right badge badge-light badge-pill badge-sm" href="#user-table-content" alt="User Table Content">User List
+          <i class="fas fa-angle-down"></i>
+        </a>
+      </div>
+
+      <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+        <div class="card-body">
+          Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a
+          bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table,
+          raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+        </div>
+      </div>
+    </div>
+  </div>
+
+<section id="team" class="pb-5">
+  <div class="container">
+    <h5 class="section-title h1">OUR TEAM</h5>
+    <div class="row">
+      {% for user in users %}
+        <!-- Team member -->
+        <div class="col-xs-12 col-sm-6 col-md-4">
+          <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
+            <div class="mainflip">
+              <div class="frontside">
+                <div class="card">
+                  <div class="card-body text-center">
+                    <p><img class=" img-fluid" src="https://sunlimetech.com/portfolio/boot4menu/assets/imgs/team/img_01.png" alt="card image"></p>
+                    <h4 class="card-title">{{ user.username }}</h4>
+                    <p class="card-text">{{ user.firstName }}
+                      {{ user.lastName }}
+                    </p>
+                    <a class="btn btn-warning btn-md m-1" href="{{ path('user_show', {'id': user.id}) }}">{{ "Show"|trans }}</a>
+                    {% if is_granted("ROLE_SUPER_ADMIN") %}
+                      <a class="btn btn-info btn-sm m-1" href="{{ path('admin_user_edit', {'id': user.id}) }}">{{ "Edit"|trans }}</a>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+              <div class="backside">
+                <div class="card">
+                  <div class="card-body text-center mt-4">
+                    <h4 class="card-title">{{ user.username }}</h4>
+                    <p class="card-text">{{ user.firstName }}
+                      {{ user.lastName }}</p>
+                    <p class="card-text">{{ user.email }}</p>
+                    <p class="card-text">{{ user.phone }}</p>
+                    <p class="card-text">{{ user.roles|join(', ') }}</p>
+                    <p class="card-text">{{ user.phone }}</p>
+                    <p>
+                      {{ "Created at"|trans }}
+                      <span class="badge badge-info badge-pill">{{ user.CreatedAt ? user.CreatedAt|date('Y-m-d H:i:s') : '' }}</span>
+                    </p>
+                    <p>
+                      {{ "Updated at"|trans }}
+                      <span class="badge badge-warning badge-pill">{{ user.UpdatedAt ? user.UpdatedAt|date('Y-m-d H:i:s') : '' }}</span>
+                    </p>
+                    <p>
+                      {{ "Enabled"|trans }}
+                      <span class="badge badge-warning badge-pill">{{ user.enabled ? 'Yes' : 'No' }}</span>
+                    </p>
+                    <p>
+                      {{ "Restricted"|trans }}
+                      <span class="badge badge-warning badge-pill">{{ user.restricted ? 'Yes' : 'No' }}</span>
+                    </p>
+                    <ul class="list-inline">
+                      <li class="list-inline-item">
+                        <a class="btn btn-warning btn-md m-1" href="{{ path('user_show', {'id': user.id}) }}">{{ "Show"|trans }}</a>
+                      </li>
+                      {% if is_granted("ROLE_SUPER_ADMIN") %}
+                        <li class="list-inline-item">
+                          <a class="btn btn-info btn-sm m-1" href="{{ path('admin_user_edit', {'id': user.id}) }}">{{ "Edit"|trans }}</a>
+                        </li>
+                      {% endif %}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- ./Team member -->
+      {% else %}
+        <div class="alert alert-danger" role="alert">
+          {{ "No User found"|trans }}
+        </div>
+      {% endfor %}
+
+    </div>
+  </div>
+</section>
+{% endblock %}
