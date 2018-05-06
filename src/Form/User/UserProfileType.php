@@ -3,9 +3,11 @@
 namespace App\Form\User;
 
 use App\Entity\User;
+use App\Entity\Team;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\TextType;
@@ -24,6 +26,13 @@ class UserProfileType extends AbstractType
     {
         $builder
             ->add('username')
+            ->add('team', EntityType::class, array(
+              // looks for choices from this entity
+              'class' => Team::class,
+              // uses the User.username property as the visible option string
+              'choice_label' => 'teamName',
+              'required'   => false,
+            ))
             ->add('firstName')
             ->add('lastName')
             ->add('email', EmailType::class, array(

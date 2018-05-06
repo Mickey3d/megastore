@@ -75,9 +75,10 @@ class User implements UserInterface, \Serializable
     private $restricted;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Team", inversedBy="members")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Team", inversedBy="users")
      */
     private $team;
+
 
     public function getId()
     {
@@ -290,8 +291,11 @@ class User implements UserInterface, \Serializable
   public function setTeam(?Team $team): self
   {
       $this->team = $team;
-
       return $this;
   }
-  
+
+
+
+
+
 }

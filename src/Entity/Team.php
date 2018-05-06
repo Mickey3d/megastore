@@ -8,6 +8,8 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TeamRepository")
+ * @ORM\Table(name="team")
+ * @ORM\HasLifecycleCallbacks
  */
 class Team
 {
@@ -28,10 +30,6 @@ class Team
      */
     private $teamDescription;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="team")
-     */
-    private $members;
 
     /**
      * @ORM\Column(type="datetime")
@@ -48,10 +46,16 @@ class Team
      */
     private $enabled;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="team")
+     */
+    private $users;
+
     public function __construct()
     {
-        $this->members = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
+
 
     public function getId()
     {
@@ -82,37 +86,6 @@ class Team
         return $this;
     }
 
-    /**
-     * @return Collection|User[]
-     */
-    public function getMembers(): Collection
-    {
-        return $this->members;
-    }
-
-    public function addMember(User $member): self
-    {
-        if (!$this->members->contains($member)) {
-            $this->members[] = $member;
-            $member->setTeam($this);
-        }
-
-        return $this;
-    }
-
-    public function removeMember(User $member): self
-    {
-        if ($this->members->contains($member)) {
-            $this->members->removeElement($member);
-            // set the owning side to null (unless already changed)
-            if ($member->getTeam() === $this) {
-                $member->setTeam(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
@@ -137,6 +110,23 @@ class Team
         return $this;
     }
 
+
+    /**
+    *
+    * @ORM\PrePersist
+    * @ORM\PreUpdate
+    */
+    public function updatedTimestamps()
+    {
+        $this->setUpdatedAt(new \DateTime(date('Y-m-d H:i:s')));
+
+        if($this->getCreatedAt() == null)
+        {
+            $this->setCreatedAt(new \DateTime(date('Y-m-d H:i:s')));
+        }
+    }
+
+
     public function getEnabled(): ?bool
     {
         return $this->enabled;
@@ -148,4 +138,36 @@ class Team
 
         return $this;
     }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(User $user): self
+    {
+        if (!$this->users->contains($user)) {
+            $this->users[] = $user;
+            $user->setTeam($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): self
+    {
+        if ($this->users->contains($user)) {
+            $this->users->removeElement($user);
+            // set the owning side to null (unless already changed)
+            if ($user->getTeam() === $this) {
+                $user->setTeam(null);
+            }
+        }
+
+        return $this;
+    }
+
 }

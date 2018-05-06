@@ -19,12 +19,12 @@
     <form>
       <div class="row">
         <div class="col-sm-12">
-        {% if new is defined %}
-          <h1 class="h4 text-center py-4">{{ "New User"|trans }}</h1>
-        {% else %}
-          <h1 class="h4 text-center py-4">{{ "Edit User"|trans }}</h1>
-        {% endif %}
-          </div>
+          {% if new is defined %}
+            <h1 class="h4 text-center py-4">{{ "New User"|trans }}</h1>
+          {% else %}
+            <h1 class="h4 text-center py-4">{{ "Edit User"|trans }}</h1>
+          {% endif %}
+        </div>
         <div class="col-md-6">
           <!-- Material input text -->
           <div class="md-form">
@@ -69,15 +69,15 @@
           </div>
         </div>
         <div class="col-md-6 p-5">
-          <div class="form-check checkbox-success-filled-in p-1  m-1 center">
-            <label class="form-check-label p-2" for="roles">{{ "Team"|trans }}</label>
+          <div class="md-form  p-1  m-1 center">
+            <label class="form-check-label p-2" for="team">{{ "Team"|trans }}</label>
             {{ form_errors(form.team) }}
-            {{ form_widget(form.team, {'attr': {'id': 'team', 'name': 'team', 'checked': '', 'class': 'form-control p-3 m-1', 'aria-label': 'Large', 'aria-describedby': 'inputGroup-sizing-sm' }}) }}
+            {{ form_widget(form.team, {'attr': {'id': 'team', 'name': 'team', 'class': 'p-3 m-1', 'aria-label': 'Large'}}) }}
           </div>
           <div class="form-check checkbox-success-filled-in p-1  m-1 center">
             <label class="form-check-label p-2" for="roles">{{ "Roles"|trans }}</label>
             {{ form_errors(form.roles) }}
-            {{ form_widget(form.roles, {'attr': {'id': 'roles', 'name': 'role', 'checked': '', 'class': 'form-control p-3 m-1', 'aria-label': 'Large', 'aria-describedby': 'inputGroup-sizing-sm' }}) }}
+            {{ form_widget(form.roles, {'attr': {'id': 'roles', 'name': 'role', 'checked': '', 'class': 'form-control p-3 m-1', 'aria-label': 'Large', 'aria-describedby': 'inputGroup-sizing-md' }}) }}
           </div>
           <div class="center p-4">
             <label class="btn btn-success">
