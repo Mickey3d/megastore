@@ -17,3 +17,6 @@ easy_admin:
     entities:
         User:
             class: App\Entity\User
+
+        Team:
+            class: App\Entity\Team
