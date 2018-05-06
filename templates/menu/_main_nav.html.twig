@@ -1,0 +1,67 @@
+<nav class="navbar fixed-top navbar-expand-md navbar-light white scrolling-navbar">
+  <a class="navbar-brand" href="{{ path('index') }}">Magaz'Hell</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <div class="container-fluid d-flex justify-content-center">
+      <ul class="navbar-nav center">
+        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+          <li class="nav-item">
+            <a class="nav-link" href="{{ path('user_show', {'id': app.user.id}) }}">{{ "Profile"|trans }}
+              <span class="sr-only">(
+                {{ "current"|trans }}
+                )</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ path('user_index') }}">{{ "Community"|trans }}
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">{{ "Inventory"|trans }}</a>
+            </li>
+            {% if is_granted("ROLE_MANAGER") %}
+              <li class="nav-item">
+                <a class="nav-link" href="#">{{ "Sauron"|trans }}</a>
+              </li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+      <div>
+      {% else %}
+        <li class="nav-item">
+          <a class="nav-link" href="{{ path('user_registration') }}">{{ "REGISTER"|trans }}</a>
+        </li>
+      {% endif %}
+      <ul class="navbar-nav float-right nav-flex-icons">
+        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+          <li class="nav-item">
+            <a title="Notifications" class="nav-link waves-effect waves-light">1
+              <i class="fas fa-bell" aria-hidden="true"></i>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a title="Messages" class="nav-link waves-effect waves-light">1
+              <i class="fa fa-envelope" aria-hidden="true"></i>
+            </a>
+          </li>
+          <li class="nav-item avatar dropleft">
+            <a title="User Menu" class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-2.jpg" class="rounded-circle z-depth-0" alt="avatar image">
+            </a>
+            <div class="dropdown-menu dropdown-menu-right  center dropdown-secondary" aria-labelledby="navbarDropdownMenuLink">
+              <h6 class="dropdown-header">User Menu</h6>
+              <a class="dropdown-item waves-effect waves-light" href="{{ path('user_show', {'id': app.user.id}) }}">{{ "Profile"|trans }}</a>
+              <a class="dropdown-item waves-effect waves-light" href="{{ path('user_edit', {'id': app.user.id}) }}">{{ "Settings"|trans }}</a>
+              <a class="dropdown-item waves-effect waves-light" href="{{ path('security_logout') }}">{{ "Logout"|trans }}</a>
+            </div>
+          </li>
+        {% else %}
+          <li class="nav-item float-right">
+            <a class="nav-link" href="{{ path('security_login') }}">{{ "LOGIN"|trans }}</a>
+          </li>
+        {% endif %}
+
+      </ul>
+    </div>
+  </nav>
