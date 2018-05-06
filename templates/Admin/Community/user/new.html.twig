@@ -5,7 +5,7 @@
 {% block content %}
     <h1>{{ "Create a new user"|trans }}</h1>
 
-    {{ include('user/_form.html.twig') }}
+    {{ include('admin/Community/user/_form.html.twig') }}
 
     <a href="{{ path('user_index') }}">{{ "Back to list"|trans }}</a>
 {% endblock %}

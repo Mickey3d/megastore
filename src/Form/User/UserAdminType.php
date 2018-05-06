@@ -27,7 +27,9 @@ class UserAdminType extends AbstractType
             ->add('firstName')
             ->add('lastName')
             ->add('email', EmailType::class)
-            ->add('phone', TelType::class)
+            ->add('phone', TelType::class, array(
+              'required'   => false,
+            ))
             ->add('enabled')
             ->add('restricted')
             ->add('roles', ChoiceType::class, array(

@@ -1,0 +1,142 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12 col-md-12 user-details">
+        <div class="user-image p-4">
+          <img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-2.jpg" class="rounded-circle z-depth-0" alt="avatar image">
+        </div>
+        <div class="user-info-block">
+          <div class="user-heading">
+            <h3>{{ user.username }}</h3>
+          </div>
+          <ul class="navigation nav nav-tabs">
+            <li class="nav-item">
+              <a class="nav-link active" data-toggle="tab" href="#information">
+                <span class="fas fa-user"></span>
+              </a>
+            </li>
+            <li>
+              <a data-toggle="tab" href="#email">
+                <span class="fas fa-envelope"></span>
+              </a>
+            </li>
+            <li>
+              <a data-toggle="tab" href="#events">
+                <span class="fas fa-calendar"></span>
+              </a>
+            </li>
+            <li>
+              <a data-toggle="tab" href="#settings">
+                <span class="fas fa-cog"></span>
+              </a>
+            </li>
+          </ul>
+          <div class="user-body">
+            <div class="tab-content">
+              <div id="information" class="tab-pane active">
+                <h4>{{ "Account Information"|trans }}</h4>
+                <div class="row">
+                  <div class="col-md-10">
+                    <table class="table">
+                      <tbody>
+                        <tr>
+                          <th>{{ "Username"|trans }}</th>
+                          <td>{{ user.username }}</td>
+                        </tr>
+                        <tr>
+                          <th>{{ "Firstname"|trans }}</th>
+                          <td>{{ user.firstName }}</td>
+                        </tr>
+                        <tr>
+                          <th>{{ "Lastname"|trans }}</th>
+                          <td>{{ user.lastName }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <div id="settings" class="tab-pane">
+                <div class="row">
+                  <div class="col-md-10">
+                    <table class="table">
+                      <tbody>
+                        <tr>
+                          <th>{{ "Roles"|trans }}</th>
+                          <td>{{ user.roles|join(', ')  }}</td>
+                        </tr>
+                        <tr>
+                          <th>{{ "Enabled"|trans }}</th>
+                          <td>{{ user.enabled ? 'Yes' : 'No' }}</td>
+                        </tr>
+                        <tr>
+                          <th>{{ "Restricted"|trans }}</th>
+                          <td>{{ user.restricted ? 'Yes' : 'No' }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <div id="email" class="tab-pane">
+                <div class="row">
+                  <div class="col-md-10">
+                    <table class="table">
+                      <tbody>
+                        <tr>
+                          <th>{{ "Email"|trans }}</th>
+                          <td>{{ user.email }}</td>
+                        </tr>
+                        <tr>
+                          <th>{{ "Phone"|trans }}</th>
+                          <td>{{ user.phone }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <div id="events" class="tab-pane">
+                <div class="row">
+                  <div class="col-md-10">
+                    <table class="table">
+                      <tbody>
+                        <tr>
+                          <th>{{ "Created at"|trans }}</th>
+                          <td>{{ user.CreatedAt ? user.CreatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                        </tr>
+                        <tr>
+                          <th>{{ "Updated at"|trans }}</th>
+                          <td>{{ user.UpdatedAt ? user.UpdatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 center">
+      <div class="col-md-12 d-flex justify-content-center">
+        {% if user.id == app.user.id %}
+          <a class="btn btn-success btn-md" href="{{ path('user_edit', {'id': user.id}) }}">{{ "Edit my Profile"|trans }}</a>
+        {% endif %}
+        {% if is_granted("ROLE_ADMIN") %}
+          <a class="btn btn-info btn-md" href="{{ path('admin_user_edit', {'id': user.id}) }}">{{ "Administrator Edit"|trans }}</a>
+          {{ include('Community/user/_delete_form.html.twig') }}
+        {% endif %}
+      </div>
+      <a class="btn btn-primary btn-lg float-left" href="{{ path('user_index') }}">{{ "Back to list"|trans }}</a>
+    </div>
+  </div>
+  <hr class="m-1"/>
+{% endblock %}

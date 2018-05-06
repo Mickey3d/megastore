@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ "Edit User"|trans }}{% endblock %}
+
+{% block content %}
+    {{ include('Admin/Community/user/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a class="btn btn-primary btn-lg" href="{{ path('user_index') }}">{{ "Back to list"|trans }}</a>
+
+    <div class="float-right">
+      {{ include('Admin/Community/user/_delete_form.html.twig') }}
+    </div>
+{% endblock %}

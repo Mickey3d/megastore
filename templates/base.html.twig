@@ -13,20 +13,23 @@
       <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}"/>
     {% endblock %}
   </head>
-  <body>
+  <body id="top-section">
     {% block body %}
+      <div style="z-index: 5000; bottom: 45px; position: fixed; right: 24px;">
+        <a href="#top-section" class="btn btn-outline-info btn-sm smooth-scroll btn-floating btn-large ">
+          <i class="fa fa-arrow-up fa-2x"></i>
+        </a>
+      </div>
       {% block nav %}
         {{ include('menu/_main_nav.html.twig') }}
       {% endblock %}
       <aside >
-        {% block sidebar %}
-        {% endblock %}
+        {% block sidebar %}{% endblock %}
         <section >
           <!-- /#page-content-wrapper -->
           {% block content %}
             <!-- CONTENT -->
           {% endblock %}
-
         </section>
       </aside>
     {% endblock %}

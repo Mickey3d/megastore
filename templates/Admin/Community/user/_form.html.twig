@@ -1,0 +1,89 @@
+{{ form_start(form) }}
+{{ form_widget(form._token) }}
+{% if not form.vars.valid %}
+  <div class="alert alert-danger">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+    <span>
+      <strong>{{ form_errors(form) }}</strong>
+    </span>
+  </div>
+{% endif %}
+
+<!-- Card -->
+<div class="card">
+
+  <!-- Card body -->
+  <div class="card-body">
+
+    <!-- Material form register -->
+    <form>
+      <h1 class="h4 text-center py-4">{{ "Edit User"|trans }}</h1>
+
+      <!-- Material input text -->
+      <div class="md-form">
+        <i class="fa fa-user prefix grey-text"></i>
+        {{ form_errors(form.username) }}
+        {{ form_widget(form.username, {'attr': {'id': 'materialFormCardName1', 'name': 'username', 'class': 'form-control', 'aria-label': 'Large', 'aria-describedby': 'inputGroup-sizing-sm' }}) }}
+        <label for="materialFormCardNameEx" class="font-weight-light">Username</label>
+      </div>
+      <div class="md-form">
+        <i class="fa fa-user prefix grey-text"></i>
+        {{ form_errors(form.firstName) }}
+        {{ form_widget(form.firstName, {'attr': {'id': 'materialFormCardName2', 'name': 'firstName', 'class': 'form-control', 'aria-label': 'Large', 'aria-describedby': 'inputGroup-sizing-sm' }}) }}
+        <label for="materialFormCardNameEx" class="font-weight-light">Fistname</label>
+      </div>
+      <div class="md-form">
+        <i class="fa fa-user prefix grey-text"></i>
+        {{ form_errors(form.lastName) }}
+        {{ form_widget(form.lastName, {'attr': {'id': 'materialFormCardName3', 'name': 'lastName', 'class': 'form-control', 'aria-label': 'Large', 'aria-describedby': 'inputGroup-sizing-sm' }}) }}
+        <label for="materialFormCardNameEx" class="font-weight-light">{{ "Lastname"|trans }}</label>
+      </div>
+      <!-- Material input email -->
+      <div class="md-form">
+        <i class="fa fa-envelope prefix grey-text"></i>
+        {{ form_errors(form.email) }}
+        {{ form_widget(form.email, {'attr': {'id': 'materialFormCardEmailEx', 'type': 'email', 'email': 'username', 'class': 'form-control', 'aria-label': 'Large', 'aria-describedby': 'inputGroup-sizing-sm' }}) }}
+        <label for="materialFormCardEmailEx" class="font-weight-light">{{ "Email"|trans }}</label>
+      </div>
+      <div class="md-form">
+        <i class="fa fa-phone prefix grey-text"></i>
+        {{ form_errors(form.phone) }}
+        {{ form_widget(form.phone, {'attr': {'id': 'materialFormCardName3', 'name': 'phone', 'class': 'form-control', 'aria-label': 'Large', 'aria-describedby': 'inputGroup-sizing-sm' }}) }}
+        <label for="materialFormCardNameEx" class="font-weight-light">{{ "Phone"|trans }}</label>
+      </div>
+
+      <!-- Material input password -->
+      <div class="md-form">
+        <i class="fa fa-lock prefix grey-text"></i>
+        <input type="password" id="materialFormCardPasswordEx" class="form-control">
+        <label for="materialFormCardPasswordEx" class="font-weight-light">Your password</label>
+      </div>
+      <div class="form-check checkbox-success-filled">
+        <label class="form-check-label" for="restricted">{{ "Roles"|trans }}</label>
+        {{ form_widget(form.roles, {'attr': {'id': 'restricted', 'name': 'enabled', 'checked': '', 'class': 'form-control', 'aria-label': 'Large', 'aria-describedby': 'inputGroup-sizing-sm' }}) }}
+      </div>
+      <div  >
+        <label class="btn btn-success">
+          {{ form_widget(form.enabled, {'attr': {'id': 'enabled', 'name': 'enabled','autocomplete': 'off', 'class': 'filled-in form-check-input', 'aria-label': 'Large', 'aria-describedby': 'inputGroup-sizing-sm' }}) }}
+          {{ "Enabled"|trans }}
+        </label>
+        <label class="btn btn-warning">
+          {{ form_widget(form.restricted, {'attr': {'id': 'restricted', 'name': 'enabled','autocomplete': 'off', 'class': 'filled-in form-check-input', 'aria-label': 'Large', 'aria-describedby': 'inputGroup-sizing-sm' }}) }}
+          {{ "Restricted"|trans }}
+        </label>
+      </div>
+      {{ form_rest(form) }}
+
+      <div class="text-center py-4 mt-3">
+        <button class="btn btn-green" type="submit">{{ button_label|default('Save') }}</button>
+      </div>
+
+    </form>
+    <!-- Material form register -->
+
+  </div>
+  <!-- Card body -->
+
+</div>
+<!-- Card -->
+{{ form_end(form) }}
