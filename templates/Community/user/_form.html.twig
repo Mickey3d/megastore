@@ -1,3 +1,4 @@
+
 {{ form_start(form) }}
 {{ form_widget(form._token) }}
 {% if not form.vars.valid %}
@@ -24,13 +25,13 @@
         <i class="fa fa-user prefix grey-text"></i>
         {{ form_errors(form.username) }}
         {{ form_widget(form.username, {'attr': {'id': 'materialFormCardName1', 'name': 'username', 'class': 'form-control', 'aria-label': 'Large', 'aria-describedby': 'inputGroup-sizing-sm' }}) }}
-        <label for="materialFormCardNameEx" class="font-weight-light">Username</label>
+        <label for="materialFormCardNameEx" class="font-weight-light">{{ "Username"|trans }}</label>
       </div>
       <div class="md-form">
         <i class="fa fa-user prefix grey-text"></i>
         {{ form_errors(form.firstName) }}
         {{ form_widget(form.firstName, {'attr': {'id': 'materialFormCardName2', 'name': 'firstName', 'class': 'form-control', 'aria-label': 'Large', 'aria-describedby': 'inputGroup-sizing-sm' }}) }}
-        <label for="materialFormCardNameEx" class="font-weight-light">Fistname</label>
+        <label for="materialFormCardNameEx" class="font-weight-light">{{ "Firstname"|trans }}</label></label>
       </div>
       <div class="md-form">
         <i class="fa fa-user prefix grey-text"></i>
