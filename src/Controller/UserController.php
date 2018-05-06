@@ -7,10 +7,14 @@ use App\Form\User\UserProfileType;
 use App\Form\User\NewUserAdminType;
 use App\Form\User\UserAdminType;
 use App\Repository\UserRepository;
+use App\Events;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\EventDispatcher\GenericEvent;
 
 /**
  * @Route("/user")
@@ -65,17 +69,23 @@ class UserController extends Controller
     /**
      * @Route("/admin/user/new", name="admin_user_new", methods="GET|POST")
      */
-    public function adminNewUser(Request $request): Response
+    public function adminNewUser(Request $request , UserPasswordEncoderInterface $passwordEncoder, EventDispatcherInterface $eventDispatcher)
     {
         $user = new User();
         $form = $this->createForm(NewUserAdminType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $password = $passwordEncoder->encodePassword($user, $user->getPassword());
+            $user->setPassword($password);
+            // Par defaut l'utilisateur aura toujours le rôle ROLE_USER
+            $user->setRoles(['ROLE_USER']);
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
-
+            //On déclenche l'event
+            $event = new GenericEvent($user);
+            $eventDispatcher->dispatch(Events::USER_REGISTERED, $event);
             return $this->redirectToRoute('user_index');
         }
 
