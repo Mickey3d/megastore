@@ -5,7 +5,7 @@
     </div>
     <div class="searchable-container row">
       {% for user in users %}
-      <div class="items col-md-12 clearfix">
+      <div class="items col-md-12 clearfix center">
         {% for role in user.roles %}
         {% if role == "ROLE_ADMIN" %}
         <span class="badge badge-danger badge-pill badge-sm">{{ "ADMIN"|trans}}</span>
@@ -15,10 +15,10 @@
         {% endif %}
         {% endfor %}
         <div class="info-block block-info clearfix row">
-          <div class="col-md-2 square-box float-left">
-            <span class="fas fa-user fa-4x"></span>
+          <div class="col-sm-12  col-md-2  center">
+            <span class="square-box fas fa-user fa-4x"></span>
           </div>
-          <div class="col-md-3">
+          <div class="col-sm-12 col-md-3">
             <h5>{{ user.username }}</h5>
             <h4 class="title">{{ user.firstName }} {{ user.lastName }}</h4>
             <h5 class="title"><span class="fas fa-envelope"> {{ user.email }}</span></h5>
@@ -34,13 +34,13 @@
               <span class="badge badge-success badge-sm">{{ "Restricted"|trans }} : {{ "No"|trans }} </span>
             {% endif %}
           </div>
-          <div class="col-md-4">
+          <div class="col-sm-12 col-md-4">
             <span class="badge badge-light text-uppercase">{{ "Team"|trans}}</span>
             <p class="m-1">My Team</p>
             <p class="media-meta m-1">{{ "Created at"|trans }} : {{ user.CreatedAt ? user.CreatedAt|date('Y-m-d H:i:s') : '' }}</p>
             <p class="media-meta m-1">{{ "Updated at"|trans }} : {{ user.UpdatedAt ? user.UpdatedAt|date('Y-m-d H:i:s') : '' }}</p>
           </div>
-          <div class="col-md-2 center">
+          <div class="col-sm-12 col-md-2 center">
             <a class="btn btn-warning btn-md m-1" href="{{ path('user_show', {'id': user.id}) }}">{{ "Show"|trans }}</a>
             {% if is_granted("ROLE_SUPER_ADMIN") %}
               <a class="btn btn-info btn-sm m-1" href="{{ path('admin_user_edit', {'id': user.id}) }}">{{ "Edit"|trans }}</a>
