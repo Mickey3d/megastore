@@ -19,6 +19,89 @@ class UserRepository extends ServiceEntityRepository
         parent::__construct($registry, User::class);
     }
 
+    /**
+         * @param $birdId
+         * @param string $format
+         * @return array|mixed
+         */
+    function findAllTheUsers($format = 'html')
+    {
+        $qb = $this->createQueryBuilder('u')
+            ->leftJoin('u.team', 'team')
+            ->addSelect('team')
+            ->where('u.enabled = 1')
+            ->orderBy('u.username', 'DESC')
+        ;
+        if ($format == 'json') {
+          $result = $qb
+              ->getQuery()
+              ->getArrayResult()
+          ;
+        } else {
+              $result = $qb
+                ->getQuery()
+                ->getResult()
+                ;
+          }
+        sort($result);
+        return $result;
+    }
+
+    /**
+         * @param $birdId
+         * @param string $format
+         * @return array|mixed
+         */
+    function findAllTheUsersEnabled($format = 'html')
+    {
+        $qb = $this->createQueryBuilder('u')
+            ->leftJoin('u.team', 'team')
+            ->addSelect('team')
+            ->where('u.enabled = 1')
+            ->orderBy('u.username', 'DESC')
+        ;
+        if ($format == 'json') {
+          $result = $qb
+              ->getQuery()
+              ->getArrayResult()
+          ;
+        } else {
+              $result = $qb
+                ->getQuery()
+                ->getResult()
+                ;
+          }
+        sort($result);
+        return $result;
+    }
+
+    /**
+         * @param $birdId
+         * @param string $format
+         * @return array|mixed
+         */
+    function findAllTheUsersRestricted($format = 'html')
+    {
+        $qb = $this->createQueryBuilder('u')
+            ->leftJoin('u.team', 'team')
+            ->addSelect('team')
+            ->where('u.restricted = 1')
+            ->orderBy('u.username', 'DESC')
+        ;
+        if ($format == 'json') {
+          $result = $qb
+              ->getQuery()
+              ->getArrayResult()
+          ;
+        } else {
+              $result = $qb
+                ->getQuery()
+                ->getResult()
+                ;
+          }
+        sort($result);
+        return $result;
+    }
 //    /**
 //     * @return User[] Returns an array of User objects
 //     */

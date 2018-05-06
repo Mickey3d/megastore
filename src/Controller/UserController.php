@@ -27,7 +27,8 @@ class UserController extends Controller
      */
     public function index(UserRepository $userRepository): Response
     {
-        return $this->render('Community/index.html.twig', ['users' => $userRepository->findAll()]);
+        return $this->render('Community/index.html.twig', ['users' => $userRepository->findAllTheUsers()]);
+
     }
 
     /**
