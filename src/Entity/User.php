@@ -74,6 +74,11 @@ class User implements UserInterface, \Serializable
      */
     private $restricted;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Team", inversedBy="members")
+     */
+    private $team;
+
     public function getId()
     {
         return $this->id;
@@ -275,4 +280,18 @@ class User implements UserInterface, \Serializable
   {
       [$this->id, $this->username, $this->password] = unserialize($serialized, ['allowed_classes' => false]);
   }
+
+
+  public function getTeam(): ?Team
+  {
+      return $this->team;
+  }
+
+  public function setTeam(?Team $team): self
+  {
+      $this->team = $team;
+
+      return $this;
+  }
+  
 }
