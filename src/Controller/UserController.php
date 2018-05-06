@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Form\User\UserProfileType;
 use App\Form\User\NewUserAdminType;
 use App\Form\User\UserAdminType;
+use App\Form\User\UserPasswordType;
 use App\Repository\UserRepository;
 use App\Events;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -61,6 +62,29 @@ class UserController extends Controller
         }
 
         return $this->render('Community/user/edit.html.twig', [
+            'user' => $user,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/edit/password", name="user_edit_password", methods="GET|POST")
+     */
+    public function passwordEdit(Request $request, User $user, UserPasswordEncoderInterface $passwordEncoder): Response
+    {
+        $form = $this->createForm(UserPasswordType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $password = $passwordEncoder->encodePassword($user, $user->getPassword());
+            $user->setPassword($password);
+            $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('success','Your password have been changed!');
+
+            return $this->redirectToRoute('user_show', ['id' => $user->getId()]);
+        }
+
+        return $this->render('Community/user/password_edit.html.twig', [
             'user' => $user,
             'form' => $form->createView(),
         ]);
