@@ -9,10 +9,11 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\TextType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class UserAdminType extends AbstractType
+class NewUserAdminType extends AbstractType
 {
 
   const MEMBER = 'ROLE_USER';
@@ -26,6 +27,10 @@ class UserAdminType extends AbstractType
             ->add('username')
             ->add('firstName')
             ->add('lastName')
+            ->add('password', PasswordType::class, array(
+              'required'   => false,
+              'empty_data' => 'pass',
+            ))
             ->add('email', EmailType::class, array(
               'required'   => false,
             ))

@@ -26,7 +26,9 @@ class UserProfileType extends AbstractType
             ->add('username')
             ->add('firstName')
             ->add('lastName')
-            ->add('email', EmailType::class)
+            ->add('email', EmailType::class, array(
+              'required'   => false,
+            ))
             ->add('phone', TelType::class, array(
               'required'   => false,
             ));

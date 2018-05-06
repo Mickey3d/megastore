@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\User\UserProfileType;
+use App\Form\User\NewUserAdminType;
 use App\Form\User\UserAdminType;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -67,7 +68,7 @@ class UserController extends Controller
     public function adminNewUser(Request $request): Response
     {
         $user = new User();
-        $form = $this->createForm(UserAdminType::class, $user);
+        $form = $this->createForm(NewUserAdminType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

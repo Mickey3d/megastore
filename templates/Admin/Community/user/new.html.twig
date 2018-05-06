@@ -1,11 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ "New User"|trans }}{% endblock %}
+{% block title %}
+  {{ "New User"|trans }}
+{% endblock %}
 
 {% block content %}
-    <h1>{{ "Create a new user"|trans }}</h1>
+  {% set new = true %}
 
-    {{ include('admin/Community/user/_form.html.twig') }}
+  {{ include('admin/Community/user/_form.html.twig') }}
 
-    <a href="{{ path('user_index') }}">{{ "Back to list"|trans }}</a>
+  <a  class="btn btn-primary btn-lg" href="{{ path('user_index') }}">{{ "Back to list"|trans }}</a>
 {% endblock %}

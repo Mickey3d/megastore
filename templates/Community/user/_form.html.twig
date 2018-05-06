@@ -51,14 +51,6 @@
         {{ form_widget(form.phone, {'attr': {'id': 'materialFormCardName3', 'name': 'phone', 'class': 'form-control', 'aria-label': 'Large', 'aria-describedby': 'inputGroup-sizing-sm' }}) }}
         <label for="materialFormCardNameEx" class="font-weight-light">{{ "Phone"|trans }}</label>
       </div>
-
-      <!-- Material input password -->
-      <div class="md-form">
-        <i class="fa fa-lock prefix grey-text"></i>
-        <input type="password" id="materialFormCardPasswordEx" class="form-control">
-        <label for="materialFormCardPasswordEx" class="font-weight-light">Your password</label>
-      </div>
-
       <div class="text-center py-4 mt-3">
         <button class="btn btn-green" type="submit">{{ button_label|default('Save') }}</button>
       </div>
