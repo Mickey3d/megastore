@@ -34,6 +34,12 @@ class UserAdminType extends AbstractType
             ))
             ->add('enabled')
             ->add('restricted')
+            ->add('team', CollectionType::class, array(
+              'entry_type' => ChoiceType::class, array(
+              'multiple' => false,
+              'expanded' => true,
+            ),
+          ))
             ->add('roles', ChoiceType::class, array(
               'choices'  => array(
                 'Member' => self::MEMBER,
