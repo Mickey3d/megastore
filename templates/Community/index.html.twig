@@ -6,7 +6,7 @@
 {% block content %}
   <div id="accordion">
     <div id="subMenu" class="card">
-      <div class="card-header" id="headingOne">
+      <div class="card-header" id="subMenuHeader">
         {% if is_granted("ROLE_ADMIN") %}
           <a class="btn btn-primary btn-lg" href="{{ path('admin_user_new') }}">{{ "Create new User"|trans }}</a>
           <a class="btn btn-info btn-lg" href="{{ path('team_new') }}">{{ "Create new Team"|trans }}</a>
@@ -16,11 +16,6 @@
           <i class="fas fa-arrow-alt-circle-down"></i>
           <a class="m-1 badge badge-dark badge-sm p-2" href="#user-table-content" alt="User Table Content">
             {{ "Go to List"|trans }}
-          </a>
-          <br/>
-          <i class="fas fa-id-card"></i>
-          <a class="badge badge-dark badge-sm p-2" href="{{ path('user_index_card_view') }}" alt="User Table Content">
-            {{ "Card View"|trans }}
           </a>
         </div>
       </div>

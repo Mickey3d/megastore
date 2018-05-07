@@ -50,7 +50,11 @@
         {{ form_rest(form) }}
         <div class="text-center py-4 mt-3">
           <button class="btn btn-green center" type="submit">{{ button_label|default('Save') }}</button>
+          {% if  new is  not defined %}
+              {{ include('Admin/Community/team/_delete_form.html.twig') }}
+          {% endif %}
         </div>
+
       </div>
     </form>
     <!-- Material form register -->

@@ -6,18 +6,14 @@ $(document).ready(function() {
   });
 
   $('#showOptionBtn').on('click', function() {
-    $('#subMenu').hide();
-    $('#subMenu').css("top", "50px");
-    $('#subMenu').fadeIn("slow");
+    $('#subMenuHeader').slideDown("slow");
     $('.mainContent').css("margin-top", "100px");
     $('#showOptionBtn').hide();
     $('#hideOptionBtn').show();
   });
 
   $('#hideOptionBtn').on('click', function() {
-    $('#subMenu').slideUp("slow");
-    $('#subMenu').css("top", "-30px");
-    $('#subMenu').slideDown("fast");
+    $('#subMenuHeader').slideUp("slow");
     $('.mainContent').css("margin-top", "20px");
     $('#showOptionBtn').show();
     $('#hideOptionBtn').hide();

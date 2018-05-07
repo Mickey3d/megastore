@@ -50,7 +50,7 @@
 #subMenu {
   padding-top: 10px;
   position: fixed;
-  top: 50px;
+  top: 55px;
   z-index: 1000;
   width: 100%;
 }

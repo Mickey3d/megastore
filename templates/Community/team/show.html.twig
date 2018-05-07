@@ -1,38 +1,124 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Team{% endblock %}
+{% block title %}{{ "Team"|trans }}
+  -
+  {{ team.teamName }}
+{% endblock %}
 
 {% block content %}
-  <h1>Team</h1>
-
-  <table class="table">
-    <tbody>
-      <tr>
-        <th>Id</th>
-        <td>{{ team.id }}</td>
-      </tr>
-      <tr>
-        <th>TeamName</th>
-        <td>{{ team.teamName }}</td>
-      </tr>
-      <tr>
-        <th>TeamDescription</th>
-        <td>{{ team.teamDescription }}</td>
-      </tr>
-      <tr>
-        <th>CreatedAt</th>
-        <td>{{ team.createdAt ? team.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-      </tr>
-      <tr>
-        <th>UpdatedAt</th>
-        <td>{{ team.updatedAt ? team.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-      </tr>
-      <tr>
-        <th>Enabled</th>
-        <td>{{ team.enabled ? 'Yes' : 'No' }}</td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12 col-md-12 user-details p-2">
+        <div class="user-info-block">
+          <div class="user-heading">
+            <h3>{{ team.teamname }}</h3>
+          </div>
+          <ul class="navigation nav nav-tabs">
+            <li class="nav-item">
+              <a class="nav-link active" data-toggle="tab" href="#information">
+                <span class="fas fa-info"></span>
+              </a>
+            </li>
+            <li>
+              <a data-toggle="tab" href="#members">
+                <span class="fas fa-users"></span>
+              </a>
+            </li>
+            <li>
+              <a data-toggle="tab" href="#events">
+                <span class="fas fa-calendar"></span>
+              </a>
+            </li>
+            <li>
+              <a data-toggle="tab" href="#settings">
+                <span class="fas fa-cog"></span>
+              </a>
+            </li>
+          </ul>
+          <div class="user-body">
+            <div class="tab-content">
+              <div id="information" class="tab-pane active">
+                <h4>{{ "Team Information"|trans }}</h4>
+                <div class="row">
+                  <div class="col-md-10">
+                    <table class="table">
+                      <tbody>
+                        <tr>
+                          <th>{{ "Team Name"|trans }}</th>
+                          <td>{{ team.teamName }}</td>
+                        </tr>
+                        <tr>
+                          <th>{{ "Description"|trans }}</th>
+                          <td>{{ team.teamDescription }}</td>
+                        </tr>
+                        <tr>
+                          <th>{{ "Members Count"|trans }}</th>
+                          <td>{{ team.users.count }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <div id="settings" class="tab-pane">
+                <div class="row">
+                  <div class="col-md-10">
+                    <table class="table">
+                      <tbody>
+                        <tr>
+                          <th>{{ "Enabled"|trans }}</th>
+                          <td>{{ team.enabled ? 'Yes' : 'No' }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <div id="members" class="tab-pane">
+                <div class="row">
+                  <div class="col-md-10">
+                    <table class="table">
+                      <tbody>
+                        {% for user in team.users %}
+                          <tr>
+                            <th> <a href="{{ path('user_show', {'id': user.id}) }}"> {{ user.username }}</a></th>
+                            <td>
+                              <span class="fas fa-phone"></span> :
+                              {{ user.phone }}
+                              -
+                              <span class="fas fa-envelope"></span> :
+                              {{ user.email }}</td>
+                          </tr>
+                        {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <div id="events" class="tab-pane">
+                <div class="row">
+                  <div class="col-md-10">
+                    <table class="table">
+                      <tbody>
+                        <tr>
+                          <th>{{ "Created at"|trans }}</th>
+                          <td>{{ team.createdAt ? team.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                        </tr>
+                        <tr>
+                          <th>{{ "Updated at"|trans }}</th>
+                          <td>{{ team.updatedAt ? team.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="row">
     <div class="col-md-12 center">
       <div class="col-md-12 d-flex justify-content-center">
@@ -45,6 +131,4 @@
     </div>
   </div>
   <hr class="m-1"/>
-
-  {{ include('Admin/Community/team/_delete_form.html.twig') }}
 {% endblock %}

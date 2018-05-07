@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}User{% endblock %}
+{% block title %}{{ "User Profile"|trans }} - {{ user.username }}{% endblock %}
 
 {% block content %}
   <div class="container">
@@ -20,7 +20,7 @@
               </a>
             </li>
             <li>
-              <a data-toggle="tab" href="#email">
+              <a data-toggle="tab" href="#contact">
                 <span class="fas fa-envelope"></span>
               </a>
             </li>
@@ -46,6 +46,10 @@
                         <tr>
                           <th>{{ "Username"|trans }}</th>
                           <td>{{ user.username }}</td>
+                        </tr>
+                        <tr>
+                          <th>{{ "Team"|trans }}</th>
+                          <td><a href="{{ path('team_show', {'id': user.team.id}) }}"> {{ user.team.teamName }}</a></td>
                         </tr>
                         <tr>
                           <th>{{ "Firstname"|trans }}</th>
@@ -82,7 +86,7 @@
                   </div>
                 </div>
               </div>
-              <div id="email" class="tab-pane">
+              <div id="contact" class="tab-pane">
                 <div class="row">
                   <div class="col-md-10">
                     <table class="table">
