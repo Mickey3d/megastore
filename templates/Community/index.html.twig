@@ -9,6 +9,7 @@
       <div class="card-header" id="headingOne">
         {% if is_granted("ROLE_ADMIN") %}
           <a class="btn btn-primary btn-lg" href="{{ path('admin_user_new') }}">{{ "Create new User"|trans }}</a>
+          <a class="btn btn-info btn-lg" href="{{ path('team_new') }}">{{ "Create new Team"|trans }}</a>
         {% endif %}
         <a class="btn btn-success btn-md" href="{{ path('user_edit', {'id': app.user.id}) }}">{{ "Edit my Profile"|trans }}</a>
         <div class="float-right">
@@ -113,12 +114,15 @@
           </a>
         </li>
       </ul>
+      <div class="col-lg-12">
+        <input type="search" class="form-control input-search" id="input-search" placeholder="{{ "Search Attendees"|trans }}...">
+      </div>
       <div class="tab-content">
         <div id="users" class="tab-pane fade in active show">
           {{ include('Community/user/_user_list.html.twig') }}
         </div>
         <div id="team" class="tab-pane fade">
-          {{ include('Community/user/_user_list.html.twig') }}
+          {{ include('Community/team/_team_list.html.twig') }}
         </div>
       </div>
     </div>

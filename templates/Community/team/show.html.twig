@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Team{% endblock %}
+
+{% block content %}
+  <h1>Team</h1>
+
+  <table class="table">
+    <tbody>
+      <tr>
+        <th>Id</th>
+        <td>{{ team.id }}</td>
+      </tr>
+      <tr>
+        <th>TeamName</th>
+        <td>{{ team.teamName }}</td>
+      </tr>
+      <tr>
+        <th>TeamDescription</th>
+        <td>{{ team.teamDescription }}</td>
+      </tr>
+      <tr>
+        <th>CreatedAt</th>
+        <td>{{ team.createdAt ? team.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+      </tr>
+      <tr>
+        <th>UpdatedAt</th>
+        <td>{{ team.updatedAt ? team.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+      </tr>
+      <tr>
+        <th>Enabled</th>
+        <td>{{ team.enabled ? 'Yes' : 'No' }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="row">
+    <div class="col-md-12 center">
+      <div class="col-md-12 d-flex justify-content-center">
+        {% if is_granted("ROLE_ADMIN") %}
+          <a class="btn btn-info btn-md" href="{{ path('team_edit', {'id': team.id}) }}">{{ "Administrator Edit"|trans }}</a>
+          {{ include('Admin/Community/team/_delete_form.html.twig') }}
+        {% endif %}
+      </div>
+      <a class="btn btn-primary btn-lg float-left" href="{{ path('community_index') }}">{{ "Back to list"|trans }}</a>
+    </div>
+  </div>
+  <hr class="m-1"/>
+
+  {{ include('Admin/Community/team/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,10 +1,8 @@
 <?php
 namespace App\Controller;
 
-use App\Entity\User;
-use App\Form\User\UserProfileType;
-use App\Form\User\UserAdminType;
 use App\Repository\UserRepository;
+use App\Repository\TeamRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,8 +29,11 @@ class IndexController extends Controller
     /**
      * @Route("/community", name="community_index", methods="GET")
      */
-    public function community(UserRepository $userRepository): Response
+    public function community(UserRepository $userRepository, TeamRepository $teamRepository): Response
     {
-        return $this->render('Community/index.html.twig', ['users' => $userRepository->findAllTheUsers()]);
+        return $this->render('Community/index.html.twig', [
+          'users' => $userRepository->findAllTheUsers(),
+          'teams' => $teamRepository->findAll()
+        ]);
     }
 }

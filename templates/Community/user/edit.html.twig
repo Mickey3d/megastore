@@ -13,7 +13,7 @@
     </span>
   </div>
   {% endif %}
-    <a class="btn btn-primary btn-lg" href="{{ path('user_index') }}">{{ "Back to list"|trans }}</a>
+    <a class="btn btn-primary btn-lg" href="{{ path('community_index') }}">{{ "Back to list"|trans }}</a>
     <a class="btn btn-dark btn-md" href="{{ path('user_show', {'id': user.id}) }}">{{ "Back to Profile"|trans }}</a>
 {% if is_granted('ROLE_ADMIN') %}
     <div class="float-right">

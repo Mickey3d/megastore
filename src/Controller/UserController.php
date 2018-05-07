@@ -8,6 +8,7 @@ use App\Form\User\NewUserAdminType;
 use App\Form\User\UserAdminType;
 use App\Form\User\UserPasswordType;
 use App\Repository\UserRepository;
+use App\Repository\TeamRepository;
 use App\Events;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,9 +26,12 @@ class UserController extends Controller
     /**
      * @Route("/", name="user_index", methods="GET")
      */
-    public function index(UserRepository $userRepository): Response
+    public function index(UserRepository $userRepository, TeamRepository $teamRepository): Response
     {
-        return $this->render('Community/index.html.twig', ['users' => $userRepository->findAllTheUsers()]);
+        return $this->render('Community/index.html.twig', [
+            'users' => $userRepository->findAllTheUsers(),
+            'teams' => $teamRepository->findAll()
+          ]);
 
     }
 
@@ -41,7 +45,7 @@ class UserController extends Controller
 
 
     /**
-     * @Route("/{id}", name="user_show", methods="GET")
+     * @Route("/{id}/show", name="user_show", methods="GET")
      */
     public function show(User $user): Response
     {

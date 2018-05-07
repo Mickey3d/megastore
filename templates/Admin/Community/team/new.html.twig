@@ -1,13 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}
-  {{ "New User"|trans }}
+{% block title %}{{ "New Team"|trans }}
 {% endblock %}
 
 {% block content %}
 {% set new = true %}
 {% if is_granted('ROLE_ADMIN')%}
-  {{ include('admin/Community/user/_form.html.twig') }}
+    {{ include('Admin/Community/team/_form.html.twig') }}
 {% else %}
   <div class="alert alert-danger">
     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
