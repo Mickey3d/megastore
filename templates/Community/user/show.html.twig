@@ -49,7 +49,11 @@
                         </tr>
                         <tr>
                           <th>{{ "Team"|trans }}</th>
+                          {% if user.team.id is defined %}
                           <td><a href="{{ path('team_show', {'id': user.team.id}) }}"> {{ user.team.teamName }}</a></td>
+                          {% else %}
+                          <td>{{ "NO TEAM"|trans }}</td>
+                          {% endif %}
                         </tr>
                         <tr>
                           <th>{{ "Firstname"|trans }}</th>
