@@ -1,21 +1,17 @@
-{{ form_start(form) }}
-{{ form_widget(form._token) }}
-{% if not form.vars.valid %}
-  <div class="alert alert-danger">
-    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-    <span>
-      <strong>{{ form_errors(form) }}</strong>
-    </span>
-  </div>
-{% endif %}
-
 <!-- Card -->
 <div class="card">
-
   <!-- Card body -->
   <div class="card-body">
-
-    <!-- Material form register -->
+    {{ form_start(form) }}
+    {{ form_widget(form._token) }}
+    {% if not form.vars.valid %}
+      <div class="alert alert-danger">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <span>
+          <strong>{{ form_errors(form) }}</strong>
+        </span>
+      </div>
+    {% endif %}
     <form>
       <div class="row">
         <div class="col-sm-12">
@@ -95,18 +91,20 @@
 
         <div class="text-center">
           <button class="btn btn-green center" type="submit">{{ button_label|default('Save') }}</button>
-          {% if new is not defined %}
-              {{ include('Admin/Community/user/_delete_form.html.twig') }}
-              <a class="btn btn-warning btn-md" href="{{ path('user_edit_password', {'id': user.id}) }}">{{ "Change Password"|trans }}</a>
-          {% endif %}
         </div>
       </div>
     </form>
-    <!-- Material form register -->
-
+    {{ form_end(form) }}
+    {% if new is not defined %}
+      <div class="float-right">
+        <div class="float-right">
+          {{ include('Admin/Community/user/_delete_form.html.twig') }}
+        </div>
+        <div class="float-right">
+          <a class="btn btn-warning btn-md" href="{{ path('user_edit_password', {'id': user.id}) }}">{{ "Change Password"|trans }}</a>
+        </div>
+      </div>
+    {% endif %}
   </div>
   <!-- Card body -->
-
 </div>
-<!-- Card -->
-{{ form_end(form) }}

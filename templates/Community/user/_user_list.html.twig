@@ -34,7 +34,7 @@
           <div class="col-sm-12 col-md-4">
             <span class="badge badge-light text-uppercase">{{ "My Team"|trans}}</span>
             {% if user.team.teamName is defined %}
-            <p class="m-1"><i class="fas fa-people-carry m-1"></i>{{ user.team.teamName }}</p>
+            <p class="m-1"><i class="fas fa-people-carry m-1"></i><a href="{{ path('team_show', {'id': user.team.id}) }}"> {{ user.team.teamName }}</p>
           {% else %}
           <p class="m-1"><i class="fas fa-people-carry m-1"></i>{{ 'No Team'|trans }}</p>
           {% endif %}
