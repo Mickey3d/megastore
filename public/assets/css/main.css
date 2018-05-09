@@ -80,6 +80,7 @@
   border-bottom: 1px solid #20819e1f;
   margin-bottom: 4px;
 }
+
 .items:hover {
   background-color: #20819e1f;
   margin-top: 1px;
@@ -112,7 +113,7 @@
 }
 
 section {
-  padding: 60px 0;
+  padding: 40px 0;
 }
 
 section .section-title {
@@ -596,9 +597,17 @@ body {
   color: #f0ad4e;
 }
 
+
 .cancel {
   color: #d9534f;
-  /*!
+}
+
+  /* MARGIN and PADDING */
+.m-top-10 {
+  margin-top: : 10px !important;
+}
+
+  /*
    TITLE TEXT 1
   */
   .big-title {

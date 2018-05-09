@@ -5,16 +5,27 @@ $(document).ready(function() {
     $("#wrapper").toggleClass("toggled");
   });
 
+  var topValueMax = $('#subMenu').css('height');
+  var barSubMenuheight = $('#barSubMenu').css('height');
+  var subMenuHeaderHeight = $('#subMenuHeader').css('height');
+  var topValueMin = $('#subMenu').css('height');
+  console.log(topValueMax);
+  console.log(barSubMenuheight);
+  console.log(subMenuHeaderHeight);
+
+
+  $('.mainContent').css("margin-top", topValueMax);
+
   $('#showOptionBtn').on('click', function() {
     $('#subMenuHeader').slideDown("slow");
-    $('.mainContent').css("margin-top", "100px");
+    $('.mainContent').css("margin-top", topValueMax);
     $('#showOptionBtn').hide();
     $('#hideOptionBtn').show();
   });
 
   $('#hideOptionBtn').on('click', function() {
     $('#subMenuHeader').slideUp("slow");
-    $('.mainContent').css("margin-top", "20px");
+    $('.mainContent').css("margin-top", barSubMenuheight);
     $('#showOptionBtn').show();
     $('#hideOptionBtn').hide();
   });
