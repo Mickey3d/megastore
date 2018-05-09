@@ -1,20 +1,21 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ "Community Center"|trans }}
+{% block title %}{{ "Inventory Manager"|trans }}
 {% endblock %}
 
 {% block content %}
+{% if is_granted("ROLE_ADMIN") or is_granted("ROLE_MANAGER") %}
   <div id="accordion">
     <div id="subMenu" class="card">
       <div class="card-header" id="subMenuHeader">
-        {% if is_granted("ROLE_ADMIN") %}
-          <a class="btn btn-primary btn-lg" href="{{ path('admin_user_new') }}">{{ "Create new User"|trans }}</a>
-          <a class="btn btn-primary btn-lg" href="{{ path('team_new') }}">{{ "Create new Team"|trans }}</a>
-        {% endif %}
-        <a class="btn btn-success btn-md" href="{{ path('user_edit', {'id': app.user.id}) }}">{{ "Edit my Profile"|trans }}</a>
+          <a class="btn btn-primary btn-lg" href="{{ path('team_new') }}">{{ "Create new Item"|trans }}</a>
+          <a class="btn btn-primary btn-lg" href="{{ path('team_new') }}">{{ "Create new Stock"|trans }}</a>
+          <a class="btn btn-info btn-outline-dark btn-lg" href="{{ path('admin_user_new') }}">{{ "Add Item in Inventory"|trans }}</a>
+          <a class="btn btn-success btn-md" href="{{ path('user_edit', {'id': app.user.id}) }}">{{ "Add Category"|trans }}</a>
+          <a class="btn btn-success btn-md" href="{{ path('user_edit', {'id': app.user.id}) }}">{{ "Add Tag"|trans }}</a>
         <div class="float-right">
           <i class="fas fa-arrow-alt-circle-down"></i>
-          <a class="m-1 badge badge-dark badge-sm p-2" href="#user-table-content" alt="User Table Content">
+          <a class="m-1 badge badge-dark badge-sm p-2" href="#table-content" alt="Table Content">
             {{ "Go to List"|trans }}
           </a>
         </div>
@@ -39,15 +40,15 @@
               <div class="col-lg-3 col-md-3 col-sm-6">
                 <div class="widget">
                   <div class="widget-heading clearfix">
-                    <div class="float-left">{{ "Users in Database"|trans }}</div>
+                    <div class="float-left">{{ "Items in Inventory"|trans }}</div>
                     <div class="float-right">
-                      <i class="fas fa-users"></i>
+                      <i class="fas fa-cog"></i>
                       100<sup>%</sup>
                     </div>
                   </div>
                   <div class="widget-body clearfix">
                     <div class="float-left">
-                      <i class="fas fa-users"></i>
+                      <i class="fas fa-cog"></i>
                     </div>
                     <div class="float-right number">250</div>
                   </div>
@@ -56,9 +57,9 @@
               <div class="col-lg-3 col-md-3 col-sm-6">
                 <div class="widget">
                   <div class="col-head-green widget-heading clearfix">
-                    <div class="float-left">{{ "Users Enabled"|trans }}</div>
+                    <div class="float-left">{{ "Main Stock"|trans }}</div>
                     <div class="float-right">
-                      <i class="fas fa-users"></i>
+                      <i class="fas fa-warehouse"></i>
                       80<sup>%</sup>
                     </div>
                   </div>
@@ -73,9 +74,9 @@
               <div class="col-lg-3 col-md-3 col-sm-6">
                 <div class="widget">
                   <div class="col-head-red widget-heading clearfix">
-                    <div class="float-left">{{ "Users Restricted"|trans }}</div>
+                    <div class="float-left">{{ "Out"|trans }}</div>
                     <div class="float-right">
-                      <i class="fas fa-users"></i>
+                      <i class="fas fa-sign-out-alt"></i>
                       10<sup>%</sup>
                     </div>
                   </div>
@@ -93,19 +94,31 @@
       </div>
     </div>
   </div>
-  <section id="user-table-content" class="mainContent">
+  <section id="table-content" class="mainContent">
     <div class="container">
       <ul class="nav nav-tabs ">
         <li class="nav-item">
           <a class="nav-link active" data-toggle="tab" href="#users" role="tab">
-            <i class="fas fa-users fa-2x m-2"></i>
-            {{ "USERS"|trans }}
+            <i class="fas fa-warehouse fa-2x m-2"></i>
+            {{ "Inventory"|trans }}
           </a>
         </li>
         <li class="nav-item">
           <a class="nav-link" data-toggle="tab" href="#team" role="tab">
-            <i class="fas fa-people-carry fa-2x m-2"></i>
-            {{ "TEAM"|trans }}
+            <i class="fab fa-stack-overflow fa-2x m-2"></i>
+            {{ "Stocks"|trans }}
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" data-toggle="tab" href="#users" role="tab">
+            <i class="fas fa-sitemap fa-2x m-2"></i>
+            {{ "Categories"|trans }}
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#team" role="tab">
+            <i class="fas fa-tags fa-2x m-2"></i>
+            {{ "Tags"|trans }}
           </a>
         </li>
       </ul>
@@ -113,14 +126,31 @@
         <input type="search" class="form-control input-search" id="input-search" placeholder="{{ "Search Attendees"|trans }}...">
       </div>
       <div class="tab-content">
-        <div id="users" class="tab-pane fade in active show">
-          {{ include('Community/user/_user_list.html.twig') }}
+        <div id="Inventory" class="tab-pane fade in active show">
+
         </div>
-        <div id="team" class="tab-pane fade">
-          {{ include('Community/team/_team_list.html.twig') }}
+        <div id="Stock" class="tab-pane fade">
+
         </div>
+        <div id="Categories" class="tab-pane fade">
+
+        </div>
+        <div id="Tags" class="tab-pane fade">
+
+        </div>
+
       </div>
     </div>
   </div>
 </section>
+{% else %}
+<section>
+  <div class="col-md-12 center">
+    <div class="alert alert-danger">
+      <p>YOU ARE NOT ALLOWED TO ACCESS TO THIS PAGE</p>
+      <a class="btn btn-outline-info" href="{{ path('index') }}"></a>
+    </div>
+  </div>
+</section>
+{% endif %}
 {% endblock %}

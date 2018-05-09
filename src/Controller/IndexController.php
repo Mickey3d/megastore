@@ -36,4 +36,15 @@ class IndexController extends Controller
           'teams' => $teamRepository->findAll()
         ]);
     }
+
+    /**
+     * @Route("/admin/inventory", name="inventory_index", methods="GET")
+     */
+    public function inventory(UserRepository $userRepository, TeamRepository $teamRepository): Response
+    {
+        return $this->render('Admin/inventory/index.html.twig', [
+          'users' => $userRepository->findAllTheUsers(),
+          'teams' => $teamRepository->findAll()
+        ]);
+    }
 }

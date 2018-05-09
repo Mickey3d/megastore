@@ -17,7 +17,7 @@
             <a class="nav-link" href="{{ path('community_index') }}">{{ "Community"|trans }}
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">{{ "Inventory"|trans }}</a>
+              <a class="nav-link" href="{{ path('inventory_index')}}">{{ "Inventory"|trans }}</a>
             </li>
             {% if is_granted("ROLE_MANAGER") %}
               <li class="nav-item">
