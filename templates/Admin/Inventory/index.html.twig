@@ -11,7 +11,7 @@
           <a class="btn btn-primary btn-lg" href="{{ path('team_new') }}">{{ "Create new Item"|trans }}</a>
           <a class="btn btn-primary btn-lg" href="{{ path('team_new') }}">{{ "Create new Stock"|trans }}</a>
           <a class="btn btn-info btn-outline-dark btn-lg" href="{{ path('admin_user_new') }}">{{ "Add Item in Inventory"|trans }}</a>
-          <a class="btn btn-success btn-md" href="{{ path('user_edit', {'id': app.user.id}) }}">{{ "Add Category"|trans }}</a>
+          <a class="btn btn-success btn-md" href="{{ path('category_new') }}">{{ "Add Category"|trans }}</a>
           <a class="btn btn-success btn-md" href="{{ path('user_edit', {'id': app.user.id}) }}">{{ "Add Tag"|trans }}</a>
         <div class="float-right">
           <i class="fas fa-arrow-alt-circle-down"></i>
@@ -31,7 +31,7 @@
         <button id="hideOptionBtn" class="btn btn-info  btn-outline-info float-right">
           {{ "Hide Options"|trans }}
         </button>
-        <h1 class="text-muted text-uppercase center">{{ "Community Center"|trans }}</h1>
+        <h1 class="text-muted text-uppercase center">{{ "Inventory Manager"|trans }}</h1>
       </div>
       <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
         <div class="card-body">
@@ -98,25 +98,25 @@
     <div class="container">
       <ul class="nav nav-tabs ">
         <li class="nav-item">
-          <a class="nav-link active" data-toggle="tab" href="#users" role="tab">
+          <a class="nav-link active" data-toggle="tab" href="#Inventory" role="tab">
             <i class="fas fa-warehouse fa-2x m-2"></i>
             {{ "Inventory"|trans }}
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" data-toggle="tab" href="#team" role="tab">
+          <a class="nav-link" data-toggle="tab" href="#Stock" role="tab">
             <i class="fab fa-stack-overflow fa-2x m-2"></i>
             {{ "Stocks"|trans }}
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" data-toggle="tab" href="#users" role="tab">
+          <a class="nav-link active" data-toggle="tab" href="#Categories" role="tab">
             <i class="fas fa-sitemap fa-2x m-2"></i>
             {{ "Categories"|trans }}
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" data-toggle="tab" href="#team" role="tab">
+          <a class="nav-link" data-toggle="tab" href="#Tags" role="tab">
             <i class="fas fa-tags fa-2x m-2"></i>
             {{ "Tags"|trans }}
           </a>
@@ -127,16 +127,16 @@
       </div>
       <div class="tab-content">
         <div id="Inventory" class="tab-pane fade in active show">
-
+          <p>inventaire</p>
         </div>
         <div id="Stock" class="tab-pane fade">
-
+          <p> stock</p>
         </div>
         <div id="Categories" class="tab-pane fade">
-
+          {{ include('Admin/Inventory/category/_category_list.html.twig') }}
         </div>
         <div id="Tags" class="tab-pane fade">
-
+          <p>tags</p>
         </div>
 
       </div>
