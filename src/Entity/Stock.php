@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -42,6 +44,26 @@ class Stock
      * @ORM\Column(type="datetime")
      */
     private $updatedAt;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $mainStock;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Status", mappedBy="stock", cascade={"persist", "remove"})
+     */
+    private $status;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\SubItem", mappedBy="stock")
+     */
+    private $subItems;
+
+    public function __construct()
+    {
+        $this->subItems = new ArrayCollection();
+    }
 
     public function getId()
     {
@@ -121,5 +143,66 @@ class Stock
         {
             $this->setCreatedAt(new \DateTime(date('Y-m-d H:i:s')));
         }
+    }
+
+    public function getMainStock(): ?bool
+    {
+        return $this->mainStock;
+    }
+
+    public function setMainStock(?bool $mainStock): self
+    {
+        $this->mainStock = $mainStock;
+
+        return $this;
+    }
+
+    public function getStatus(): ?Status
+    {
+        return $this->status;
+    }
+
+    public function setStatus(?Status $status): self
+    {
+        $this->status = $status;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newStock = $status === null ? null : $this;
+        if ($newStock !== $status->getStock()) {
+            $status->setStock($newStock);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|SubItem[]
+     */
+    public function getSubItems(): Collection
+    {
+        return $this->subItems;
+    }
+
+    public function addSubItem(SubItem $subItem): self
+    {
+        if (!$this->subItems->contains($subItem)) {
+            $this->subItems[] = $subItem;
+            $subItem->setStock($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSubItem(SubItem $subItem): self
+    {
+        if ($this->subItems->contains($subItem)) {
+            $this->subItems->removeElement($subItem);
+            // set the owning side to null (unless already changed)
+            if ($subItem->getStock() === $this) {
+                $subItem->setStock(null);
+            }
+        }
+
+        return $this;
     }
 }
