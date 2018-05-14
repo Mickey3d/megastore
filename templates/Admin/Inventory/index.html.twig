@@ -11,7 +11,9 @@
           <a class="btn btn-primary btn-lg" href="{{ path('team_new') }}">{{ "Create new Item"|trans }}</a>
           <a class="btn btn-primary btn-lg" href="{{ path('team_new') }}">{{ "Create new Stock"|trans }}</a>
           <a class="btn btn-info btn-outline-dark btn-lg" href="{{ path('admin_user_new') }}">{{ "Add Item in Inventory"|trans }}</a>
-          <a class="btn btn-success btn-md" href="{{ path('category_new') }}">{{ "Add Category"|trans }}</a>
+          <a class="btn btn-success btn-md" href="{{ path('category_new') }}">{{ "Add Status"|trans }}</a>
+          <a class="btn btn-success btn-md mr-1" href="{{ path('category_new') }}">{{ "Add Category"|trans }}</a>
+          <a class="btn btn-success btn-sm ml-0" href="{{ path('sub_category_new') }}">{{ "Add Sub-Category"|trans }}</a>
           <a class="btn btn-success btn-md" href="{{ path('user_edit', {'id': app.user.id}) }}">{{ "Add Tag"|trans }}</a>
         <div class="float-right">
           <i class="fas fa-arrow-alt-circle-down"></i>
@@ -99,7 +101,7 @@
       <ul class="nav nav-tabs ">
         <li class="nav-item">
           <a class="nav-link active" data-toggle="tab" href="#Inventory" role="tab">
-            <i class="fas fa-warehouse fa-2x m-2"></i>
+            <i class="fas fa-warehouse fa-2x mr-2"></i>
             {{ "Inventory"|trans }}
           </a>
         </li>
@@ -110,7 +112,13 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" data-toggle="tab" href="#Categories" role="tab">
+          <a class="nav-link" data-toggle="tab" href="#Status" role="tab">
+            <i class="fas fa-info fa-2x m-2"></i>
+            {{ "Status"|trans }}
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#Categories" role="tab">
             <i class="fas fa-sitemap fa-2x m-2"></i>
             {{ "Categories"|trans }}
           </a>
@@ -122,23 +130,26 @@
           </a>
         </li>
       </ul>
-      <div class="col-lg-12">
+      <div class="col-lg-12 mt-1">
         <input type="search" class="form-control input-search" id="input-search" placeholder="{{ "Search Attendees"|trans }}...">
       </div>
       <div class="tab-content">
         <div id="Inventory" class="tab-pane fade in active show">
           <p>inventaire</p>
+          {{ include('Admin/Inventory/category/_category_list.html.twig') }}
         </div>
         <div id="Stock" class="tab-pane fade">
           <p> stock</p>
         </div>
+        <div id="Status" class="tab-pane fade">
+          <p>Status</p>
+        </div>
         <div id="Categories" class="tab-pane fade">
-          {{ include('Admin/Inventory/category/_category_list.html.twig') }}
+
         </div>
         <div id="Tags" class="tab-pane fade">
           <p>tags</p>
         </div>
-
       </div>
     </div>
   </div>

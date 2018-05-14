@@ -36,8 +36,8 @@ class CategoryController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($category);
             $em->flush();
-
-            return $this->redirectToRoute('category_index');
+            $this->addFlash('success','The Category have been created!');
+            return $this->redirectToRoute('Inventory_index');
         }
 
         return $this->render('Admin/Inventory/category/new.html.twig', [
@@ -64,7 +64,7 @@ class CategoryController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-
+            $this->addFlash('success','The Category have been updated!');
             return $this->redirectToRoute('category_edit', ['id' => $category->getId()]);
         }
 
@@ -83,8 +83,9 @@ class CategoryController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->remove($category);
             $em->flush();
+            $this->addFlash('success','The Catgory have been deleted!');
         }
 
-        return $this->redirectToRoute('category_index');
+        return $this->redirectToRoute('Inventory_index');
     }
 }

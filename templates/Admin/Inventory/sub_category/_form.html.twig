@@ -17,26 +17,31 @@
       <div class="row">
         <div class="col-sm-12">
           {% if new is defined %}
-            <h1 class="h4 text-center py-4">{{ "New Category"|trans }}</h1>
+            <h1 class="h4 text-center py-4">{{ "New Sub-Category"|trans }}</h1>
           {% else %}
-            <h1 class="h4 text-center py-4">{{ "Edit Category"|trans }}</h1>
+            <h1 class="h4 text-center py-4">{{ "Edit SubCategory"|trans }}</h1>
           {% endif %}
         </div>
         <div class="col-md-6">
           <!-- Material input text -->
           <div class="md-form">
             <i class="fas fa-people-carry prefix grey-text"></i>
-            {{ form_errors(form.categoryName) }}
-            {{ form_widget(form.categoryName, {'attr': {'id': 'materialFormCardName1', 'name': 'categoryName', 'class': 'form-control', 'aria-label': 'Large', 'aria-describedby': 'inputGroup-sizing-sm' }}) }}
-            <label for="materialFormCardName1" class="font-weight-light">{{ "Category Name"|trans }}</label>
+            {{ form_errors(form.subEntityName) }}
+            {{ form_widget(form.subEntityName, {'attr': {'id': 'subEntityName', 'name': 'subEntityName', 'class': 'form-control', 'aria-label': 'Large', 'aria-describedby': 'inputGroup-sizing-sm' }}) }}
+            <label for="subEntityName" class="font-weight-light">{{ "Sub-Category Name"|trans }}</label>
           </div>
           <div class="form-group">
-            {{ form_errors(form.categoryDescription) }}
-            <label for="description">{{ "Category Description"|trans }}:</label>
-            {{ form_widget(form.categoryDescription, {'attr': {'id': 'description', 'rows': '8', 'name': 'description', 'class': 'form-control', 'aria-label': 'Large', 'aria-describedby': 'inputGroup-sizing-sm' }}) }}
+            {{ form_errors(form.subCategoryDescription) }}
+            <label for="subCategoryDescription">{{ "Sub-Category Description"|trans }}:</label>
+            {{ form_widget(form.subCategoryDescription, {'attr': {'id': 'subCategoryDescription', 'rows': '8', 'name': 'description', 'class': 'form-control', 'aria-label': 'Large', 'aria-describedby': 'inputGroup-sizing-sm' }}) }}
           </div>
         </div>
         <div class="col-md-6 p-5">
+          <div class="md-form  p-1  m-1 center">
+            <label class="form-check-label p-2" for="team">{{ "category"|trans }}</label>
+            {{ form_errors(form.category) }}
+            {{ form_widget(form.category, {'attr': {'id': 'category', 'name': 'category', 'class': 'p-3 m-1', 'aria-label': 'Large'}}) }}
+          </div>
           <div class="center p-4">
             <label class="btn btn-success">
               {{ form_widget(form.enabled, {'attr': {'id': 'enabled', 'name': 'enabled','autocomplete': 'off', 'class': 'filled-in form-check-input', 'aria-label': 'Large', 'aria-describedby': 'inputGroup-sizing-sm' }}) }}
@@ -55,7 +60,7 @@
     {{ form_end(form) }}
     {% if new is not defined %}
       <div class="float-right">
-        {{ include('Admin/Inventory/category/_delete_form.html.twig') }}
+        {{ include('Admin/Inventory/sub_category/_delete_form.html.twig') }}
       </div>
     {% endif %}
   </div>

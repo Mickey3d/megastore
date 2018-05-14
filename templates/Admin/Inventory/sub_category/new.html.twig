@@ -1,12 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ "New Category"|trans }}
+{% block title %}{{ "New Sub-Category"|trans }}
 {% endblock %}
 
 {% block content %}
 {% set new = true %}
 {% if is_granted('ROLE_ADMIN')%}
-    {{ include('Admin/Inventory/category/_form.html.twig') }}
+    {{ include('Admin/Inventory/sub_category/_form.html.twig') }}
 {% else %}
   <div class="alert alert-danger">
     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>

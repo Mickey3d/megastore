@@ -1,8 +1,8 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ "category"|trans }}
+{% block title %}{{ "Sub-Category"|trans }}
   -
-  {{ category.categoryName }}
+  {{ sub_category.subEntityName }}
 {% endblock %}
 
 {% block content %}
@@ -11,17 +11,12 @@
       <div class="col-sm-12 col-md-12 user-details p-2">
         <div class="user-info-block">
           <div class="user-heading">
-            <h3>{{ category.categoryName }}</h3>
+            <h3>{{ sub_category.subEntityName }}</h3>
           </div>
           <ul class="navigation nav nav-tabs">
             <li class="nav-item">
               <a class="nav-link active" data-toggle="tab" href="#information">
                 <span class="fas fa-info"></span>
-              </a>
-            </li>
-            <li>
-              <a data-toggle="tab" href="#subCategories">
-                <span class="fas fa-sitemap"></span>
               </a>
             </li>
             <li>
@@ -38,22 +33,22 @@
           <div class="user-body">
             <div class="tab-content">
               <div id="information" class="tab-pane active">
-                <h4>{{ "Category Information"|trans }}</h4>
+                <h4>{{ "Sub-Category Information"|trans }}</h4>
                 <div class="row">
                   <div class="col-md-10">
                     <table class="table">
                       <tbody>
                         <tr>
-                          <th>{{ "Category Name"|trans }}</th>
-                          <td>{{ category.categoryName }}</td>
+                          <th>{{ "Sub-Category Name"|trans }}</th>
+                          <td>{{ sub_category.subEntityName }}</td>
                         </tr>
                         <tr>
                           <th>{{ "Description"|trans }}</th>
-                          <td>{{ category.categoryDescription }}</td>
+                          <td>{{ sub_category.subCategoryDescription }}</td>
                         </tr>
                         <tr>
-                          <th>{{ "Sub Categories Count"|trans }}</th>
-                          <td>{{ category.subCategories.count }}</td>
+                          <th>{{ "Category"|trans }}</th>
+                          <td>{{ sub_category.category.categoryName }}</td>
                         </tr>
                       </tbody>
                     </table>
@@ -67,26 +62,8 @@
                       <tbody>
                         <tr>
                           <th>{{ "Enabled"|trans }}</th>
-                          <td>{{ category.enabled ? 'Yes' : 'No' }}</td>
+                          <td>{{ sub_category.enabled ? 'Yes' : 'No' }}</td>
                         </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-              <div id="subCategories" class="tab-pane">
-                <div class="row">
-                  <div class="col-md-10">
-                    <table class="table">
-                      <tbody>
-                        {% for subCategory in category.subCategories %}
-                          <tr>
-                            <th> <a href="{{ path('sub_category_show', {'id': subCategory.id}) }}"> {{ subCategory.subEntityName }}</a></th>
-                            <td>
-                              <span class="fas fa-info-circle"></span> :
-                              {{ subCategory.subCategoryDescription }}</td>
-                          </tr>
-                        {% endfor %}
                       </tbody>
                     </table>
                   </div>
@@ -99,11 +76,11 @@
                       <tbody>
                         <tr>
                           <th>{{ "Created at"|trans }}</th>
-                          <td>{{ category.createdAt ? category.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                          <td>{{ sub_category.createdAt ? sub_category.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                         </tr>
                         <tr>
                           <th>{{ "Updated at"|trans }}</th>
-                          <td>{{ category.updatedAt ? category.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                          <td>{{ sub_category.updatedAt ? sub_category.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
                         </tr>
                       </tbody>
                     </table>
@@ -120,8 +97,8 @@
     <div class="col-md-12 center">
       <div class="col-md-12 d-flex justify-content-center">
         {% if is_granted("ROLE_ADMIN") %}
-          <a class="btn btn-info btn-md" href="{{ path('category_edit', {'id': category.id}) }}">{{ "Edit"|trans }}</a>
-          {{ include('Admin/Inventory/category/_delete_form.html.twig') }}
+          <a class="btn btn-info btn-md" href="{{ path('sub_category_edit', {'id': sub_category.id}) }}">{{ "Edit"|trans }}</a>
+          {{ include('Admin/Inventory/sub_category/_delete_form.html.twig') }}
         {% endif %}
       </div>
       <a class="btn btn-primary btn-lg float-left" href="{{ path('inventory_index') }}">{{ "Back to list"|trans }}</a>

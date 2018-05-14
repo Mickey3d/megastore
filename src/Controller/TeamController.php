@@ -36,7 +36,7 @@ class TeamController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($team);
             $em->flush();
-
+            $this->addFlash('success','The Team have been created!');
             return $this->redirectToRoute('community_index');
         }
 
@@ -64,7 +64,7 @@ class TeamController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-
+            $this->addFlash('success','The Team have been updated!');
             return $this->redirectToRoute('team_edit', ['id' => $team->getId()]);
         }
 
@@ -83,8 +83,9 @@ class TeamController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->remove($team);
             $em->flush();
+            $this->addFlash('success','The Team have been deleted!');
         }
 
-        return $this->redirectToRoute('team_index');
+        return $this->redirectToRoute('community_index');
     }
 }

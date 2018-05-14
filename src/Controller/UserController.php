@@ -62,6 +62,7 @@ class UserController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('success','The User have been updated!');
 
             return $this->redirectToRoute('user_edit', ['id' => $user->getId()]);
         }
@@ -115,6 +116,7 @@ class UserController extends Controller
             //On déclenche l'event
             $event = new GenericEvent($user);
             $eventDispatcher->dispatch(Events::USER_REGISTERED, $event);
+            $this->addFlash('success','The User have been created!');
             return $this->redirectToRoute('user_index');
         }
 
@@ -134,6 +136,7 @@ class UserController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('success','The User have been updated!');
 
             return $this->redirectToRoute('admin_user_edit', ['id' => $user->getId()]);
         }
@@ -153,6 +156,7 @@ class UserController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->remove($user);
             $em->flush();
+            $this->addFlash('success','The User have been deleted!');
         }
 
         return $this->redirectToRoute('user_index');

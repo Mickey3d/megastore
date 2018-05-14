@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Team{% endblock %}
+{% block title %}{{ "Edit Team"|trans }}{% endblock %}
 
 {% block content %}
   {% if is_granted('ROLE_ADMIN')%}

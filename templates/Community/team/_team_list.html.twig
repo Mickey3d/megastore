@@ -2,37 +2,55 @@
   <div class="row">
     <div class="searchable-container row">
       {% for team in teams %}
-      <div class="items col-md-12 clearfix center">
-        <div class="info-block block-info clearfix row">
-          <div class="col-sm-12  col-md-2  center">
-            <span class="square-box fas fa-people-carry fa-4x"></span>
-          </div>
-          <div class="col-sm-12 col-md-4">
-            <h5>{{ team.teamName }}</h5>
-            {% if team.enabled == true %}
-            <span class="badge badge-success badge-sm">{{ "Enabled"|trans }} : {{ "Yes"|trans }} </span>
-            {% else %}
-              <span class="badge badge-danger badge-sm">{{ "Enabled"|trans }} : {{ "No"|trans }} </span>
-            {% endif %}
-            <p class="media-meta m-1">{{ "Created at"|trans }} : {{ team.CreatedAt ? team.CreatedAt|date('Y-m-d H:i:s') : '' }}</p>
-            <p class="media-meta m-1">{{ "Updated at"|trans }} : {{ team.UpdatedAt ? team.UpdatedAt|date('Y-m-d H:i:s') : '' }}</p>
-          </div>
-          <div class="col-sm-12 col-md-4">
-            <span class="badge badge-light text-uppercase">{{ "Description"|trans}}</span>
-            {% if team.teamDescription|length > 90 %}
-            <p class="m-1"><i class="fas fa-info m-1"></i>{{ team.teamDescription|truncate(90) }}</p>
-            {% else %}
-            <p class="m-1"><i class="fas fa-info m-1"></i>{{ team.teamDescription }}</p>
-            {% endif %}
-          </div>
-          <div class="col-sm-12 col-md-2 center">
-            <a class="btn btn-warning btn-md m-1" href="{{ path('team_show', {'id': team.id}) }}">{{ "Show"|trans }}</a>
-            {% if is_granted("ROLE_ADMIN") %}
-              <a class="btn btn-info btn-sm m-1" href="{{ path('team_edit', {'id': team.id}) }}">{{ "Edit"|trans }}</a>
-            {% endif %}
+        <div class="items col-md-12 clearfix center">
+          <div class="info-block block-info clearfix row">
+            <div class="col-sm-12 col-md-3 center">
+              <div class="center">
+                <span class="square-box fas fa-people-carry fa-2x"></span>
+              </div>
+              <div class="center">
+                {% if team.enabled == true %}
+                  <span class="fs-60-pc badge badge-success badge-sm">{{ "Enabled"|trans }}</span>
+                {% else %}
+                  <span class="fs-60-pc badge badge-danger badge-sm">{{ "Disabled"|trans }}</span>
+                {% endif %}
+              </div>
+            </div>
+            <div class="col-sm-12 col-md-7">
+              <h5 class="center">{{ team.teamName }}</h5>
+              <span class="fs-60-pc float-left badge badge-dark text-uppercase">{{ "Description"|trans}}</span>
+              {% if team.teamDescription | length > 50 %}
+                <h4 class="fs-12 float-left title m-1">
+                  <i class="fas fa-info-circle m-1"></i>{{ team.teamDescription|truncate(50) }}
+                </h4>
+              {% else %}
+                <h4 class="fs-12 float-left title m-1">
+                  <i class="fas fa-info-circle m-1"></i>{{ team.teamDescription }}
+                </h4>
+              {% endif %}
+            </div>
+            <div class="col-sm-12 col-md-2 center">
+              <a class="btn btn-outline-success btn-md mb-1 " href="{{ path('team_show', {'id': team.id}) }}">{{ "Show"|trans }}</a>
+              {% if is_granted("ROLE_ADMIN") %}
+                <a class="btn btn-info btn-sm m-0" href="{{ path('team_edit', {'id': team.id}) }}">{{ "Edit"|trans }}</a>
+              {% endif %}
+            </div>
+            <div class="col-sm-12 col-md-12">
+              <div class="shadowed-2 row d-flex justify-content-center">
+                <div class="col-sm-12 col-md-6 float-left media-meta">
+                  <i class="p-1 fas fa-calendar"></i>{{ "Created at"|trans }}
+                  :
+                  {{ team.CreatedAt ? team.CreatedAt|date('Y-m-d H:i:s') : '' }}
+                </div>
+                <div class="col-sm-12 col-md-6 m-left-5 float-left  media-meta">
+                  <i class="p-1 fas fa-calendar"></i>{{ "Updated at"|trans }}
+                  :
+                  {{ team.UpdatedAt ? team.UpdatedAt|date('Y-m-d H:i:s') : '' }}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
       {% else %}
         <div>
           <h1>{{ "No Team found"|trans }}</h1>

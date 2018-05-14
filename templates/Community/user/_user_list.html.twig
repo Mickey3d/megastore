@@ -2,53 +2,82 @@
   <div class="row">
     <div class="searchable-container row">
       {% for user in users %}
-      <div class="items col-md-12 clearfix center">
-        {% for role in user.roles %}
-        {% if role == "ROLE_ADMIN" %}
-        <span class="badge badge-danger badge-pill badge-sm">{{ "ADMIN"|trans}}</span>
-        {% endif %}
-        {% if role == "ROLE_MANAGER" %}
-        <span class="badge badge-success badge-pill badge-sm">{{ "MANAGER"|trans}}</span>
-        {% endif %}
-        {% endfor %}
-        <div class="info-block block-info clearfix row">
-          <div class="col-sm-12  col-md-2  center">
-            <span class="square-box fas fa-user fa-4x"></span>
-          </div>
-          <div class="col-sm-12 col-md-3">
-            <h5>{{ user.username }}</h5>
-            <h4 class="title">{{ user.firstName }} {{ user.lastName }}</h4>
-            <h5 class="title"><span class="fas fa-envelope"> {{ user.email }}</span></h5>
-            <h5 class="title"><span class="fas fa-phone"> {{ user.phone }}</span></h5>
-            {% if user.enabled == true %}
-            <span class="badge badge-success badge-sm">{{ "Enabled"|trans }} : {{ "Yes"|trans }} </span>
-            {% else %}
-              <span class="badge badge-danger badge-sm">{{ "Enabled"|trans }} : {{ "No"|trans }} </span>
-            {% endif %}
-            {% if user.restricted == true %}
-            <span class="badge badge-danger badge-sm">{{ "Restricted"|trans }} : {{ "Yes"|trans }} </span>
-            {% else %}
-              <span class="badge badge-success badge-sm">{{ "Restricted"|trans }} : {{ "No"|trans }} </span>
-            {% endif %}
-          </div>
-          <div class="col-sm-12 col-md-4">
-            <span class="badge badge-light text-uppercase">{{ "My Team"|trans}}</span>
-            {% if user.team.teamName is defined %}
-            <p class="m-1"><i class="fas fa-people-carry m-1"></i><a href="{{ path('team_show', {'id': user.team.id}) }}"> {{ user.team.teamName }}</p>
-          {% else %}
-          <p class="m-1"><i class="fas fa-people-carry m-1"></i>{{ 'No Team'|trans }}</p>
-          {% endif %}
-            <p class="media-meta m-1">{{ "Created at"|trans }} : {{ user.CreatedAt ? user.CreatedAt|date('Y-m-d H:i:s') : '' }}</p>
-            <p class="media-meta m-1">{{ "Updated at"|trans }} : {{ user.UpdatedAt ? user.UpdatedAt|date('Y-m-d H:i:s') : '' }}</p>
-          </div>
-          <div class="col-sm-12 col-md-2 center">
-            <a class="btn btn-warning btn-md m-1" href="{{ path('user_show', {'id': user.id}) }}">{{ "Show"|trans }}</a>
-            {% if is_granted("ROLE_ADMIN") %}
-              <a class="btn btn-info btn-sm m-1" href="{{ path('admin_user_edit', {'id': user.id}) }}">{{ "Edit"|trans }}</a>
-            {% endif %}
+        <div class="items col-md-12 clearfix center">
+          <div class="info-block block-info clearfix row">
+            <div class="col-sm-12 col-md-6">
+              <div class="row center">
+                <div class="col-sm-12 col-md-5 center">
+                  <div class="center">
+                    <span class="square-box fas fa-user fa-2x"></span>
+                  </div>
+                  <div class="center">
+                    {% if user.enabled == true %}
+                      <span class="fs-60-pc badge badge-success badge-sm">{{ "Enabled"|trans }}</span>
+                    {% else %}
+                      <span class="fs-60-pc badge badge-danger badge-sm">{{ "Disabled"|trans }}</span>
+                    {% endif %}
+                    {% if user.restricted == true %}
+                      <span class="fs-60-pc badge badge-danger badge-sm">{{ "Restricted"|trans }}</span>
+                    {% endif %}
+                  </div>
+                </div>
+                <div class="col-sm-12 col-md-7">
+                  <h5>{{ user.username }}</h5>
+                    <hr class="m-0 mb-1 p-0">
+                  <h4 class="title">{{ user.firstName }}
+                    {{ user.lastName }}</h4>
+                  <h5 class="title">
+                    <span class="fas fa-envelope">
+                      {{ user.email }}</span></h5>
+                  <h5 class="title">
+                    <span class="fas fa-phone">
+                      {{ user.phone }}</span></h5>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-12 col-md-4">
+              <span class="mt-2 badge badge-dark text-uppercase">{{ "Team"|trans}}</span>
+              {% if user.team.teamName is defined %}
+                <p class="m-1">
+                  <i class="fas fa-people-carry m-1"></i>
+                  <a href="{{ path('team_show', {'id': user.team.id}) }}">
+                    {{ user.team.teamName }}</a>
+                </p>
+              {% else %}
+                <p class="m-1">
+                  <i class="fas fa-people-carry m-1"></i>{{ 'No Team'|trans }}</p>
+              {% endif %}
+              {% for role in user.roles %}
+                {% if role == "ROLE_ADMIN" %}
+                  <span class="btn btn-outline-danger badge-pill btn-sm p-1">{{ "ADMIN"|trans}}</span>
+                {% endif %}
+                {% if role == "ROLE_MANAGER" %}
+                  <span class="btn btn-outline-success badge-pill btn-sm p-1">{{ "MANAGER"|trans}}</span>
+                {% endif %}
+              {% endfor %}
+            </div>
+            <div class="col-sm-12 col-md-2 center">
+              <a class="btn btn-outline-success btn-md m-1" href="{{ path('user_show', {'id': user.id}) }}">{{ "Show"|trans }}</a>
+              {% if is_granted("ROLE_ADMIN") %}
+                <a class="btn btn-info btn-sm m-1" href="{{ path('admin_user_edit', {'id': user.id}) }}">{{ "Admin Edit"|trans }}</a>
+              {% endif %}
+            </div>
+            <div class="col-sm-12 col-md-12">
+              <div class="shadowed-2  row d-flex justify-content-center">
+                <div class="col-sm-12 col-md-6 float-left media-meta">
+                  <i class="p-1 fas fa-calendar"></i>{{ "Created at"|trans }}
+                  :
+                  {{ user.CreatedAt ? user.CreatedAt|date('Y-m-d H:i:s') : '' }}
+                </div>
+                <div class="col-sm-12 col-md-6 m-left-5 float-left  media-meta">
+                  <i class="p-1 fas fa-calendar"></i>{{ "Updated at"|trans }}
+                  :
+                  {{ user.UpdatedAt ? user.UpdatedAt|date('Y-m-d H:i:s') : '' }}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
       {% else %}
         <div>
           <h1>{{ "No User found"|trans }}</h1>

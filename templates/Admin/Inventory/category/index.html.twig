@@ -8,7 +8,6 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>CategoryName</th>
                 <th>CategoryDescription</th>
                 <th>CreatedAt</th>
@@ -20,7 +19,6 @@
         <tbody>
         {% for category in categories %}
             <tr>
-                <td>{{ category.id }}</td>
                 <td>{{ category.categoryName }}</td>
                 <td>{{ category.categoryDescription }}</td>
                 <td>{{ category.createdAt ? category.createdAt|date('Y-m-d H:i:s') : '' }}</td>
@@ -33,11 +31,11 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="7">no records found</td>
+                <td colspan="7">{{ "no records found"|trans }}</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('category_new') }}">Create new</a>
+    <a class="btn btn-success btn-lg" href="{{ path('category_new') }}">{{ "Create new Category"|trans }}</a>
 {% endblock %}

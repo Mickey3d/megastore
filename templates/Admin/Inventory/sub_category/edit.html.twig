@@ -1,10 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ "Edit Category"|trans }}{% endblock %}
+{% block title %}{{ "Edit Sub-Category"|trans }}{% endblock %}
 
 {% block content %}
   {% if is_granted('ROLE_ADMIN')%}
-    {{ include('Admin/Inventory/category/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('Admin/Inventory/sub_category/_form.html.twig', {'button_label': 'Update'}) }}
   {% else %}
     <div class="alert alert-danger">
       <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -14,5 +14,5 @@
     </div>
   {% endif %}
   <a class="btn btn-primary btn-lg" href="{{ path('inventory_index') }}">{{ "Back to list"|trans }}</a>
-  <a class="btn btn-dark btn-md" href="{{ path('category_show', {'id': category.id}) }}">{{ "Back to Category Page"|trans }}</a>
+  <a class="btn btn-dark btn-md" href="{{ path('sub_category_show', {'id': sub_category.id}) }}">{{ "Back to Sub-Category Page"|trans }}</a>
 {% endblock %}
