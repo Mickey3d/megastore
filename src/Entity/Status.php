@@ -19,7 +19,7 @@ class Status
     private $id;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(type="string")
      */
     private $statusName;
 
@@ -29,7 +29,7 @@ class Status
     private $statusType;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\stock", inversedBy="status", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Stock", inversedBy="status", cascade={"persist", "remove"})
      */
     private $stock;
 

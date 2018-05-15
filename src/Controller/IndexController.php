@@ -3,7 +3,10 @@ namespace App\Controller;
 
 use App\Repository\UserRepository;
 use App\Repository\TeamRepository;
+use App\Repository\ItemRepository;
 use App\Repository\CategoryRepository;
+use App\Repository\StockRepository;
+use App\Repository\StatusRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,17 +37,20 @@ class IndexController extends Controller
     {
         return $this->render('Community/index.html.twig', [
           'users' => $userRepository->findAllTheUsers(),
-          'teams' => $teamRepository->findAll()
+          'teams' => $teamRepository->findAll(),
         ]);
     }
 
     /**
      * @Route("/admin/inventory", name="inventory_index", methods="GET")
      */
-    public function inventory(CategoryRepository $categoryRepository): Response
+    public function inventory(ItemRepository $itemRepository, CategoryRepository $categoryRepository, StockRepository $stockRepository, StatusRepository $statusRepository): Response
     {
         return $this->render('Admin/inventory/index.html.twig', [
+          'items' => $itemRepository->findAll(),
           'categories' => $categoryRepository->findAll(),
+          'stocks' => $stockRepository->findAll(),
+          'statuses' => $statusRepository->findAll()
         ]);
     }
 }

@@ -1,0 +1,155 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ "Item"|trans }}
+  -
+  {{ item.itemName }}
+{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <div class="m-3 row">
+      <div class="col-sm-12 col-md-12 user-details p-2">
+        <div class="user-info-block">
+          <div class="user-heading">
+            <h1 class="showViewTitle">{{ item.itemName }} - ref : {{ item.itemRef }}</h1>
+          </div>
+          <ul class="navigation nav nav-tabs">
+            <li class="nav-item">
+              <a class="nav-link active" data-toggle="tab" href="#information">
+                <span class="fas fa-info"></span>
+              </a>
+            </li>
+            <li>
+              <a data-toggle="tab" href="#subItems">
+                <span class="fas fa-clipboard-list"></span>
+              </a>
+            </li>
+            <li>
+              <a data-toggle="tab" href="#events">
+                <span class="fas fa-calendar"></span>
+              </a>
+            </li>
+            <li>
+              <a data-toggle="tab" href="#settings">
+                <span class="fas fa-cog"></span>
+              </a>
+            </li>
+          </ul>
+          <div class="user-body">
+            <div class="tab-content">
+              <div id="information" class="tab-pane active">
+                <h4>{{ "Item Information"|trans }}</h4>
+                <div class="row">
+                  <div class="col-md-10">
+                    <table class="table">
+                      <tbody>
+                        <tr>
+                          <th>{{ "Item Ref"|trans }}</th>
+                          <td>{{ item.itemRef }}</td>
+                        </tr>
+                        <tr>
+                          <th>{{ "Item Name"|trans }}</th>
+                          <td>{{ item.itemName }}</td>
+                        </tr>
+                        <tr>
+                          <th>{{ item.itemName }} {{ "In Stock"|trans }}</th>
+                          <td>{{ item.subItems.count }}</td>
+                        </tr>
+                        <tr>
+                          <th>{{ "Item Price"|trans }}</th>
+                          <td>{{ item.price }}</td>
+                        </tr>
+                        <tr>
+                          <th>{{ "Owner"|trans }}</th>
+                          <td>{{ item.owner }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <div id="subItems" class="tab-pane">
+                <div class="row">
+                  <div class="col-md-12 mt-0">
+                    <input type="search" class="form-control input-search" id="input-search" placeholder="{{ "Search Items"|trans }}...">
+                  </div>
+                  <div class="col-md-10 searchable-container ">
+                    <table class="table">
+                      <tbody>
+                        <th class="center">{{ "Item Stocks"|trans }}</th>
+                        {% for subItem in item.subiTems %}
+                            <tr class="items">
+                                <td>{{ subItem.subItemName }}</td>
+                                <td>{{ subItem.subItemDescription }}</td>
+                                <td>{{ subItem.status.statusName }}</td>
+                                <td>{{ subItem.stock.stockName }}</td>
+                                <td>
+                                    <a class="nav-link" href="{{ path('item_show', {'id': subItem.id}) }}">show</a>
+                                    <a class="nav-link" href="{{ path('stock_edit', {'id': subItem.id}) }}">edit</a>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="8">{{ "Nothing in stock"|trans }}</td>
+                            </tr>
+                        {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <div id="events" class="tab-pane">
+                <div class="row">
+                  <div class="col-md-10">
+                    <table class="table">
+                      <tbody>
+                        <tr>
+                          <th>{{ "Created at"|trans }}</th>
+                          <td>{{ item.createdAt ? item.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                        </tr>
+                        <tr>
+                          <th>{{ "Added at"|trans }}</th>
+                          <td>{{ item.addedAt ? item.addedAt|date('Y-m-d H:i:s') : '' }}</td>
+                        </tr>
+                        <tr>
+                          <th>{{ "Updated at"|trans }}</th>
+                          <td>{{ item.updatedAt ? item.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <div id="settings" class="tab-pane">
+                <div class="row">
+                  <div class="col-md-10">
+                    <table class="table">
+                      <tbody>
+                        <tr>
+                          <th>{{ "Enabled"|trans }}</th>
+                          <td>{{ item.enabled ? 'Yes' : 'No' }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 center">
+      <div class="col-md-12 d-flex justify-content-center">
+        {% if is_granted("ROLE_ADMIN") %}
+          <a class="btn btn-info btn-md" href="{{ path('item_edit', {'id': item.id}) }}">{{ "Edit"|trans }}</a>
+          {{ include('Admin/Inventory/item/_delete_form.html.twig') }}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  <hr class="m-1"/>
+  <a class="btn btn-primary btn-lg float-left" href="{{ path('inventory_index') }}">{{ "Back to list"|trans }}</a>
+{% endblock %}

@@ -8,10 +8,10 @@
   <div id="accordion">
     <div id="subMenu" class="card">
       <div class="card-header" id="subMenuHeader">
-          <a class="btn btn-primary btn-lg" href="{{ path('team_new') }}">{{ "Create new Item"|trans }}</a>
-          <a class="btn btn-primary btn-lg" href="{{ path('team_new') }}">{{ "Create new Stock"|trans }}</a>
+          <a class="btn btn-primary btn-lg" href="{{ path('item_new') }}">{{ "Create new Item"|trans }}</a>
+          <a class="btn btn-primary btn-lg" href="{{ path('stock_new') }}">{{ "Create new Stock"|trans }}</a>
           <a class="btn btn-info btn-outline-dark btn-lg" href="{{ path('admin_user_new') }}">{{ "Add Item in Inventory"|trans }}</a>
-          <a class="btn btn-success btn-md" href="{{ path('category_new') }}">{{ "Add Status"|trans }}</a>
+          <a class="btn btn-success btn-md" href="{{ path('status_new') }}">{{ "Add Status"|trans }}</a>
           <a class="btn btn-success btn-md mr-1" href="{{ path('category_new') }}">{{ "Add Category"|trans }}</a>
           <a class="btn btn-success btn-sm ml-0" href="{{ path('sub_category_new') }}">{{ "Add Sub-Category"|trans }}</a>
           <a class="btn btn-success btn-md" href="{{ path('user_edit', {'id': app.user.id}) }}">{{ "Add Tag"|trans }}</a>
@@ -135,17 +135,16 @@
       </div>
       <div class="tab-content">
         <div id="Inventory" class="tab-pane fade in active show">
-          <p>inventaire</p>
-          {{ include('Admin/Inventory/category/_category_list.html.twig') }}
+          {{ include('Admin/Inventory/item/_item_list.html.twig') }}
         </div>
         <div id="Stock" class="tab-pane fade">
-          <p> stock</p>
+          {{ include('Admin/Inventory/stock/_stock_list.html.twig') }}
         </div>
         <div id="Status" class="tab-pane fade">
-          <p>Status</p>
+          {{ include('Admin/Inventory/status/_status_list.html.twig') }}
         </div>
         <div id="Categories" class="tab-pane fade">
-
+          {{ include('Admin/Inventory/category/_category_list.html.twig') }}
         </div>
         <div id="Tags" class="tab-pane fade">
           <p>tags</p>

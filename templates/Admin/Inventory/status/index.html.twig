@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Status index{% endblock %}
+
+{% block body %}
+    <h1>Status index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>StatusName</th>
+                <th>StatusType</th>
+                <th>CreatedAt</th>
+                <th>UpdatedAt</th>
+                <th>Enabled</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for status in statuses %}
+            <tr>
+                <td>{{ status.id }}</td>
+                <td>{{ status.statusName }}</td>
+                <td>{{ status.statusType }}</td>
+                <td>{{ status.createdAt ? status.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ status.updatedAt ? status.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ status.enabled ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('status_show', {'id': status.id}) }}">show</a>
+                    <a href="{{ path('status_edit', {'id': status.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('status_new') }}">Create new</a>
+{% endblock %}

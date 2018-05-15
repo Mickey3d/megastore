@@ -31,29 +31,19 @@ class Item
     private $itemName;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\category")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Category")
      */
     private $category;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\subCategory")
+     * @ORM\ManyToOne(targetEntity="App\Entity\SubCategory")
      */
     private $subCategory;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\tag")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Tag")
      */
     private $tags;
-
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $price;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $owner;
 
     /**
      * @ORM\Column(type="datetime")
@@ -161,30 +151,6 @@ class Item
         if ($this->tags->contains($tag)) {
             $this->tags->removeElement($tag);
         }
-
-        return $this;
-    }
-
-    public function getPrice(): ?int
-    {
-        return $this->price;
-    }
-
-    public function setPrice(?int $price): self
-    {
-        $this->price = $price;
-
-        return $this;
-    }
-
-    public function getOwner(): ?string
-    {
-        return $this->owner;
-    }
-
-    public function setOwner(?string $owner): self
-    {
-        $this->owner = $owner;
 
         return $this;
     }

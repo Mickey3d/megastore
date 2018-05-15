@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ "Edit Status"|trans }}{% endblock %}
+
+{% block content %}
+  {% if is_granted('ROLE_ADMIN')%}
+    {{ include('Admin/Inventory/status/_form.html.twig', {'button_label': 'Update'}) }}
+  {% else %}
+    <div class="alert alert-danger">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+      <span>
+        <strong>{{ "You are not Administrator! You are not allowed to access !"|trans }}</strong>
+      </span>
+    </div>
+  {% endif %}
+  <a class="btn btn-primary btn-lg" href="{{ path('inventory_index') }}">{{ "Back to list"|trans }}</a>
+  <a class="btn btn-dark btn-md" href="{{ path('status_show', {'id': status.id}) }}">{{ "Back to Status Page"|trans }}</a>
+{% endblock %}

@@ -1,8 +1,8 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ "Sub-Category"|trans }}
+{% block title %}{{ "Status"|trans }}
   -
-  {{ sub_category.subEntityName }}
+  {{ status.statusName }}
 {% endblock %}
 
 {% block content %}
@@ -11,7 +11,7 @@
       <div class="col-sm-12 col-md-12 user-details p-2">
         <div class="user-info-block">
           <div class="user-heading">
-            <h3 class="showViewTitle">{{ sub_category.subEntityName }}</h3>
+            <h1 class="showViewTitle">{{ status.statusName }}</h1>
           </div>
           <ul class="navigation nav nav-tabs">
             <li class="nav-item">
@@ -33,36 +33,23 @@
           <div class="user-body">
             <div class="tab-content">
               <div id="information" class="tab-pane active">
-                <h4>{{ "Sub-Category Information"|trans }}</h4>
+                <h4>{{ "Status Information"|trans }}</h4>
                 <div class="row">
                   <div class="col-md-10">
                     <table class="table">
                       <tbody>
                         <tr>
-                          <th>{{ "Sub-Category Name"|trans }}</th>
-                          <td>{{ sub_category.subEntityName }}</td>
+                          <th>{{ "Status Name"|trans }}</th>
+                          <td>{{ status.statusName }}</td>
                         </tr>
                         <tr>
                           <th>{{ "Description"|trans }}</th>
-                          <td>{{ sub_category.subCategoryDescription }}</td>
+                          <td>{{ status.statusType }}</td>
                         </tr>
                         <tr>
-                          <th>{{ "Category"|trans }}</th>
-                          <td>{{ sub_category.category.categoryName }}</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-              <div id="settings" class="tab-pane">
-                <div class="row">
-                  <div class="col-md-10">
-                    <table class="table">
-                      <tbody>
-                        <tr>
-                          <th>{{ "Enabled"|trans }}</th>
-                          <td>{{ sub_category.enabled ? 'Yes' : 'No' }}</td>
+                          {% if status.stock.stockName %}{% endif %}
+                          <th>{{ "Linked Stock"|trans }}</th>
+                          <td>{{ status.stock.stockname }}</td>
                         </tr>
                       </tbody>
                     </table>
@@ -76,11 +63,25 @@
                       <tbody>
                         <tr>
                           <th>{{ "Created at"|trans }}</th>
-                          <td>{{ sub_category.createdAt ? sub_category.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                          <td>{{ status.createdAt ? status.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                         </tr>
                         <tr>
                           <th>{{ "Updated at"|trans }}</th>
-                          <td>{{ sub_category.updatedAt ? sub_category.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                          <td>{{ status.updatedAt ? status.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <div id="settings" class="tab-pane">
+                <div class="row">
+                  <div class="col-md-10">
+                    <table class="table">
+                      <tbody>
+                        <tr>
+                          <th>{{ "Enabled"|trans }}</th>
+                          <td>{{ status.enabled ? 'Yes' : 'No' }}</td>
                         </tr>
                       </tbody>
                     </table>
@@ -97,12 +98,12 @@
     <div class="col-md-12 center">
       <div class="col-md-12 d-flex justify-content-center">
         {% if is_granted("ROLE_ADMIN") %}
-          <a class="btn btn-info btn-md" href="{{ path('sub_category_edit', {'id': sub_category.id}) }}">{{ "Edit"|trans }}</a>
-          {{ include('Admin/Inventory/sub_category/_delete_form.html.twig') }}
+          <a class="btn btn-info btn-md" href="{{ path('status_edit', {'id': status.id}) }}">{{ "Edit"|trans }}</a>
+          {{ include('Admin/Inventory/status/_delete_form.html.twig') }}
         {% endif %}
       </div>
+      <a class="btn btn-primary btn-lg float-left" href="{{ path('inventory_index') }}">{{ "Back to list"|trans }}</a>
     </div>
   </div>
   <hr class="m-1"/>
-  <a class="btn btn-primary btn-lg float-left" href="{{ path('inventory_index') }}">{{ "Back to list"|trans }}</a>
 {% endblock %}

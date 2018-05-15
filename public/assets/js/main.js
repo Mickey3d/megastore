@@ -6,15 +6,11 @@ $(document).ready(function() {
   });
 
   var topValueMax = $('#subMenu').css('height');
-  var barSubMenuheight = $('#barSubMenu').css('height');
   var subMenuHeaderHeight = $('#subMenuHeader').css('height');
-  var topValueMin = $('#subMenu').css('height');
-  console.log(topValueMax);
-  console.log(barSubMenuheight);
-  console.log(subMenuHeaderHeight);
-
-
+  var topValueMin = $('#barSubMenu').css('height');
   $('.mainContent').css("margin-top", topValueMax);
+  $('#subMenuHeader').slideUp("slow");
+  $('.mainContent').css("margin-top", topValueMin);
 
   $('#showOptionBtn').on('click', function() {
     $('#subMenuHeader').slideDown("slow");
@@ -25,7 +21,7 @@ $(document).ready(function() {
 
   $('#hideOptionBtn').on('click', function() {
     $('#subMenuHeader').slideUp("slow");
-    $('.mainContent').css("margin-top", barSubMenuheight);
+    $('.mainContent').css("margin-top", topValueMin);
     $('#showOptionBtn').show();
     $('#hideOptionBtn').hide();
   });

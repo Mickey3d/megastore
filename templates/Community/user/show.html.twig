@@ -6,12 +6,12 @@
   <div class="container">
     <div  class="m-2 row">
       <div class="col-sm-12 col-md-12 user-details">
-        <div class="user-image p-4">
+        <div class="user-image pt-5">
           <img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-2.jpg" class="rounded-circle z-depth-0" alt="avatar image">
         </div>
         <div class="user-info-block">
           <div class="user-heading">
-            <h3>{{ user.username }}</h3>
+            <h1 class="showViewTitle mt-0">{{ user.username }}</h1>
           </div>
           <ul class="navigation nav nav-tabs">
             <li class="nav-item">
@@ -144,8 +144,8 @@
           {{ include('Admin/Community/user/_delete_form.html.twig') }}
         {% endif %}
       </div>
-      <a class="btn btn-primary btn-lg float-left" href="{{ path('community_index') }}">{{ "Back to list"|trans }}</a>
     </div>
   </div>
   <hr class="m-1"/>
+  <a class="btn btn-primary btn-lg float-left" href="{{ path('community_index') }}">{{ "Back to list"|trans }}</a>
 {% endblock %}

@@ -9,12 +9,39 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * @Route("/admin/subcategory")
  */
 class SubCategoryController extends Controller
 {
+
+    /**
+    * @Route("/get-subcategories-from-category", name="sub_category_item_list", methods="GET")
+    */
+    public function listSubCategoriesOfCategoryAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $subCategoriesRepository = $em->getRepository(SubCategory::class);
+
+        // Search the SubCategories that belongs to the Category with the given id as GET parameter "categoryid"
+        $subCategories = $subCategoriesRepository->createQueryBuilder("q")
+            ->where("q.category = :categoryid")
+            ->setParameter("categoryid", $request->query->get("categoryid"))
+            ->getQuery()
+            ->getResult();
+
+            $responseArray = array();
+            foreach($subCategories as $subCategory){
+              $responseArray[] = array(
+                "id" => $subCategory->getId(),
+                "name" => $subCategory->getSubEntityName()
+              );
+            }
+     return new JsonResponse($responseArray);
+    }
+
     /**
      * @Route("/", name="sub_category_index", methods="GET")
      */
@@ -88,4 +115,6 @@ class SubCategoryController extends Controller
 
         return $this->redirectToRoute('inventory_index');
     }
+
+
 }

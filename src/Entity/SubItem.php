@@ -28,10 +28,20 @@ class SubItem
     private $item;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\status")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Status")
      * @ORM\JoinColumn(nullable=false)
      */
     private $status;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $price;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $owner;
 
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -39,7 +49,7 @@ class SubItem
     private $comment;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\stock", inversedBy="subItems")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Stock", inversedBy="subItems")
      */
     private $stock;
 
@@ -105,6 +115,31 @@ class SubItem
     public function setStatus(?status $status): self
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+
+    public function getPrice(): ?int
+    {
+        return $this->price;
+    }
+
+    public function setPrice(?int $price): self
+    {
+        $this->price = $price;
+
+        return $this;
+    }
+
+    public function getOwner(): ?string
+    {
+        return $this->owner;
+    }
+
+    public function setOwner(?string $owner): self
+    {
+        $this->owner = $owner;
 
         return $this;
     }

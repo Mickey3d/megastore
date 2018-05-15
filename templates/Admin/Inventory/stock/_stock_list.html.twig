@@ -1,0 +1,83 @@
+<div class="container white">
+  <div class="row">
+    <div id="stocks-list" class="searchable-container row">
+      {% for stock in stocks %}
+        <div id="heading-stock-{{ stock.id }}" class="items col-md-12 clearfix center">
+          <div class="info-block block-info clearfix row">
+            <div class="col-sm-12 col-md-3 center">
+              <div class="center">
+                <span class="fab fa-stack-overflow fa-lg"></span>
+                <h5 class="fs-14 bold center text-uppercase">{{ stock.stockName }}</h5>
+              </div>
+            </div>
+            <div class="col-sm-12 col-md-5">
+              <div class="row">
+                <div class="col-sm-12 col-md-3">
+                  <i class="fas fa-map m-1"></i>
+                  <h6 class="title bold center text-uppercase">{{ stock.location }}</h6>
+                </div>
+                <div class="col-sm-12 col-md-9">
+                  {% if stock.stockDescription | length > 80 %}
+                    <h4 class="fs-12 float-left title m-1">
+                      <i class="fas fa-info-circle m-1"></i>{{ stock.stockDescription|truncate(80) }}
+                    </h4>
+                  {% else %}
+                    <h4 class="fs-12 float-left title m-1">
+                      <i class="fas fa-info-circle m-1"></i>{{ stock.stockDescription }}
+                    </h4>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-12 col-md-4 center">
+              <a class="float-right p-1 btn btn-floating btn-outline-success btn-sm mt-0 " href="{{ path('stock_show', {'id': stock.id}) }}">
+                {{ "Show"|trans }}
+              </a>
+              {% if is_granted("ROLE_ADMIN") %}
+                <a class="float-right p-1 btn btn-floating btn-outline-info btn-sm mt-0" href="{{ path('stock_edit', {'id': stock.id}) }}">
+                  {{ "Edit"|trans }}
+                </a>
+              {% endif %}
+              <div id="heading-stock-{{ stock.id }}" class="center">
+                <button class="btn-floating fs-60-pc center btn-outline-dark p-1" data-toggle="collapse" data-target="#collapse-stock-{{ stock.id }}" aria-expanded="false" aria-controls="collapse-stock-{{ stock.id }}">
+                  {{ "Stock Info"|trans}}
+                </button>
+              </div>
+            </div>
+            <div class="col-sm-12 col-md-12">
+              <div class="shadowed-2 row d-flex justify-content-center">
+                <div class="center col-sm-12 col-md-2">
+                  {% if stock.MainStock == true %}
+                    <span class="text-uppercase badge badge-success badge-md m-0">{{ "Main Stock"|trans }}</span>
+                  {% endif %}
+                </div>
+                <div class="col-sm-12 col-md-5 float-left media-meta">
+                  <i class="p-1 fas fa-calendar"></i>{{ "Created at"|trans }}
+                  :
+                  {{ stock.createdAt ? stock.createdAt|date('Y-m-d H:i:s') : '' }}
+                </div>
+                <div class="col-sm-12 col-md-5 m-left-5 float-left  media-meta">
+                  <i class="p-1 fas fa-calendar"></i>{{ "Updated at"|trans }}
+                  :
+                  {{ stock.updatedAt ? stock.updatedAt|date('Y-m-d H:i:s') : '' }}
+                </div>
+              </div>
+            </div>
+            <div id="collapse-stock-{{ stock.id }}" class="collapse subItemsBlock" aria-labelledby="heading-stock-{{ stock.id }}" data-parent="#stocks-list">
+              <div>
+                <div id="info-stock-{{ stock.id }}" class="searchable-container tab-pane">
+                  <p class="fs-14 float-left text-uppercase">{{ "Stock Info"|trans}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% else %}
+        <div>
+          <h3 class="center title">{{ "No Stock found"|trans }}</h3>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+<caption>{{ "List of Stocks"|trans }}</caption>

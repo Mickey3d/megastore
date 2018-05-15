@@ -1,0 +1,171 @@
+<div class="container white">
+  <div class="row">
+    <div id="items-list" class="searchable-container row">
+      {% for item in items %}
+        <div id="heading-item-{{ item.id }}" class="items col-md-12 clearfix center">
+          <div class="info-block block-info clearfix row">
+            <div class="col-sm-6 col-md-2 center  p-0 m-0 border center">
+              <div class="center">
+                <i class="float-left ml-2 fas fa-barcode fa-lg"></i>
+                <h5 class="fs-14 bold center text-uppercase mt-2 border-bottom">
+                  {{ item.itemRef }}
+                </h5>
+                <i class="float-left ml-2 fas fa-info-circle fa-lg"></i>
+                <h5 title="{{ item.itemName }}" class="fs-12 title bold center text-uppercase">
+                  {% if item.itemName| length > 20 %}
+                    {{ item.itemName|truncate(20) }}
+                  {% else %}
+                    {{ item.itemName }}
+                  {% endif %}</h5>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-3 center p-0 m-0 border">
+              {% if item.category.categoryName is defined %}
+                <h4 class="fs-12 title m-1  border-bottom">
+                  <i class="fas fa-sitemap m-1"></i>{{ "Cat"|trans }}
+                  :
+                  {{ item.category.categoryName }}
+                </h4>
+              {% endif %}
+              {% if item.subCategory.subEntityName is defined %}
+                <h4 class="fs-12 title m-1">
+                  <i class="fas fa-sitemap m-1"></i>{{ "Sub-Cat"|trans }}
+                  :
+                  {{ item.subCategory.subEntityName }}
+                </h4>
+              {% endif %}
+            </div>
+            <div class="col-sm-4 col-md-1 m-0 p-0 border center">
+              <p class="m-0 bold text-uppercase">{{ "Total"|trans }}</p>
+              <div class="border m-0">
+                <p class="m-0 bold">{{ item.subItems.count }}</p>
+              </div>
+            </div>
+            <div class="col-sm-4 col-md-1 m-0 p-0 border center">
+              <p class="m-0 bold text-uppercase">{{ "In Store"|trans }}</p>
+              <div class="border m-0">
+                <p class="m-0 bold">{{ item.subItems.count }}</p>
+              </div>
+            </div>
+            <div class="col-sm-4 col-md-1 m-0 p-0 border center">
+              <p class="m-0 bold text-uppercase">{{ "Out"|trans }}</p>
+              <div class="border m-0">
+                <p class="m-0 bold">{{ item.subItems.count }}</p>
+              </div>
+            </div>
+            <div class="col-sm-12 col-md-4 center">
+              <a class="float-right p-1 btn btn-floating btn-outline-success btn-sm mt-0 " href="{{ path('item_show', {'id': item.id}) }}">
+                {{ "Show"|trans }}
+              </a>
+              {% if is_granted("ROLE_ADMIN") %}
+                <a class="float-right p-1 btn btn-floating btn-outline-info btn-sm mt-0" href="{{ path('item_edit', {'id': item.id}) }}">
+                  {{ "Edit"|trans }}
+                </a>
+              {% endif %}
+              <div id="heading-item-{{ item.id }}"  class="m-0 p-0 float-left">
+                <button class="btn-floating fs-60-pc center btn-outline-dark p-1" data-toggle="collapse" data-target="#collapse-item-{{ item.id }}" aria-expanded="false" aria-controls="collapse-item-{{ item.id }}">
+                  {{ "Items Stocks"|trans}}   <i class="fas fa-eye"></i>
+                </button>
+              </div>
+            </div>
+            <div class="col-sm-12 col-md-12">
+              <div class="shadowed-2 row d-flex justify-content-center">
+                <div class="center col-sm-12 col-md-2">
+                  {% if item.enabled == true %}
+                    <span class="text-uppercase badge badge-success badge-md m-0">{{ "Enabled"|trans }}</span>
+                  {% else %}
+                    <span class="text-uppercase badge badge-danger badge-md m-0">{{ "Disabled"|trans }}</span>
+                  {% endif %}
+                </div>
+                <div class="col-sm-12 col-md-5 float-left media-meta">
+                  <i class="p-1 fas fa-calendar"></i>{{ "Created at"|trans }}
+                  :
+                  {{ item.createdAt ? item.createdAt|date('Y-m-d H:i:s') : '' }}
+                </div>
+                <div class="col-sm-12 col-md-5 m-left-5 float-left  media-meta">
+                  <i class="p-1 fas fa-calendar"></i>{{ "Updated at"|trans }}
+                  :
+                  {{ item.updatedAt ? item.updatedAt|date('Y-m-d H:i:s') : '' }}
+                </div>
+              </div>
+            </div>
+            <div id="collapse-item-{{ item.id }}" class="collapse subItemsBlock" aria-labelledby="heading-item-{{ item.id }}" data-parent="#items-list">
+              <div>
+                <div id="subItems-item-{{ item.id }}" class="searchable-container tab-pane">
+                  <p class="fs-14 float-left text-uppercase">{{ "Sub-Items"|trans}}</p>
+                  {% for subItem in item.subItems %}
+                    <div id="heading-item-{{ subItem.id }}" class="items col-md-10 float-right clearfix center">
+                      <div class="info-block block-info clearfix row">
+                        <div class="col-sm-12 col-md-3 center">
+                          <div class="center">
+                            <h5 class="fs-14 bold center">{{ subItem.subItemRef }}</h5>
+                          </div>
+                        </div>
+                        <div class="col-sm-12 col-md-5">
+                          {% if subItem.comment | length > 50 %}
+                            <h4 class="fs-12 float-left title m-1">
+                              <i class="fas fa-info-circle m-1"></i>{{ subItem.setComment|truncate(50) }}
+                            </h4>
+                          {% else %}
+                            <h4 class="fs-12 float-left title m-1">
+                              <i class="fas fa-info-circle m-1"></i>{{ subItem.comment }}
+                            </h4>
+                          {% endif %}
+                        </div>
+                        <div class="col-sm-12 col-md-4 center">
+                          <a class="float-right p-1 btn btn-floating btn-outline-success btn-sm mt-0 " href="{{ path('sub_category_show', {'id': subItem.id}) }}">
+                            {{ "Show"|trans }}
+                          </a>
+                          {% if is_granted("ROLE_ADMIN") %}
+                            <a class="float-right p-1 btn btn-floating btn-outline-info btn-sm mt-0" href="{{ path('sub_category_edit', {'id': subItem.id}) }}">
+                              {{ "Edit"|trans }}
+                            </a>
+                          {% endif %}
+                        </div>
+                        <div class="col-sm-12 col-md-12">
+                          <div class="shadowed-2 row d-flex justify-content-center">
+                            <div class="center col-sm-12 col-md-2">
+                              {% if subItem.enabled == true %}
+                                <span class="fs-60-pc badge badge-success badge-sm">{{ "Enabled"|trans }}</span>
+                              {% else %}
+                                <span class="fs-60-pc badge badge-danger badge-sm">{{ "Disabled"|trans }}</span>
+                              {% endif %}
+                              {% if subItem.inStore == true %}
+                                <span class="fs-60-pc badge badge-success badge-sm">{{ "In Store"|trans }}</span>
+                              {% else %}
+                                <span class="fs-60-pc badge badge-danger badge-sm">{{ "Out of Store"|trans }}</span>
+                              {% endif %}
+                            </div>
+                            <div class="col-sm-12 col-md-5 float-left media-meta">
+                              <i class="p-1 fas fa-calendar"></i>{{ "Created at"|trans }}
+                              :
+                              {{ subItem.createdAt ? subItem.createdAt|date('Y-m-d H:i:s') : '' }}
+                            </div>
+                            <div class="col-sm-12 col-md-5 m-left-5 float-left  media-meta">
+                              <i class="p-1 fas fa-calendar"></i>{{ "Updated at"|trans }}
+                              :
+                              {{ subItem.updatedAt ? subItem.updatedAt|date('Y-m-d H:i:s') : '' }}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  {% else %}
+                    <br>
+                    <h3 class="center title">{{ "No Sub-Items found"|trans }}</h3>
+                  {% endfor %}
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      {% else %}
+        <div>
+          <h3 class="center title">{{ "No Item found"|trans }}</h3>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+<caption>{{ "List of Items & Sub-Items"|trans }}</caption>

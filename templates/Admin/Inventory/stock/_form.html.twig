@@ -1,0 +1,70 @@
+<!-- Card -->
+<div class="card">
+  <!-- Card body -->
+  <div class="card-body">
+    {{ form_start(form) }}
+    {{ form_widget(form._token) }}
+    {% if not form.vars.valid %}
+      <div class="alert alert-danger">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <span>
+          <strong>{{ form_errors(form) }}</strong>
+        </span>
+      </div>
+    {% endif %}
+    <!-- Material form register -->
+    <form>
+      <div class="row">
+        <div class="col-sm-12">
+          {% if new is defined %}
+            <h1 class="showViewTitle center">{{ "New Stock"|trans }}</h1>
+          {% else %}
+            <h1 class="showViewTitle center">{{ "Edit Stock"|trans }}</h1>
+          {% endif %}
+          <hr>
+        </div>
+        <div class="col-md-6">
+          <!-- Material input text -->
+          <div class="md-form">
+            <i class="fab fa-stack-overflow prefix grey-text"></i>
+            {{ form_errors(form.stockName) }}
+            {{ form_widget(form.stockName, {'attr': {'id': 'stockName', 'name': 'stockName', 'class': 'form-control', 'aria-label': 'Large', 'aria-describedby': 'inputGroup-sizing-sm' }}) }}
+            <label for="stockName" class="font-weight-light">{{ "Stock Name"|trans }}</label>
+          </div>
+          <div class="form-group">
+            {{ form_errors(form.stockDescription) }}
+            <label for="stockDescription">{{ "Stock Description"|trans }}:</label>
+            {{ form_widget(form.stockDescription, {'attr': {'id': 'stockDescription', 'rows': '8', 'name': 'stockDescription', 'class': 'form-control', 'aria-label': 'Large', 'aria-describedby': 'inputGroup-sizing-sm' }}) }}
+          </div>
+        </div>
+        <div class="col-md-6 p-5">
+          <div class="md-form">
+            <i class="fas fa-map prefix grey-text"></i>
+            {{ form_errors(form.location) }}
+            {{ form_widget(form.location, {'attr': {'id': 'location', 'name': 'location', 'class': 'form-control', 'aria-label': 'Large', 'aria-describedby': 'inputGroup-sizing-sm' }}) }}
+            <label for="stockName" class="font-weight-light">{{ "Stock Location"|trans }}</label>
+          </div>
+          <div class="center p-4">
+            <label class="btn btn-success">
+              {{ form_widget(form.mainStock, {'attr': {'id': 'mainStock', 'name': 'mainStock','autocomplete': 'off', 'class': 'filled-in form-check-input', 'aria-label': 'Large', 'aria-describedby': 'inputGroup-sizing-sm' }}) }}
+              {{ "Main Stock"|trans }}
+            </label>
+          </div>
+        </div>
+        {{ form_rest(form) }}
+        <div class="text-center py-4 mt-3">
+          <button class="btn btn-green center" type="submit">{{ button_label|default('Save') }}</button>
+        </div>
+
+      </div>
+    </form>
+    <!-- Material form register -->
+    {{ form_end(form) }}
+    {% if new is not defined %}
+      <div class="float-right">
+        {{ include('Admin/Inventory/stock/_delete_form.html.twig') }}
+      </div>
+    {% endif %}
+  </div>
+  <!-- Card body -->
+</div>

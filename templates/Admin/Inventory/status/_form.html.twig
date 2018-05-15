@@ -17,27 +17,43 @@
       <div class="row">
         <div class="col-sm-12">
           {% if new is defined %}
-            <h1  class="showViewTitle center">{{ "New Category"|trans }}</h1>
+            <h1 class="showViewTitle center">{{ "New Status"|trans }}</h1>
           {% else %}
-            <h1 class="showViewTitle center">{{ "Edit Category"|trans }}</h1>
+            <h1 class="showViewTitle center">{{ "Edit Status"|trans }}</h1>
           {% endif %}
           <hr>
         </div>
         <div class="col-md-6">
           <!-- Material input text -->
           <div class="md-form">
-            <i class="fas fa-people-carry prefix grey-text"></i>
-            {{ form_errors(form.categoryName) }}
-            {{ form_widget(form.categoryName, {'attr': {'id': 'materialFormCardName1', 'name': 'categoryName', 'class': 'form-control', 'aria-label': 'Large', 'aria-describedby': 'inputGroup-sizing-sm' }}) }}
-            <label for="materialFormCardName1" class="font-weight-light">{{ "Category Name"|trans }}</label>
-          </div>
-          <div class="form-group">
-            {{ form_errors(form.categoryDescription) }}
-            <label for="description">{{ "Category Description"|trans }}:</label>
-            {{ form_widget(form.categoryDescription, {'attr': {'id': 'description', 'rows': '8', 'name': 'description', 'class': 'form-control', 'aria-label': 'Large', 'aria-describedby': 'inputGroup-sizing-sm' }}) }}
+            <i class="fab fa-stack-overflow prefix grey-text"></i>
+            {{ form_errors(form.statusName) }}
+            {{ form_widget(form.statusName, {'attr': {'id': 'statusName', 'name': 'statusName', 'class': 'form-control', 'aria-label': 'Large', 'aria-describedby': 'inputGroup-sizing-sm' }}) }}
+            <label for="statusName" class="font-weight-light">{{ "Status Name"|trans }}</label>
           </div>
         </div>
         <div class="col-md-6 p-5">
+          <div class="center">
+          <label class="form-control p-2" for="team">{{ "Linked Stock"|trans }}</label>
+          <div class="md-form  p-1  m-1 center">
+
+            {{ form_errors(form.stock) }}
+            {{ form_widget(form.stock, {'attr': {'id': 'stock', 'name': 'stock', 'class': 'p-3 m-1', 'aria-label': 'Large'}}) }}
+          </div>
+          </div>
+          <div class="form-control p-1  m-1 center">
+            <label class="form-control" for="roles">{{ "Type"|trans }}</label>
+            {{ form_errors(form.statusType) }}
+            <div class="row">
+            {% for child in form.statusType %}
+            <div class="col-md-3">
+              {{ form_label(child) }}
+              {{ form_widget(child, { 'attr': {'class': 'form-control text-uppercase', 'name': 'options'}}) }}
+            </div>
+         {% endfor %}
+
+       </div>
+            </div>
           <div class="center p-4">
             <label class="btn btn-success">
               {{ form_widget(form.enabled, {'attr': {'id': 'enabled', 'name': 'enabled','autocomplete': 'off', 'class': 'filled-in form-check-input', 'aria-label': 'Large', 'aria-describedby': 'inputGroup-sizing-sm' }}) }}
@@ -56,7 +72,7 @@
     {{ form_end(form) }}
     {% if new is not defined %}
       <div class="float-right">
-        {{ include('Admin/Inventory/category/_delete_form.html.twig') }}
+        {{ include('Admin/Inventory/status/_delete_form.html.twig') }}
       </div>
     {% endif %}
   </div>

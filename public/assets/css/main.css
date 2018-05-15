@@ -56,6 +56,9 @@
 }
 
 #showOptionBtn {
+
+}
+#hideOptionBtn {
   display: none;
 }
 
@@ -95,7 +98,6 @@
   cursor: cell;
 }
 
-
 #team {
   background: #fff !important;
 }
@@ -130,7 +132,9 @@ section .section-title {
   margin-bottom: 50px;
   text-transform: uppercase;
 }
-
+.message-info {
+  margin-top: 50px;
+}
 /*  LIST VIEW */
 
 .glyphicon-lg {
@@ -552,9 +556,7 @@ body {
 }
 
 .user-info-block .user-body {
-  float: left;
   padding: 5%;
-  width: 90%;
 }
 
 .user-body .tab-content>div {
@@ -582,6 +584,14 @@ body {
 .media-meta {
   font-size: 10px;
   color: #999;
+}
+
+.showViewTitle {
+    padding-top: 20px;
+    color: #2BBCDE;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 1.8rem;
 }
 
 .title {
