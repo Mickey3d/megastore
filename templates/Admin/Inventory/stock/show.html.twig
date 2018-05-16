@@ -85,8 +85,8 @@
                                 <td>{{ subItem.subItemName }}</td>
                                 <td>{{ subItem.subItemDescription }}</td>
                                 <td>
-                                    <a class="nav-link" href="{{ path('stock_show', {'id': subItem.id}) }}">show</a>
-                                    <a class="nav-link" href="{{ path('stock_edit', {'id': subItem.id}) }}">edit</a>
+                                    <a class="nav-link" href="{{ path('sub_item_show', {'id': subItem.id}) }}">show</a>
+                                    <a class="nav-link" href="{{ path('sub_item_edit', {'id': subItem.id}) }}">edit</a>
                                 </td>
                             </tr>
                         {% else %}

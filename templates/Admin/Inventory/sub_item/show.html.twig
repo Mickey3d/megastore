@@ -1,0 +1,138 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ "Sub Item"|trans }}
+  -
+  {{ sub_item.subItemRef }}
+{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <div class="m-3 row">
+      <div class="col-sm-12 col-md-12 user-details p-2">
+        <div class="user-info-block">
+          <div class="user-heading">
+            <h1 class="showViewTitle">{{ sub_item.item.itemName }}
+              - ref :
+              {{ sub_item.subItemRef }}</h1>
+          </div>
+          <ul class="navigation nav nav-tabs">
+            <li class="nav-item">
+              <a class="nav-link active" data-toggle="tab" href="#information">
+                <span class="fas fa-info"></span>
+              </a>
+            </li>
+            <li>
+              <a data-toggle="tab" href="#events">
+                <span class="fas fa-calendar"></span>
+              </a>
+            </li>
+            <li>
+              <a data-toggle="tab" href="#settings">
+                <span class="fas fa-cog"></span>
+              </a>
+            </li>
+          </ul>
+          <div class="user-body">
+            <div class="tab-content">
+              <div id="information" class="tab-pane active">
+                <h4>{{ "Sub Item Information"|trans }}</h4>
+                <div class="row">
+                  <div class="col-md-10">
+                    <table class="table">
+                      <tbody>
+                        <tr>
+                          <th>{{ "Item Ref"|trans }}</th>
+                          <td>{{ sub_item.subItemRef }}</td>
+                        </tr>
+                        <tr>
+                          <th>{{ "Item Name"|trans }}</th>
+                          <td><a href="{{ path('item_show', {'id': sub_item.item.id}) }}">{{ sub_item.item.itemName }}</a></td>
+                        </tr>
+                        <tr>
+                          <th>{{ "Item Price"|trans }}</th>
+                          <td>{{ sub_item.price }}</td>
+                        </tr>
+                        <tr>
+                          <th>{{ "Owner"|trans }}</th>
+                          <td>{{ sub_item.owner }}</td>
+                        </tr>
+                        <tr>
+                          <th>{{ "Comment"|trans }}</th>
+                          <td>{{ sub_item.comment }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <div id="events" class="tab-pane">
+                <div class="row">
+                  <div class="col-md-10">
+                    <table class="table">
+                      <tbody>
+                        <tr>
+                          <th>{{ "Created at"|trans }}</th>
+                          <td>{{ sub_item.createdAt ? sub_item.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                        </tr>
+                        <tr>
+                          <th>{{ "Updated at"|trans }}</th>
+                          <td>{{ sub_item.updatedAt ? sub_item.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <div id="settings" class="tab-pane">
+                <div class="row">
+                  <div class="col-md-10">
+                    <table class="table">
+                      <tbody>
+                        {% if sub_item.status.statusName is defined %}
+                        <tr>
+                          <th>{{ "Status"|trans }}</th>
+                          <td>{{ sub_item.status.statusName }}</td>
+                        </tr>
+                        {% endif %}
+                        {% if sub_item.stock.stockName is defined %}
+                        <tr>
+                          <th>{{ "Stock"|trans }}</th>
+                          <td>{{ sub_item.stock.stockName }}</td>
+                        </tr>
+                        {% endif %}
+                        <tr>
+                          <th>{{ "Enabled"|trans }}</th>
+                          <td>{{ sub_item.enabled ? 'Yes' : 'No' }}</td>
+                        </tr>
+                        <tr>
+                          <th>{{ "In Store"|trans }}</th>
+                          <td>{{ sub_item.inStore ? 'Yes' : 'No' }}</td>
+                        </tr>
+                        <tr>
+                          <th>{{ "Reserved"|trans }}</th>
+                          <td>{{ sub_item.reserved ? 'Yes' : 'No' }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 center">
+      <div class="col-md-12 d-flex justify-content-center">
+        {% if is_granted("ROLE_ADMIN") %}
+          <a class="btn btn-info btn-md" href="{{ path('sub_item_edit', {'id': sub_item.id}) }}">{{ "Edit"|trans }}</a>
+          {{ include('Admin/Inventory/sub_item/_delete_form.html.twig') }}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  <hr class="m-1"/>
+  <a class="btn btn-primary btn-lg float-left" href="{{ path('inventory_index') }}">{{ "Back to list"|trans }}</a>
+{% endblock %}

@@ -510,6 +510,7 @@ body {
 }
 
 .user-image img {
+  max-height: 100px;
   clear: both;
   margin: auto;
   position: relative;

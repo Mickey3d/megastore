@@ -55,14 +55,6 @@
                           <th>{{ item.itemName }} {{ "In Stock"|trans }}</th>
                           <td>{{ item.subItems.count }}</td>
                         </tr>
-                        <tr>
-                          <th>{{ "Item Price"|trans }}</th>
-                          <td>{{ item.price }}</td>
-                        </tr>
-                        <tr>
-                          <th>{{ "Owner"|trans }}</th>
-                          <td>{{ item.owner }}</td>
-                        </tr>
                       </tbody>
                     </table>
                   </div>
@@ -74,18 +66,24 @@
                     <input type="search" class="form-control input-search" id="input-search" placeholder="{{ "Search Items"|trans }}...">
                   </div>
                   <div class="col-md-10 searchable-container ">
+                    <i class="badge badge-pill badge-info badge-lg text-uppercase">{{ "Quantity"|trans }} : {{ item.subItems.count }}</i>
                     <table class="table">
                       <tbody>
                         <th class="center">{{ "Item Stocks"|trans }}</th>
                         {% for subItem in item.subiTems %}
                             <tr class="items">
-                                <td>{{ subItem.subItemName }}</td>
-                                <td>{{ subItem.subItemDescription }}</td>
-                                <td>{{ subItem.status.statusName }}</td>
-                                <td>{{ subItem.stock.stockName }}</td>
+                                <td>{{ subItem.subItemRef}}</td>
+                                <td>{{ "Reserved"|trans }} : {{ subItem.reserved ? 'Yes' : 'No' }}</td>
+                                <td>{{ "In Store"|trans }} : {{ subItem.inStore ? 'Yes' : 'No' }}</td>
+                                {% if sub_item.status.statusName is defined %}
+                                <td>{{ "Status"|trans }} : {{ sub_item.status.statusName }}</td>
+                                {% endif %}
+                                {% if sub_item.stock.stockName is defined %}
+                                <td>{{ "Stock"|trans }} : {{ sub_item.tock.stockName }}</td>
+                                {% endif %}
                                 <td>
-                                    <a class="nav-link" href="{{ path('item_show', {'id': subItem.id}) }}">show</a>
-                                    <a class="nav-link" href="{{ path('stock_edit', {'id': subItem.id}) }}">edit</a>
+                                    <a class="float-right p-1 btn btn-floating btn-outline-success btn-sm mt-0" href="{{ path('item_show', {'id': subItem.id}) }}">{{ "Show"|trans }}</a>
+                                    <a class="float-right p-1 btn btn-floating btn-outline-info btn-sm mt-0" href="{{ path('stock_edit', {'id': subItem.id}) }}">{{ "Edit"|trans }}</a>
                                 </td>
                             </tr>
                         {% else %}

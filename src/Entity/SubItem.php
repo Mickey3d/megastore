@@ -29,7 +29,7 @@ class SubItem
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Status")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $status;
 

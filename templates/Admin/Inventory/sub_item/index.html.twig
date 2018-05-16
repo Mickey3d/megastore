@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SubItem index{% endblock %}
+
+{% block body %}
+    <h1>SubItem index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>SubItemRef</th>
+                <th>Price</th>
+                <th>Owner</th>
+                <th>Comment</th>
+                <th>CreatedAt</th>
+                <th>UpdatedAt</th>
+                <th>Enabled</th>
+                <th>InStore</th>
+                <th>Reserved</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for sub_item in sub_items %}
+            <tr>
+                <td>{{ sub_item.id }}</td>
+                <td>{{ sub_item.subItemRef }}</td>
+                <td>{{ sub_item.price }}</td>
+                <td>{{ sub_item.owner }}</td>
+                <td>{{ sub_item.comment }}</td>
+                <td>{{ sub_item.createdAt ? sub_item.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ sub_item.updatedAt ? sub_item.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ sub_item.enabled ? 'Yes' : 'No' }}</td>
+                <td>{{ sub_item.inStore ? 'Yes' : 'No' }}</td>
+                <td>{{ sub_item.reserved ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('sub_item_show', {'id': sub_item.id}) }}">show</a>
+                    <a href="{{ path('sub_item_edit', {'id': sub_item.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="11">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('sub_item_new') }}">Create new</a>
+{% endblock %}

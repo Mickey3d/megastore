@@ -1,0 +1,98 @@
+<!-- Card -->
+<div class="card">
+  <!-- Card body -->
+  <div class="card-body">
+    {{ form_start(form) }}
+    {{ form_widget(form._token) }}
+    {% if not form.vars.valid %}
+      <div class="message-info alert alert-danger">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <span>
+          <strong>{{ form_errors(form) }}</strong>
+        </span>
+      </div>
+    {% endif %}
+    <!-- Material form register -->
+    <form>
+      <div class="row">
+        <div class="col-sm-12">
+          {% if new is defined %}
+            <h1 class="showViewTitle center">{{ "New Sub Item"|trans }}</h1>
+          {% else %}
+            <h1 class="showViewTitle center">{{ "Edit Sub Item"|trans }}</h1>
+          {% endif %}
+          <hr>
+        </div>
+        <div class="col-md-6">
+          <div class="md-form">
+            {{ form_errors(form.item) }}
+            {{ form_widget(form.item, {'attr': {'id': 'item', 'name': 'item', 'class': 'text-uppercase form-control', 'aria-label': 'Large', 'aria-describedby': 'inputGroup-sizing-sm' }}) }}
+          </div>
+          <label for="item" class="font-weight-light"><i class="fas fa-info-circle fa-lg prefix grey-text mr-1"></i>{{ "Item Name"|trans }}</label>
+          <div class="md-form">
+            <i class="fas fa-barcode prefix grey-text"></i>
+            {{ form_errors(form.subItemRef) }}
+            {{ form_widget(form.subItemRef, {'attr': {'id': 'subItemRef', 'name': 'subItemRef', 'class': 'form-control', 'aria-label': 'Large', 'aria-describedby': 'inputGroup-sizing-sm' }}) }}
+            <label for="itemRef" class="font-weight-light">{{ "Sub Item Ref"|trans }}</label>
+          </div>
+          <div class="md-form">
+            <i class="fas fa-calendar prefix grey-text"></i>
+            {{ form_errors(form.price) }}
+            {{ form_widget(form.price, {'attr': {'id': 'price', 'name': 'price', 'class': 'form-control', 'aria-label': 'Large', 'aria-describedby': 'inputGroup-sizing-sm' }}) }}
+            <label for="price" class="font-weight-light">{{ "Price"|trans }}</label>
+          </div>
+          <div class="md-form">
+            <i class="fas fa-user-circle prefix grey-text"></i>
+            {{ form_errors(form.owner) }}
+            {{ form_widget(form.owner, {'attr': {'id': 'owner', 'name': 'owner', 'class': 'form-control', 'aria-label': 'Large', 'aria-describedby': 'inputGroup-sizing-sm' }}) }}
+            <label for="owner" class="font-weight-light">{{ "Owner"|trans }}</label>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="center">
+            <div class="md-form">
+              {{ form_errors(form.status) }}
+              {{ form_widget(form.status, {'attr': {'id': 'status', 'name': 'status', 'class': 'text-uppercase form-control', 'aria-label': 'Large', 'aria-describedby': 'inputGroup-sizing-sm' }}) }}
+            </div>
+            <label for="status" class="font-weight-light"><i class="fas fa-info fa-lg prefix grey-text mr-1"></i>{{ "Status"|trans }}</label>
+            <div class="md-form">
+              {{ form_errors(form.stock) }}
+              {{ form_widget(form.stock, {'attr': {'id': 'stock', 'name': 'stock', 'class': 'text-uppercase form-control', 'aria-label': 'Large', 'aria-describedby': 'inputGroup-sizing-sm' }}) }}
+            </div>
+            <label for="stock" class="font-weight-light"><i class="fab fa-stack-overflow fa-lg prefix grey-text mr-1"></i>{{ "Stock"|trans }}</label>
+          </div>
+          <div class="md-form m-3">
+            {{ form_errors(form.comment) }}
+            {{ form_widget(form.comment, {'attr': {'id': 'comment', 'name': 'comment', 'class': 'form-control', 'aria-label': 'Large', 'aria-describedby': 'inputGroup-sizing-sm' }}) }}
+            <label for="comment" class="font-weight-light">{{ "Comment"|trans }}</label>
+          </div>
+        </div>
+        <div class="text-center py-4 mt-3">
+          <label class="btn btn-success">
+            {{ form_widget(form.inStore, {'attr': {'id': 'inStore', 'name': 'inStore','autocomplete': 'off', 'class': 'filled-in form-check-input', 'aria-label': 'Large', 'aria-describedby': 'inputGroup-sizing-sm' }}) }}
+            {{ "In Store"|trans }}
+          </label>
+          <label class="btn btn-warning">
+            {{ form_widget(form.reserved, {'attr': {'id': 'reserved', 'name': 'reserved','autocomplete': 'off', 'class': 'filled-in form-check-input', 'aria-label': 'Large', 'aria-describedby': 'inputGroup-sizing-sm' }}) }}
+            {{ "Reserved"|trans }}
+          </label>
+          <label class="btn btn-success">
+            {{ form_widget(form.enabled, {'attr': {'id': 'enabled', 'name': 'enabled','autocomplete': 'off', 'class': 'filled-in form-check-input', 'aria-label': 'Large', 'aria-describedby': 'inputGroup-sizing-sm' }}) }}
+            {{ "Enabled"|trans }}
+          </label>
+          {{ form_rest(form) }}
+          <button class="btn btn-green center" type="submit">{{ button_label|default('Save') }}</button>
+        </div>
+
+      </div>
+    </form>
+    <!-- Material form register -->
+    {{ form_end(form) }}
+    {% if new is not defined %}
+      <div class="float-right">
+        {{ include('Admin/Inventory/sub_item/_delete_form.html.twig') }}
+      </div>
+    {% endif %}
+  </div>
+  <!-- Card body -->
+</div>
