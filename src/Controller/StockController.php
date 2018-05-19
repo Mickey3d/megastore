@@ -37,7 +37,7 @@ class StockController extends Controller
             $em->persist($stock);
             $em->flush();
             $this->addFlash('success','The Stock have been created!');
-            return $this->redirectToRoute('stock_index');
+            return $this->redirectToRoute('inventory_index');
         }
 
         return $this->render('Admin/Inventory/stock/new.html.twig', [

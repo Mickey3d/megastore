@@ -3,6 +3,29 @@
 {% block title %}{{ "New Category"|trans }}
 {% endblock %}
 
+{% block _category_subCategories_entry_widget %}
+
+  <div id="prototype_subcategory" class="col-sm-12">
+    <div class="md-form">
+      <i class="fas fa-people-carry prefix grey-text"></i>
+      {{ form_errors(form.subEntityName) }}
+      {{ form_widget(form.subEntityName, {'attr': { 'class': 'form-control', 'aria-label': 'Large', 'aria-describedby': 'inputGroup-sizing-sm' }}) }}
+      <label for="materialFormCardName1" class="font-weight-light">{{ "Sub Category Name"|trans }}</label>
+    </div>
+    <div class="form-group">
+      {{ form_errors(form.subCategoryDescription) }}
+      <label for="description">{{ "Sub Category Description"|trans }}:</label>
+      {{ form_widget(form.subCategoryDescription, {'attr': { 'class': 'form-control', 'aria-label': 'Large', 'aria-describedby': 'inputGroup-sizing-sm' }}) }}
+    </div>
+    <div class="form-group">
+      {{ form_errors(form.category) }}
+      <label for="description">{{ "Sub Category Description"|trans }}:</label>
+      {{ form_widget(form.category, {'attr': { 'name': 'description', 'class': 'form-control', 'aria-label': 'Large', 'aria-describedby': 'inputGroup-sizing-sm' }}) }}
+    </div>
+  </div>
+{% endblock %}
+
+
 {% block content %}
 {% set new = true %}
 {% if is_granted('ROLE_ADMIN')%}

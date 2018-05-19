@@ -4,7 +4,7 @@
       {% for item in items %}
         <div id="heading-item-{{ item.id }}" class="items col-md-12 clearfix center">
           <div class="info-block block-info clearfix row">
-            <div class="col-sm-6 col-md-2 center  p-0 m-0 border center">
+            <div class="{% if item.enabled == false %}disabled{% endif %} col-sm-6 col-md-2 center p-0 m-0 border center">
               <div class="center">
                 <i class="float-left ml-2 fas fa-barcode fa-lg"></i>
                 <h5 class="fs-14 bold center text-uppercase mt-2 border-bottom">
@@ -20,7 +20,7 @@
                 </h5>
               </div>
             </div>
-            <div class="col-sm-6 col-md-3 center p-0 m-0 border">
+            <div class="{% if item.enabled == false %}disabled{% endif %} col-sm-6 col-md-3 center p-0 m-0 border">
               {% if item.category.categoryName is defined %}
                 <h4 class="fs-12 title m-1  border-bottom">
                   <i class="fas fa-sitemap m-1"></i>{{ "Cat"|trans }}
@@ -36,19 +36,19 @@
                 </h4>
               {% endif %}
             </div>
-            <div class="col-sm-4 col-md-1 m-0 p-0 border center">
+            <div class="{% if item.enabled == false %}disabled{% endif %} col-sm-4 col-md-1 m-0 p-0 border center">
               <p class="m-0 bold text-uppercase">{{ "Total"|trans }}</p>
               <div class="border m-0">
                 <p class="m-0 bold">{{ item.subItems.count }}</p>
               </div>
             </div>
-            <div class="col-sm-4 col-md-1 m-0 p-0 border center">
+            <div class="{% if item.enabled == false %}disabled{% endif %}  col-sm-4 col-md-1 m-0 p-0 border center">
               <p class="m-0 bold text-uppercase">{{ "In Store"|trans }}</p>
               <div class="border m-0">
                 <p class="m-0 bold">{{ item.subItems.count }}</p>
               </div>
             </div>
-            <div class="col-sm-4 col-md-1 m-0 p-0 border center">
+            <div class="{% if item.enabled == false %}disabled{% endif %} col-sm-4 col-md-1 m-0 p-0 border center">
               <p class="m-0 bold text-uppercase">{{ "Out"|trans }}</p>
               <div class="border m-0">
                 <p class="m-0 bold">{{ item.subItems.count }}</p>
@@ -98,7 +98,7 @@
                   {% for subItem in item.subItems %}
                     <div id="heading-item-{{ subItem.id }}" class="items col-md-10 float-right clearfix center">
                       <div class="info-block block-info clearfix row">
-                        <div class="col-sm-12 col-md-3 center m-0 p-0">
+                        <div class="{% if subItem.enabled == false %}disabled{% endif %} col-sm-12 col-md-3 center m-0 p-0">
                           <div class="center border">
                             <h5 class="fs-14 bold center border-bottom">{{ subItem.subItemRef }}</h5>
                             {% if subItem.status.statusName is defined %}
@@ -109,7 +109,7 @@
                             {% endif %}
                           </div>
                         </div>
-                        <div class="col-sm-12 col-md-4 m-0 p-0 border">
+                        <div class="{% if subItem.enabled == false %}disabled{% endif %} col-sm-12 col-md-4 m-0 p-0 border">
                           {% if subItem.comment | length > 40 %}
                             <div class="col-sm-12 col-md-12">
                               <h4 class="fs-12 float-left title m-1 p-0">
@@ -125,7 +125,7 @@
                           {% endif %}
                         </div>
                         {% if subItem.stock.stockName %}
-                          <div class="col-sm-12 col-md-2 m-0 pl-1 pr-1 border">
+                          <div class="{% if subItem.enabled == false %}disabled{% endif %} col-sm-12 col-md-2 m-0 pl-1 pr-1 border">
                             <span class="fs-12 title">
                               <i class="fab fa-stack-overflow fa-lg m-1"></i>{{ "Stock"|trans }}
                               :

@@ -47,7 +47,7 @@
             <div class="col-sm-12 col-md-12">
               <div class="shadowed-2 row d-flex justify-content-center">
                 <div class="center col-sm-12 col-md-2">
-                  {% if stock.MainStock == true %}
+                  {% if stock.definedAs == 'main-stock' %}
                     <span class="text-uppercase badge badge-success badge-md m-0">{{ "Main Stock"|trans }}</span>
                   {% endif %}
                 </div>
@@ -67,6 +67,30 @@
               <div>
                 <div id="info-stock-{{ stock.id }}" class="searchable-container tab-pane">
                   <p class="fs-14 float-left text-uppercase">{{ "Stock Info"|trans}}</p>
+                  <table class="table responsive">
+                    <tbody>
+                      <tr>
+                        <th>{{ "Stock Name"|trans }}</th>
+                        <td>{{ stock.stockName }}</td>
+                      </tr>
+                      <tr>
+                        <th>{{ "Defined As"|trans }}</th>
+                        <td>{{ stock.definedAs }}</td>
+                      </tr>
+                      <tr>
+                        <th>{{ "Items In Stock"|trans }}</th>
+                        <td>{{ stock.subItems.count }}</td>
+                      </tr>
+                      <tr>
+                        <th>{{ "Description"|trans }}</th>
+                        <td>{{ stock.stockDescription }}</td>
+                      </tr>
+                      <tr>
+                        <th>{{ "Location"|trans }}</th>
+                        <td>{{ stock.location }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
               </div>
             </div>

@@ -13,6 +13,15 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Stock
 {
+  /* CONSTANTS TO DEFINED THE STOCK AS... */
+    const MAINSTOCK = 'main-stock';
+    const OUTER = 'outer-stock';
+    const DONATION = 'donation-stock';
+    const SALED = 'saled-stock';
+    const LOST = 'lost-stock';
+    const BROKEN = 'broken-stock';
+    const TRASH = 'trash-stock';
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -46,9 +55,9 @@ class Stock
     private $updatedAt;
 
     /**
-     * @ORM\Column(type="boolean", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
-    private $mainStock;
+    private $definedAs;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Status", mappedBy="stock", cascade={"persist", "remove"})
@@ -145,14 +154,14 @@ class Stock
         }
     }
 
-    public function getMainStock(): ?bool
+    public function getDefinedAs(): ?string
     {
-        return $this->mainStock;
+        return $this->definedAs;
     }
 
-    public function setMainStock(?bool $mainStock): self
+    public function setDefinedAs(?string $definedAs): self
     {
-        $this->mainStock = $mainStock;
+        $this->definedAs = $definedAs;
 
         return $this;
     }

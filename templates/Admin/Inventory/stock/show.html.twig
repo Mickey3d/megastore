@@ -35,7 +35,7 @@
               </a>
             </li>
           </ul>
-          {% if stock.mainStock == true %}
+          {% if stock.definedAs == 'main-stock' %}
             <span class="float-left badge badge-success badge-lg">{{ "Main Stock"|trans }}</span>
           {% endif %}
           <div class="user-body">
@@ -51,8 +51,8 @@
                           <td>{{ stock.stockName }}</td>
                         </tr>
                         <tr>
-                          <th>{{ "Main Stock"|trans }}</th>
-                          <td>{{ stock.mainStock ? 'Yes' : 'No' }}</td>
+                          <th>{{ "Defined As"|trans }}</th>
+                          <td>{{ stock.definedAs }}</td>
                         </tr>
                         <tr>
                           <th>{{ "Items In Stock"|trans }}</th>
@@ -82,11 +82,11 @@
                         <th class="center">{{ "Items in the Stock"|trans }}</th>
                         {% for subItem in stock.subiTems %}
                             <tr class="items">
-                                <td>{{ subItem.subItemName }}</td>
-                                <td>{{ subItem.subItemDescription }}</td>
+                                <td>{{ subItem.item.itemName }}</td>
+                                <td>{{ subItem.comment }}</td>
                                 <td>
-                                    <a class="nav-link" href="{{ path('sub_item_show', {'id': subItem.id}) }}">show</a>
-                                    <a class="nav-link" href="{{ path('sub_item_edit', {'id': subItem.id}) }}">edit</a>
+                                    <a class="nav-link" href="{{ path('sub_item_show', {'id': subItem.id}) }}">{{ "Show"|trans }}</a>
+                                    <a class="nav-link" href="{{ path('sub_item_edit', {'id': subItem.id}) }}">{{ "Edit"|trans }}</a>
                                 </td>
                             </tr>
                         {% else %}

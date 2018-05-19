@@ -44,11 +44,15 @@
             {{ form_widget(form.location, {'attr': {'id': 'location', 'name': 'location', 'class': 'form-control', 'aria-label': 'Large', 'aria-describedby': 'inputGroup-sizing-sm' }}) }}
             <label for="stockName" class="font-weight-light">{{ "Stock Location"|trans }}</label>
           </div>
-          <div class="center p-4">
-            <label class="btn btn-success">
-              {{ form_widget(form.mainStock, {'attr': {'id': 'mainStock', 'name': 'mainStock','autocomplete': 'off', 'class': 'filled-in form-check-input', 'aria-label': 'Large', 'aria-describedby': 'inputGroup-sizing-sm' }}) }}
-              {{ "Main Stock"|trans }}
-            </label>
+          <div class="m-auto center p-4">
+              <div class="center">
+                <label class="form-control p-2" for="team">{{ "Stock Defined As"|trans }}
+                <div class="md-form  p-1  m-1 center">
+                  {{ form_errors(form.definedAs) }}
+                  {{ form_widget(form.definedAs, {'attr': {'id': 'category', 'name': 'category', 'autocomplete': 'on', 'class': 'text-uppercase p-3 m-1', 'aria-label': 'Large'}}) }}
+                </div>
+                </label>
+              </div>
           </div>
         </div>
         {{ form_rest(form) }}

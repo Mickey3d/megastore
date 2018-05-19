@@ -3,7 +3,9 @@
 namespace App\Form\Inventory;
 
 use App\Entity\Category;
+use App\Form\Inventory\SubCategoryType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -15,6 +17,11 @@ class CategoryType extends AbstractType
             ->add('categoryName')
             ->add('categoryDescription')
             ->add('enabled')
+            ->add('subCategories', CollectionType::class, array(
+              'entry_type'   => SubCategoryType::class,
+              'allow_add'    => true,
+              'allow_delete' => true
+      ))
         ;
     }
 

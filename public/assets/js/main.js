@@ -36,4 +36,49 @@ $(document).ready(function() {
     });
   });
 
+
+  /*****************************************************************************
+  *               SubCategories Adder
+  *****************************************************************************/
+  var $container = $('div#category_subCategories');
+
+      var index = $container.find(':input').length;
+
+      $('#add_subcategory').click(function(e) {
+        addSubCategory($container);
+
+        e.preventDefault();
+        return false;
+      });
+
+      if (index == 0) {
+        addSubCategory($container);
+      } else {
+        $container.children('div').each(function() {
+          addDeleteLink($(this));
+        });
+      }
+
+      function addSubCategory($container) {
+        var template = $container.attr('data-prototype')
+          .replace(/__name__label__/g, 'SubCatégory n°' + (index+1))
+          .replace(/__name__/g,        index)
+        ;
+
+        var $prototype = $(template);
+        addDeleteLink($prototype);
+        $container.append($prototype);
+        index++;
+      }
+
+      function addDeleteLink($prototype) {
+        var $deleteLink = $('<a href="#" class="btn btn-danger">Delete</a>');
+        $prototype.append($deleteLink);
+        $deleteLink.click(function(e) {
+          $prototype.remove();
+          e.preventDefault();
+          return false;
+        });
+      }
+
 });

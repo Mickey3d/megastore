@@ -4,13 +4,13 @@
       {% for category in categories %}
         <div id="heading-cat-{{ category.id }}" class="items col-md-12 clearfix center">
           <div class="info-block block-info clearfix row">
-            <div class="col-sm-12 col-md-3 center">
+            <div class="{% if category.enabled == false %}disabled{% endif %} col-sm-12 col-md-3 center">
               <div class="center">
                 <span class="fas fa-sitemap fa-lg"></span>
                 <h5 class="fs-14 bold center text-uppercase">{{ category.categoryName }}</h5>
               </div>
             </div>
-            <div class="col-sm-12 col-md-5">
+            <div class="{% if category.enabled == false %}disabled{% endif %} col-sm-12 col-md-5">
               {% if category.categoryDescription | length > 50 %}
                 <h4 class="fs-12 float-left title m-1">
                   <i class="fas fa-info-circle m-1"></i>{{ category.categoryDescription|truncate(50) }}
@@ -64,12 +64,12 @@
                   {% for sub_category in category.subCategories %}
                     <div id="heading-cat-{{ sub_category.id }}" class="items col-md-10 float-right clearfix center">
                       <div class="info-block block-info clearfix row">
-                        <div class="col-sm-12 col-md-3 center">
+                        <div class="{% if sub_category.enabled == false %}disabled{% endif %} col-sm-12 col-md-3 center">
                           <div class="center">
                             <h5 class="fs-14 bold center">{{ sub_category.subEntityName }}</h5>
                           </div>
                         </div>
-                        <div class="col-sm-12 col-md-5">
+                        <div class="{% if sub_category.enabled == false %}disabled{% endif %} col-sm-12 col-md-5">
                           {% if sub_category.subCategoryDescription | length > 50 %}
                             <h4 class="fs-12 float-left title m-1">
                               <i class="fas fa-info-circle m-1"></i>{{ sub_category.subCategoryDescription|truncate(50) }}
