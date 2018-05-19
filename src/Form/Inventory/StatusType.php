@@ -34,9 +34,7 @@ class StatusType extends AbstractType
               'expanded' => true,
             ))
             ->add('stock', EntityType::class, array(
-              // looks for choices from this entity
               'class' => Stock::class,
-              // uses the User.username property as the visible option string
               'choice_label' => 'stockName',
               'required'   => false,
             ))

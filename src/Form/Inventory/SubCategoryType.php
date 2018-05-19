@@ -17,9 +17,7 @@ class SubCategoryType extends AbstractType
             ->add('subEntityName')
             ->add('subCategoryDescription')
             ->add('category', EntityType::class, array(
-              // looks for choices from this entity
               'class' => Category::class,
-              // uses the User.username property as the visible option string
               'choice_label' => 'categoryName',
               'required'   => true,
             ))

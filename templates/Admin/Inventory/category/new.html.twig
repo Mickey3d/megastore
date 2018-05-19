@@ -3,24 +3,29 @@
 {% block title %}{{ "New Category"|trans }}
 {% endblock %}
 
+{% form_theme form _self %}
+
 {% block _category_subCategories_entry_widget %}
 
-  <div id="prototype_subcategory" class="col-sm-12">
-    <div class="md-form">
-      <i class="fas fa-people-carry prefix grey-text"></i>
-      {{ form_errors(form.subEntityName) }}
-      {{ form_widget(form.subEntityName, {'attr': { 'class': 'form-control', 'aria-label': 'Large', 'aria-describedby': 'inputGroup-sizing-sm' }}) }}
-      <label for="materialFormCardName1" class="font-weight-light">{{ "Sub Category Name"|trans }}</label>
+  <div id="prototype_subcategory" class="row border p-1 mb-0 mt-0 ml-2 mr-2">
+    <div class="col-md-5">
+      <div class="md-form col-md-12 p-1 mt-3">
+        <i class="fas fa-info-circle prefix grey-text ml-0 mr-5"></i>
+        {{ form_errors(form.subEntityName) }}
+        {{ form_widget(form.subEntityName, {'attr': { 'class': 'md-form-control', 'aria-label': 'Large', 'aria-describedby': 'inputGroup-sizing-lg' }}) }}
+        <label for="materialFormCardName1" class="ml-5 font-weight-light">{{ "Sub Category Name"|trans }}</label>
+      </div>
+      <div class="float-left m-0 p-0">
+        <label class="float-right btn btn-success btn-md pt-1 pb-2 pr-2 ">
+          {{ form_widget(form.enabled, {'attr': {'id': 'enabled', 'name': 'enabled','autocomplete': 'off', 'class': 'filled-in form-check-input', 'aria-label': 'Large', 'aria-describedby': 'inputGroup-sizing-sm' }}) }}
+          {{ "Enabled"|trans }}
+        </label>
+      </div>
     </div>
-    <div class="form-group">
+    <div class="md-form col-md-6 p-1 ml-0 mr-0 mb-0 mt-3">
       {{ form_errors(form.subCategoryDescription) }}
-      <label for="description">{{ "Sub Category Description"|trans }}:</label>
-      {{ form_widget(form.subCategoryDescription, {'attr': { 'class': 'form-control', 'aria-label': 'Large', 'aria-describedby': 'inputGroup-sizing-sm' }}) }}
-    </div>
-    <div class="form-group">
-      {{ form_errors(form.category) }}
-      <label for="description">{{ "Sub Category Description"|trans }}:</label>
-      {{ form_widget(form.category, {'attr': { 'name': 'description', 'class': 'form-control', 'aria-label': 'Large', 'aria-describedby': 'inputGroup-sizing-sm' }}) }}
+      {{ form_widget(form.subCategoryDescription, {'attr': { 'class': 'form-control', 'aria-label': 'Large', 'aria-describedby': 'inputGroup-sizing-lg' }}) }}
+      <label class="ml-4" for="description">{{ "Sub Category Description"|trans }}:</label>
     </div>
   </div>
 {% endblock %}

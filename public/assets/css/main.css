@@ -309,6 +309,10 @@ section {
   font-size: 4em
 }
 
+.delete-btn-sublist {
+  position: relative;
+  top: -20px;
+}
 /**********
 *             LIST VIEW              *
 ************************************/

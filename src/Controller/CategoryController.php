@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Category;
+use Doctrine\Common\Collections\ArrayCollection;
 use App\Form\Inventory\CategoryType;
 use App\Repository\CategoryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -35,9 +36,17 @@ class CategoryController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($category);
+            $subCategories = $category->getSubCategories();
+
+            foreach ($subCategories as $subCategory) {
+              $category->addSubCategory($subCategory);
+              $subCategory->setCategory($category);
+              $em->persist($subCategory);
+            }
+
             $em->flush();
             $this->addFlash('success','The Category have been created!');
-            return $this->redirectToRoute('Inventory_index');
+            return $this->redirectToRoute('category_edit', ['id' => $category->getId()]);
         }
 
         return $this->render('Admin/Inventory/category/new.html.twig', [
@@ -59,13 +68,40 @@ class CategoryController extends Controller
      */
     public function edit(Request $request, Category $category): Response
     {
+
+        $em = $this->getDoctrine()->getManager();
+        $originalSubCat = new ArrayCollection();
+        // Create an ArrayCollection of the current SubCategory objects in the database
+        foreach ($category->getSubCategories() as $subCategory) {
+          $originalSubCat->add($subCategory);
+        }
+
         $form = $this->createForm(CategoryType::class, $category);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-            $this->addFlash('success','The Category have been updated!');
-            return $this->redirectToRoute('category_edit', ['id' => $category->getId()]);
+          // remove the relationship between the SubCat and the Category
+          foreach ($originalSubCat as $subCategory) {
+            if (false === $category->getSubCategories()->contains($subCategory)) {
+              // remove the Cat from the SubCat
+              $subCategory->getCategory()->removeSubCategory($subCategory);
+              $em->persist($subCategory);
+              $em->remove($subCategory);
+            }
+          }
+          $subCategories = $category->getSubCategories();
+
+          foreach ($subCategories as $subCategory) {
+            $category->addSubCategory($subCategory);
+            $subCategory->setCategory($category);
+            $em->persist($subCategory);
+          }
+
+          $em->persist($category);
+          $em->flush();
+          $this->addFlash('success','The Category have been updated!');
+          return $this->redirectToRoute('category_edit', ['id' => $category->getId()]);
+
         }
 
         return $this->render('Admin/Inventory/category/edit.html.twig', [
@@ -73,6 +109,7 @@ class CategoryController extends Controller
             'form' => $form->createView(),
         ]);
     }
+
 
     /**
      * @Route("/{id}", name="category_delete", methods="DELETE")
@@ -83,9 +120,9 @@ class CategoryController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->remove($category);
             $em->flush();
-            $this->addFlash('success','The Catgory have been deleted!');
+            $this->addFlash('success','The Category have been deleted!');
         }
 
-        return $this->redirectToRoute('Inventory_index');
+        return $this->redirectToRoute('inventory_index');
     }
 }

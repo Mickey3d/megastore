@@ -23,14 +23,15 @@
               </div>
             </div>
             <div class="col-sm-12 col-md-3 center">
+              <div class="float-right  mt-0">
+                {{ include('Admin/Inventory/status/_delete_form_list.html.twig') }}
+              </div>
               <a class="float-right p-1 btn btn-floating btn-outline-success btn-sm mt-0 " href="{{ path('status_show', {'id': status.id}) }}">
                 {{ "Show"|trans }}
               </a>
-              {% if is_granted("ROLE_ADMIN") %}
-                <a class="float-right p-1 btn btn-floating btn-outline-info btn-sm mt-0" href="{{ path('status_edit', {'id': status.id}) }}">
-                  {{ "Edit"|trans }}
-                </a>
-              {% endif %}
+              <a class="float-right p-1 btn btn-floating btn-outline-info btn-sm mt-0" href="{{ path('status_edit', {'id': status.id}) }}">
+                {{ "Edit"|trans }}
+              </a>
             </div>
             <div class="col-sm-12 col-md-12">
               <div class="shadowed-2 row d-flex justify-content-center">

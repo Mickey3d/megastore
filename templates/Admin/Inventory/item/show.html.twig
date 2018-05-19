@@ -82,8 +82,8 @@
                                 <td>{{ "Stock"|trans }} : {{ sub_item.tock.stockName }}</td>
                                 {% endif %}
                                 <td>
-                                    <a class="float-right p-1 btn btn-floating btn-outline-success btn-sm mt-0" href="{{ path('item_show', {'id': subItem.id}) }}">{{ "Show"|trans }}</a>
-                                    <a class="float-right p-1 btn btn-floating btn-outline-info btn-sm mt-0" href="{{ path('stock_edit', {'id': subItem.id}) }}">{{ "Edit"|trans }}</a>
+                                    <a class="float-right p-1 btn btn-floating btn-outline-success btn-sm mt-0" href="{{ path('sub_item_show', {'id': subItem.id}) }}">{{ "Show"|trans }}</a>
+                                    <a class="float-right p-1 btn btn-floating btn-outline-info btn-sm mt-0" href="{{ path('sub_item_edit', {'id': subItem.id}) }}">{{ "Edit"|trans }}</a>
                                 </td>
                             </tr>
                         {% else %}

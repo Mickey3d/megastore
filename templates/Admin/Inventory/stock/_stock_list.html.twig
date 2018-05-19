@@ -30,14 +30,15 @@
               </div>
             </div>
             <div class="col-sm-12 col-md-4 center">
+              <div class="float-right  mt-0">
+                {{ include('Admin/Inventory/stock/_delete_form_list.html.twig') }}
+              </div>
               <a class="float-right p-1 btn btn-floating btn-outline-success btn-sm mt-0 " href="{{ path('stock_show', {'id': stock.id}) }}">
                 {{ "Show"|trans }}
               </a>
-              {% if is_granted("ROLE_ADMIN") %}
                 <a class="float-right p-1 btn btn-floating btn-outline-info btn-sm mt-0" href="{{ path('stock_edit', {'id': stock.id}) }}">
                   {{ "Edit"|trans }}
                 </a>
-              {% endif %}
               <div id="heading-stock-{{ stock.id }}" class="center">
                 <button class="btn-floating fs-60-pc center btn-outline-dark p-1" data-toggle="collapse" data-target="#collapse-stock-{{ stock.id }}" aria-expanded="false" aria-controls="collapse-stock-{{ stock.id }}">
                   {{ "Stock Info"|trans}}

@@ -22,14 +22,15 @@
               {% endif %}
             </div>
             <div class="col-sm-12 col-md-4 center">
+              <div class="float-right mt-0">
+                {{ include('Admin/Inventory/category/_delete_form_list.html.twig') }}
+              </div>
               <a class="float-right p-1 btn btn-floating btn-outline-success btn-sm mt-0 " href="{{ path('category_show', {'id': category.id}) }}">
                 {{ "Show"|trans }}
               </a>
-              {% if is_granted("ROLE_ADMIN") %}
-                <a class="float-right p-1 btn btn-floating btn-outline-info btn-sm mt-0" href="{{ path('category_edit', {'id': category.id}) }}">
-                  {{ "Edit"|trans }}
-                </a>
-              {% endif %}
+              <a class="float-right p-1 btn btn-floating btn-outline-info btn-sm mt-0" href="{{ path('category_edit', {'id': category.id}) }}">
+                {{ "Edit"|trans }}
+              </a>
               <div id="heading-cat-{{ category.id }}" class="center">
                 <button class="btn-floating fs-60-pc center btn-outline-dark p-1" data-toggle="collapse" data-target="#collapse-cat-{{ category.id }}" aria-expanded="false" aria-controls="collapse-cat-{{ category.id }}">
                   {{ "Sub-Categories"|trans}}
@@ -81,14 +82,15 @@
                           {% endif %}
                         </div>
                         <div class="col-sm-12 col-md-4 center">
+                          <div class="float-right  mt-0">
+                            {{ include('Admin/Inventory/sub_category/_delete_form_list.html.twig') }}
+                          </div>
                           <a class="float-right p-1 btn btn-floating btn-outline-success btn-sm mt-0 " href="{{ path('sub_category_show', {'id': sub_category.id}) }}">
                             {{ "Show"|trans }}
                           </a>
-                          {% if is_granted("ROLE_ADMIN") %}
                             <a class="float-right p-1 btn btn-floating btn-outline-info btn-sm mt-0" href="{{ path('sub_category_edit', {'id': sub_category.id}) }}">
                               {{ "Edit"|trans }}
                             </a>
-                          {% endif %}
                         </div>
                         <div class="col-sm-12 col-md-12">
                           <div class="shadowed-2 row d-flex justify-content-center">

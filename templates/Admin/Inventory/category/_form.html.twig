@@ -1,3 +1,5 @@
+
+
 <!-- Card -->
 <div class="card">
   <!-- Card body -->
@@ -26,7 +28,7 @@
         <div class="col-md-6">
           <!-- Material input text -->
           <div class="md-form">
-            <i class="fas fa-people-carry prefix grey-text"></i>
+            <i class="fas fa-info-circle prefix grey-text"></i>
             {{ form_errors(form.categoryName) }}
             {{ form_widget(form.categoryName, {'attr': {'id': 'materialFormCardName1', 'name': 'categoryName', 'class': 'form-control', 'aria-label': 'Large', 'aria-describedby': 'inputGroup-sizing-sm' }}) }}
             <label for="materialFormCardName1" class="font-weight-light">{{ "Category Name"|trans }}</label>
@@ -37,12 +39,12 @@
             {{ form_widget(form.categoryDescription, {'attr': {'id': 'description', 'rows': '8', 'name': 'description', 'class': 'form-control', 'aria-label': 'Large', 'aria-describedby': 'inputGroup-sizing-sm' }}) }}
           </div>
         </div>
-        <div class="col-md-6 p-5">
-          <div class="center p-4">
-            <div class="form-group">
+        <div class="col-md-6 p-1">
+          <div class="p-1">
+            <div class="form-group ">
               {{ form_errors(form.subCategories) }}
-              <label for="description">{{ "Sub-Categories"|trans }}:</label>
-              {{ form_widget(form.subCategories, {'attr': {'id': 'subCategories', 'name': 'subCategories', 'class': '', 'aria-label': 'Large', 'aria-describedby': 'inputGroup-sizing-sm' }}) }}
+              <label for="subCategories">{{ "Sub-Categories"|trans }}:</label>
+              {{ form_widget(form.subCategories, {'attr': {'class': 'border-top md-form-control', 'aria-label': 'Large', 'aria-describedby': 'inputGroup-sizing-sm' }}) }}
               <a href="#" id="add_subcategory" class="btn btn-default">{{ "Add Sub-Catégory"|trans }}</a>
             </div>
           </div>
