@@ -5,12 +5,14 @@ namespace App\Form\Inventory;
 use App\Entity\Item;
 use App\Entity\Category;
 use App\Entity\SubCategory;
+use App\Form\Inventory\SubItemItemType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormEvents;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -38,6 +40,11 @@ class ItemType extends AbstractType
             ->add('addedAt', DateType::class, array(
               'widget' => 'single_text',
               'required' => false,
+            ))
+            ->add('subItems', CollectionType::class, array(
+              'entry_type'   => SubItemItemType::class,
+              'allow_add'    => true,
+              'allow_delete' => true
             ))
             ->add('enabled');
 

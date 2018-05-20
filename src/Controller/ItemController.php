@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Item;
+use Doctrine\Common\Collections\ArrayCollection;
 use App\Form\Inventory\ItemType;
 use App\Repository\ItemRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -35,9 +36,16 @@ class ItemController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($item);
+            $subItems = $item->getSubItems();
+
+            foreach ($subItems as $subItem) {
+              $item->addSubItem($subItem);
+              $subItem->setItem($item);
+              $em->persist($subItem);
+            }
             $em->flush();
             $this->addFlash('success','The Item have been created!');
-            return $this->redirectToRoute('inventory_index');
+            return $this->redirectToRoute('item_edit', ['id' => $item->getId()]);
         }
 
         return $this->render('Admin/Inventory/item/new.html.twig', [
@@ -59,14 +67,40 @@ class ItemController extends Controller
      */
     public function edit(Request $request, Item $item): Response
     {
-        $form = $this->createForm(ItemType::class, $item);
-        $form->handleRequest($request);
+      $em = $this->getDoctrine()->getManager();
+      $originalSubItems = new ArrayCollection();
+      // Create an ArrayCollection of the current SubItem objects in the database
+      foreach ($item->getSubItems() as $subItem) {
+        $originalSubItems->add($subItem);
+      }
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-            $this->addFlash('success','The Item have been updated!');
-            return $this->redirectToRoute('item_edit', ['id' => $item->getId()]);
+      $form = $this->createForm(ItemType::class, $item);
+      $form->handleRequest($request);
+
+      if ($form->isSubmitted() && $form->isValid()) {
+        // remove the relationship between the SubItem and the Item
+        foreach ($originalSubItems as $subItem) {
+          if (false === $item->getSubItems()->contains($subItem)) {
+            // remove the Item from the SubItem
+            $subItem->getItem()->removeSubItem($subItem);
+            $em->persist($subItem);
+            $em->remove($subItem);
+          }
         }
+        $subItems = $item->getSubItems();
+
+        foreach ($subItems as $subItem) {
+          $item->addSubItem($subItem);
+          $subItem->setItem($item);
+          $em->persist($subItem);
+        }
+
+        $em->persist($item);
+        $em->flush();
+        $this->addFlash('success','The Item have been updated!');
+        return $this->redirectToRoute('item_edit', ['id' => $item->getId()]);
+
+      }
 
         return $this->render('Admin/Inventory/item/edit.html.twig', [
             'item' => $item,

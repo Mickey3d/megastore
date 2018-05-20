@@ -38,40 +38,79 @@ $(document).ready(function() {
 
 
   /*****************************************************************************
-  *               SubCategories Adder
-  *****************************************************************************/
-  var $subCategoriyContainer = $('div#category_subCategories');
-  var index = $subCategoriyContainer.find(':input').length;
+   *               SubCategories Adder
+   *****************************************************************************/
+  var $subCategoryContainer = $('div#category_subCategories');
+  var indexSubCategory = $subCategoryContainer.find(':input').length;
 
-      $('#add_subcategory').click(function(e) {
-        addSubCategory($subCategoriyContainer);
-        e.preventDefault();
-        return false;
-      });
-      $subCategoriyContainer.children('div').each(function() {
-        addDeleteLink($(this));
-      });
+  $('#add_subcategory').click(function(e) {
+    addSubCategory($subCategoryContainer);
+    e.preventDefault();
+    return false;
+  });
+  $subCategoryContainer.children('div').each(function() {
+    addDeleteSubCategoryLink($(this));
+  });
 
-      function addSubCategory($subCategoriyContainer) {
-        var $subCategoriyTemplate = $subCategoriyContainer.attr('data-prototype')
-          .replace(/__name__label__/g, 'SubCatégory n°' + (index+1))
-          .replace(/__name__/g,        index)
-        ;
+  function addSubCategory($subCategoryContainer) {
+    var $subCategoryTemplate = $subCategoryContainer.attr('data-prototype')
+      .replace(/__name__label__/g, 'SubCatégory n°' + (indexSubCategory + 1))
+      .replace(/__name__/g, indexSubCategory);
 
-        var $subCategoriyPrototype = $($subCategoriyTemplate);
-        addDeleteLink($subCategoriyPrototype);
-        $subCategoriyContainer.append($subCategoriyPrototype);
-        index++;
-      }
+    var $subCategoryPrototype = $($subCategoryTemplate);
+    addDeleteSubCategoryLink($subCategoryPrototype);
+    $subCategoryContainer.append($subCategoryPrototype);
+    indexSubCategory++;
+  }
 
-      function addDeleteLink($subCategoriyPrototype) {
-        var $deleteLink = $('<a href="#" class="delete-btn-sublist btn btn-danger btn-sm p-1 mt-0 float-right">Delete</a><hr>');
-        $subCategoriyPrototype.append($deleteLink);
-        $deleteLink.click(function(e) {
-          $subCategoriyPrototype.remove();
-          e.preventDefault();
-          return false;
-        });
-      }
+  function addDeleteSubCategoryLink($subCategoryPrototype) {
+    var $deleteSubCategoryLink = $('<a href="#" class="delete-btn-sublist btn btn-danger btn-sm p-1 mt-0 float-right">Delete</a><hr>');
+    $subCategoryPrototype.append($deleteSubCategoryLink);
+    $deleteSubCategoryLink.click(function(e) {
+      $subCategoryPrototype.remove();
+      e.preventDefault();
+      return false;
+    });
+  }
+
+
+
+  /*****************************************************************************
+   *               SubCItems Adder
+   *****************************************************************************/
+  var $subItemContainer = $('div#item_subItems');
+  var indexSubItem = $subItemContainer.find(':input').length;
+
+  $('#add_subitem').click(function(e) {
+    addSubItem($subItemContainer);
+    e.preventDefault();
+    return false;
+  });
+  $subItemContainer.children('div').each(function() {
+    addDeleteSubItemLink($(this));
+  });
+
+  function addSubItem($subItemContainer) {
+    var $subItemTemplate = $subItemContainer.attr('data-prototype')
+      .replace(/__name__label__/g, 'Sub Item n°' + (indexSubItem + 1))
+      .replace(/__name__/g, indexSubItem);
+
+    var $subItemPrototype = $($subItemTemplate);
+    addDeleteSubItemLink($subItemPrototype);
+    $subItemContainer.append($subItemPrototype);
+    indexSubItem++;
+  }
+
+  function addDeleteSubItemLink($subItemPrototype) {
+    var $deleteSubItemLink = $('<a href="#" class="delete-btn-sublist btn btn-danger btn-sm p-1 mt-0 float-right">Delete</a><hr>');
+    $subItemPrototype.append($deleteSubItemLink);
+    $deleteSubItemLink.click(function(e) {
+      $subItemPrototype.remove();
+      e.preventDefault();
+      return false;
+    });
+  }
+
+
 
 });

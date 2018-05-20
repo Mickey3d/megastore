@@ -2,6 +2,76 @@
 
 {% block title %}{{ "Edit Item"|trans }}{% endblock %}
 
+{% form_theme form _self %}
+
+{% block _item_subItems_entry_widget %}
+
+  <div class="items row border pt-1">
+    <div class="row">
+      <div class="row">
+        <i class="fas fa-barcode fa-1x prefix grey-text m-0 pl-5"></i>
+        <div class="md-form pl-2 col-md-2 p-0">
+          {{ form_errors(form.subItemRef) }}
+          {{ form_widget(form.subItemRef, {'attr': {'id': 'subItemRef', 'name': 'subItemRef', 'class': 'm-0 form-control', 'aria-label': 'Large', 'aria-describedby': 'inputGroup-sizing-sm' }}) }}
+          <label for="itemRef" class="font-weight-light">{{ "Sub Item Ref"|trans }}</label>
+        </div>
+        <i class="far fa-money-bill-alt prefix grey-text m-0 p-0"></i>
+        <div class="md-form col-md-1 m-0 p-0">
+          {{ form_errors(form.price) }}
+          {{ form_widget(form.price, {'attr': {'id': 'price', 'name': 'price', 'class': 'm-0 form-control', 'aria-label': 'Large', 'aria-describedby': 'inputGroup-sizing-sm' }}) }}
+          <label for="price" class="font-weight-light">{{ "Price"|trans }}</label>
+        </div>
+        <i class="fas fa-user-circle prefix grey-text m-0 p-0"></i>
+        <div class="md-form col-md-1 p-0">
+          {{ form_errors(form.owner) }}
+          {{ form_widget(form.owner, {'attr': {'id': 'owner', 'name': 'owner', 'class': 'form-control', 'aria-label': 'Large', 'aria-describedby': 'inputGroup-sizing-sm' }}) }}
+          <label for="owner" class="font-weight-light">{{ "Owner"|trans }}</label>
+        </div>
+        <div class="col-md-3">
+          <div class="row">
+            <div class="col-md-6">
+              <label for="status" class="font-weight-light"><i class="fas fa-info fa-lg prefix grey-text m-0 p-1"></i>{{ "Status"|trans }}</label>
+              <div class="md-form p-0 m-0">
+                {{ form_errors(form.status) }}
+                {{ form_widget(form.status, {'attr': {'id': 'status', 'name': 'status', 'class': 'text-uppercase form-control', 'aria-label': 'Large', 'aria-describedby': 'inputGroup-sizing-sm' }}) }}
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label for="stock" class="font-weight-light"><i class="fab fa-stack-overflow fa-lg prefix grey-text m-0 p-1"></i>{{ "Stock"|trans }}</label>
+              <div class="md-form p-0 m-0">
+                {{ form_errors(form.stock) }}
+                {{ form_widget(form.stock, {'attr': {'id': 'stock', 'name': 'stock', 'class': 'text-uppercase form-control', 'aria-label': 'Large', 'aria-describedby': 'inputGroup-sizing-sm' }}) }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="text-center mt-4">
+            <label class="btn btn-success btn-sm m-0 pr-2">
+              {{ form_widget(form.inStore, {'attr': {'id': 'inStore', 'name': 'inStore','autocomplete': 'off', 'class': 'filled-in form-check-input', 'aria-label': 'Large', 'aria-describedby': 'inputGroup-sizing-sm' }}) }}
+              {{ "In Store"|trans }}
+            </label>
+            <label class="btn btn-warning  btn-sm m-0 pr-2">
+              {{ form_widget(form.reserved, {'attr': {'id': 'reserved', 'name': 'reserved','autocomplete': 'off', 'class': 'filled-in form-check-input', 'aria-label': 'Large', 'aria-describedby': 'inputGroup-sizing-sm' }}) }}
+              {{ "Reserved"|trans }}
+            </label>
+            <label class="btn btn-success  btn-sm m-0 pr-2">
+              {{ form_widget(form.enabled, {'attr': {'id': 'enabled', 'name': 'enabled','autocomplete': 'off', 'class': 'filled-in form-check-input', 'aria-label': 'Large', 'aria-describedby': 'inputGroup-sizing-sm' }}) }}
+              {{ "Enabled"|trans }}
+            </label>
+          </div>
+        </div>
+        <div class="md-form col-md-8 ml-5 m-0">
+          {{ form_errors(form.comment) }}
+          {{ form_widget(form.comment, {'attr': {'id': 'comment', 'rows': '1', 'name': 'comment', 'class': 'form-control', 'aria-label': 'Large', 'aria-describedby': 'inputGroup-sizing-sm' }}) }}
+          <label for="comment" class="font-weight-light ml-5">{{ "Comment"|trans }}</label>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+
 {% block content %}
   {% if is_granted('ROLE_ADMIN')%}
     {{ include('Admin/Inventory/item/_form.html.twig', {'button_label': 'Update'}) }}

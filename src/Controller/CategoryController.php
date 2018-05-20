@@ -68,7 +68,6 @@ class CategoryController extends Controller
      */
     public function edit(Request $request, Category $category): Response
     {
-
         $em = $this->getDoctrine()->getManager();
         $originalSubCat = new ArrayCollection();
         // Create an ArrayCollection of the current SubCategory objects in the database

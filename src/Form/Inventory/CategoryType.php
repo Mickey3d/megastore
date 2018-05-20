@@ -21,7 +21,7 @@ class CategoryType extends AbstractType
               'entry_type'   => SubCategoryCatType::class,
               'allow_add'    => true,
               'allow_delete' => true
-      ))
+            ))
         ;
     }
 

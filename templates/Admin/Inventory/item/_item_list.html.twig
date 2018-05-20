@@ -103,7 +103,7 @@
                           <div class="center border">
                             <h5 class="fs-14 bold center border-bottom">{{ subItem.subItemRef }}</h5>
                             {% if subItem.status.statusName is defined %}
-                              <p class="fs-12 title">
+                              <p class="bg-{{ subItem.status.statusType }} fs-12 bold m-0 p-0">
                                 <i class="fas fa-info fa-lg m-1"></i>{{ "Status"|trans }}
                                 :
                                 {{ subItem.status.statusName }}</p>
@@ -126,7 +126,7 @@
                           {% endif %}
                         </div>
                         {% if subItem.stock.stockName %}
-                          <div class="{% if subItem.enabled == false %}disabled{% endif %} col-sm-12 col-md-2 m-0 pl-1 pr-1 border">
+                          <div class="{% if subItem.enabled == false %}disabled{% endif %} col-sm-12 col-md-2 m-0 p-2 border">
                             <span class="fs-12 title">
                               <i class="fab fa-stack-overflow fa-lg m-1"></i>{{ "Stock"|trans }}
                               :
