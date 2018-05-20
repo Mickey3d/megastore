@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\Stock;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\SubItemRepository")
@@ -66,7 +67,7 @@ class SubItem
     /**
      * @ORM\Column(type="boolean", nullable=true)
      */
-    private $enabled;
+    private $enabled = true;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
@@ -242,4 +243,83 @@ class SubItem
             $this->setCreatedAt(new \DateTime(date('Y-m-d H:i:s')));
         }
     }
+
+    /**
+    *
+    * @ORM\PrePersist
+    * @ORM\PreUpdate
+    */
+    public function subItemManager()
+    {
+        $selfStock = $this->getStock();
+        $selfStatus = $this->getStatus();
+
+        if ($selfStock == null AND $selfStatus == null) {
+          $this->inStore = false;
+          $this->enabled = false;
+        }
+
+        if ($selfStock != null AND $selfStatus == null) {
+          $selfStockDefinedAs = $selfStock->getDefinedAs();
+          if($selfStockDefinedAs == Stock::MAINSTOCK)
+          {
+              $this->inStore = true;
+              $this->enabled = true;
+          }
+          else {
+            $this->inStore = false;
+          }
+          if($selfStockDefinedAs == Stock::OUTER)
+          {
+              $this->enabled = true;
+          }
+          if ($selfStockDefinedAs == Stock::DONATION | $selfStockDefinedAs == Stock::SALED | $selfStockDefinedAs == Stock::LOST | $selfStockDefinedAs == Stock::BROKEN | $selfStockDefinedAs == Stock::TRASH ) {
+            $this->enabled = false;
+         }
+        }
+
+        if ($selfStock == null AND $selfStatus != null) {
+          $statusStock = $selfStatus->getStock();
+          if ($statusStock != null) {
+            $this->setStock($statusStock);
+            $statusStockDefinedAs = $statusStock->getDefinedAs();
+            if($statusStock->getDefinedAs() == Stock::MAINSTOCK)
+            {
+                $this->inStore = true;
+                $this->enabled = true;
+            }
+            else {
+              $this->inStore = false;
+            }
+            if ($statusStockDefinedAs == Stock::OUTER) {
+              $this->enabled = true;
+            }
+            if ($statusStockDefinedAs == Stock::DONATION | $statusStockDefinedAs == Stock::SALED | $statusStockDefinedAs == Stock::LOST | $statusStockDefinedAs == Stock::BROKEN | $statusStockDefinedAs == Stock::TRASH ) {
+              $this->enabled = false;
+            }
+          }
+        }
+
+        if ($selfStock != null AND $selfStatus != null) {
+          $statusStock = $selfStatus->getStock();
+          if ($statusStock != null) {
+            $this->setStock($statusStock);
+            $statusStockDefinedAs = $statusStock->getDefinedAs();
+            if ($statusStockDefinedAs == Stock::MAINSTOCK) {
+              $this->inStore = true;
+              $this->enabled = true;
+            }
+            else {
+              $this->inStore = false;
+            }
+            if ($statusStockDefinedAs == Stock::OUTER) {
+              $this->enabled = true;
+            }
+            if ($statusStockDefinedAs == Stock::DONATION | $statusStockDefinedAs == Stock::SALED | $statusStockDefinedAs == Stock::LOST | $statusStockDefinedAs == Stock::BROKEN | $statusStockDefinedAs == Stock::TRASH ) {
+              $this->enabled = false;
+            }
+         }
+       }
+    }
+
 }

@@ -44,7 +44,7 @@ class Team
     /**
      * @ORM\Column(type="boolean")
      */
-    private $enabled;
+    private $enabled = true;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="team")

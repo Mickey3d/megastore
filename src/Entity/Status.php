@@ -46,7 +46,7 @@ class Status
     /**
      * @ORM\Column(type="boolean", nullable=true)
      */
-    private $enabled;
+    private $enabled = true;
 
     public function getId()
     {

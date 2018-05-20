@@ -63,10 +63,10 @@ class Item
     /**
      * @ORM\Column(type="boolean", nullable=true)
      */
-    private $enabled;
+    private $enabled = true;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\SubItem", mappedBy="item")
+     * @ORM\OneToMany(targetEntity="App\Entity\SubItem", mappedBy="item", cascade={"persist", "remove"})
      */
     private $subItems;
 

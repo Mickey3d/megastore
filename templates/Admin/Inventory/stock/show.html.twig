@@ -81,12 +81,20 @@
                       <tbody>
                         <th class="center">{{ "Items in the Stock"|trans }}</th>
                         {% for subItem in stock.subiTems %}
-                            <tr class="items">
-                                <td>{{ subItem.item.itemName }}</td>
-                                <td>{{ subItem.comment }}</td>
-                                <td>
+                            <tr class=" m-0 p-0 items">
+                                <td class=" m-0 p-2 title">
+                                {{ subItem.item.itemName }}<br />
+                                REF: {{ subItem.item.itemRef }}<br />
+                                <span class="fas-12">{{ subItem.subItemRef }}</span>
+                                </td>
+                                <td class=" m-0 p-2">{{ subItem.comment }}</td>
+                                <td class=" m-0 p-2">{{ subItem.item.category.categoryName }}</td>
+                                <td class=" m-0 p-2 fs-12 title">{{ subItem.item.subCategory.subEntityName }}</td>
+                                <td class=" m-0 p-0">
+                                  <div class="row m-0 p-0">
                                     <a class="nav-link" href="{{ path('sub_item_show', {'id': subItem.id}) }}">{{ "Show"|trans }}</a>
                                     <a class="nav-link" href="{{ path('sub_item_edit', {'id': subItem.id}) }}">{{ "Edit"|trans }}</a>
+                                  </div>
                                 </td>
                             </tr>
                         {% else %}
@@ -106,7 +114,9 @@
                       <tbody>
                         <tr>
                           <th>{{ "Linked Status List "|trans }}</th>
+                          {% if stock.status.statusType is defined %}
                           <td><span class="badge badge-{{ stock.status.statusType }}">{{ stock.status.statusName }}</span></td>
+                          {% endif %}
                         </tr
                       </tbody>
                     </table>
