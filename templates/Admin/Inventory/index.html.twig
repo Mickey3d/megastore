@@ -4,10 +4,11 @@
 {% endblock %}
 
 {% block content %}
-{% if is_granted("ROLE_ADMIN") or is_granted("ROLE_MANAGER") %}
-  <div id="accordion">
-    <div id="subMenu" class="card">
-      <div class="card-header" id="subMenuHeader">
+  {% if is_granted("ROLE_ADMIN")or is_granted("ROLE_MANAGER") %}
+
+    <div id="accordion">
+      <div id="subMenu" class="card">
+        <div class="card-header" id="subMenuHeader">
           <a class="btn btn-primary btn-lg" href="{{ path('item_new') }}">{{ "Create new Item"|trans }}</a>
           <a class="btn btn-primary btn-lg" href="{{ path('stock_new') }}">{{ "Create new Stock"|trans }}</a>
           <a class="btn btn-info btn-outline-dark btn-lg" href="{{ path('sub_item_new') }}">{{ "Add Item in Inventory"|trans }}</a>
@@ -15,151 +16,98 @@
           <a class="btn btn-success btn-md mr-1" href="{{ path('category_new') }}">{{ "Add Category"|trans }}</a>
           <a class="btn btn-success btn-sm ml-0" href="{{ path('sub_category_new') }}">{{ "Add Sub-Category"|trans }}</a>
           <a class="btn btn-success btn-md" href="{{ path('user_edit', {'id': app.user.id}) }}">{{ "Add Tag"|trans }}</a>
-        <div class="float-right">
-          <i class="fas fa-arrow-alt-circle-down"></i>
-          <a class="m-1 badge badge-dark badge-sm p-2" href="#table-content" alt="Table Content">
-            {{ "Go to List"|trans }}
-          </a>
+          <div class="float-right">
+            <i class="fas fa-arrow-alt-circle-down"></i>
+            <a class="m-1 badge badge-dark badge-sm p-2" href="#table-content" alt="Table Content">
+              {{ "Go to List"|trans }}
+            </a>
+          </div>
         </div>
+        <div id="barSubMenu">
+          <button class="float-left btn  btn-outline-primary" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            {{ "Dashboard"|trans }}
+            <i class="fas fa-tachometer-alt"></i>
+          </button>
+          <button id="showOptionBtn" class="btn btn-info btn-outline-info float-right">
+            {{ "Show Options"|trans }}
+          </button>
+          <button id="hideOptionBtn" class="btn btn-info  btn-outline-info float-right">
+            {{ "Hide Options"|trans }}
+          </button>
+          <h1 class="text-muted text-uppercase center">{{ "Inventory Manager"|trans }}</h1>
+        </div>
+        {{ include('Admin/Inventory/_inventory_dashboard.html.twig') }}
+
       </div>
-      <div id="barSubMenu">
-        <button class="float-left btn  btn-outline-primary" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-          {{ "Dashboard"|trans }}
-          <i class="fas fa-tachometer-alt"></i>
-        </button>
-        <button id="showOptionBtn" class="btn btn-info btn-outline-info float-right">
-          {{ "Show Options"|trans }}
-        </button>
-        <button id="hideOptionBtn" class="btn btn-info  btn-outline-info float-right">
-          {{ "Hide Options"|trans }}
-        </button>
-        <h1 class="text-muted text-uppercase center">{{ "Inventory Manager"|trans }}</h1>
-      </div>
-      <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-        <div class="card-body">
-          <div class="container">
-            <div class="row">
-              <div class="col-lg-3 col-md-3 col-sm-6">
-                <div class="widget">
-                  <div class="widget-heading clearfix">
-                    <div class="float-left">{{ "Items in Inventory"|trans }}</div>
-                    <div class="float-right">
-                      <i class="fas fa-cog"></i>
-                      100<sup>%</sup>
-                    </div>
-                  </div>
-                  <div class="widget-body clearfix">
-                    <div class="float-left">
-                      <i class="fas fa-cog"></i>
-                    </div>
-                    <div class="float-right number">250</div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-3 col-md-3 col-sm-6">
-                <div class="widget">
-                  <div class="col-head-green widget-heading clearfix">
-                    <div class="float-left">{{ "Main Stock"|trans }}</div>
-                    <div class="float-right">
-                      <i class="fas fa-warehouse"></i>
-                      80<sup>%</sup>
-                    </div>
-                  </div>
-                  <div class="col-body-green widget-body clearfix">
-                    <div class="float-left">
-                      <i class="fas fa-thumbs-up"></i>
-                    </div>
-                    <div class="float-right number">200</div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-3 col-md-3 col-sm-6">
-                <div class="widget">
-                  <div class="col-head-red widget-heading clearfix">
-                    <div class="float-left">{{ "Out"|trans }}</div>
-                    <div class="float-right">
-                      <i class="fas fa-sign-out-alt"></i>
-                      10<sup>%</sup>
-                    </div>
-                  </div>
-                  <div class="col-body-red widget-body clearfix">
-                    <div class="float-left">
-                      <i class="fas fa-thumbs-down"></i>
-                    </div>
-                    <div class="float-right number">25</div>
-                  </div>
-                </div>
-              </div>
-            </div>
+    </div>
+    <section id="table-content" class="mainContent">
+      <div class="container">
+        <ul class="nav nav-tabs ">
+          <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#Inventory" role="tab">
+              <i class="fas fa-warehouse fa-2x mr-2"></i>
+              {{ "Inventory"|trans }}
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#Stock" role="tab">
+              <i class="fab fa-stack-overflow fa-2x m-2"></i>
+              {{ "Stocks"|trans }}
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#Status" role="tab">
+              <i class="fas fa-info fa-2x m-2"></i>
+              {{ "Status"|trans }}
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#Categories" role="tab">
+              <i class="fas fa-sitemap fa-2x m-2"></i>
+              {{ "Categories"|trans }}
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#Tags" role="tab">
+              <i class="fas fa-tags fa-2x m-2"></i>
+              {{ "Tags"|trans }}
+            </a>
+          </li>
+        </ul>
+        <div class="col-lg-12 mt-1 mb-0 p-0">
+          <input type="search" class="form-control input-search" id="input-search" placeholder="{{ "search attendees"|trans }}">
+          <button id="show_disabled" class="btn btn-sm btn-outline-light" type="button" name="button">{{ "Show disabled"|trans }}</button>
+          <button id="hide_disabled" class="btn btn-sm btn-outline-dark" type="button" name="button">{{ "Hide disabled"|trans }}</button>
+          <button id="show_outer" class="btn btn-sm btn-outline-light" type="button" name="button">{{ "Show Outer Stock"|trans }}</button>
+          <button id="hide_outer" class="btn btn-sm btn-outline-dark" type="button" name="button">{{ "Hide Outer Stock"|trans }}</button>
+        </div>
+        <div class="tab-content mt-0 pt-0">
+          <div id="Inventory" class=" mt-0 pt-0 tab-pane fade in active show">
+            {{ include('Admin/Inventory/item/_item_list.html.twig') }}
+          </div>
+          <div id="Stock" class=" mt-0 pt-0 tab-pane fade">
+            {{ include('Admin/Inventory/stock/_stock_list.html.twig') }}
+          </div>
+          <div id="Status" class=" mt-0 pt-0 tab-pane fade">
+            {{ include('Admin/Inventory/status/_status_list.html.twig') }}
+          </div>
+          <div id="Categories" class=" mt-0 pt-0 tab-pane fade">
+            {{ include('Admin/Inventory/category/_category_list.html.twig') }}
+          </div>
+          <div id="Tags" class=" mt-0 pt-0 tab-pane fade">
+            <p>tags</p>
           </div>
         </div>
       </div>
-    </div>
-  </div>
-  <section id="table-content" class="mainContent">
-    <div class="container">
-      <ul class="nav nav-tabs ">
-        <li class="nav-item">
-          <a class="nav-link active" data-toggle="tab" href="#Inventory" role="tab">
-            <i class="fas fa-warehouse fa-2x mr-2"></i>
-            {{ "Inventory"|trans }}
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" data-toggle="tab" href="#Stock" role="tab">
-            <i class="fab fa-stack-overflow fa-2x m-2"></i>
-            {{ "Stocks"|trans }}
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" data-toggle="tab" href="#Status" role="tab">
-            <i class="fas fa-info fa-2x m-2"></i>
-            {{ "Status"|trans }}
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" data-toggle="tab" href="#Categories" role="tab">
-            <i class="fas fa-sitemap fa-2x m-2"></i>
-            {{ "Categories"|trans }}
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" data-toggle="tab" href="#Tags" role="tab">
-            <i class="fas fa-tags fa-2x m-2"></i>
-            {{ "Tags"|trans }}
-          </a>
-        </li>
-      </ul>
-      <div class="col-lg-12 mt-1">
-        <input type="search" class="form-control input-search" id="input-search" placeholder="{{ "Search Attendees"|trans }}...">
-      </div>
-      <div class="tab-content">
-        <div id="Inventory" class="tab-pane fade in active show">
-          {{ include('Admin/Inventory/item/_item_list.html.twig') }}
-        </div>
-        <div id="Stock" class="tab-pane fade">
-          {{ include('Admin/Inventory/stock/_stock_list.html.twig') }}
-        </div>
-        <div id="Status" class="tab-pane fade">
-          {{ include('Admin/Inventory/status/_status_list.html.twig') }}
-        </div>
-        <div id="Categories" class="tab-pane fade">
-          {{ include('Admin/Inventory/category/_category_list.html.twig') }}
-        </div>
-        <div id="Tags" class="tab-pane fade">
-          <p>tags</p>
+    </section>
+  {% else %}
+    <section>
+      <div class="col-md-12 center">
+        <div class="alert alert-danger">
+          <p>YOU ARE NOT ALLOWED TO ACCESS TO THIS PAGE</p>
+          <a class="btn btn-outline-info" href="{{ path('index') }}"></a>
         </div>
       </div>
-    </div>
-</section>
-{% else %}
-<section>
-  <div class="col-md-12 center">
-    <div class="alert alert-danger">
-      <p>YOU ARE NOT ALLOWED TO ACCESS TO THIS PAGE</p>
-      <a class="btn btn-outline-info" href="{{ path('index') }}"></a>
-    </div>
-  </div>
-</section>
-{% endif %}
+    </section>
+  {% endif %}
 {% endblock %}

@@ -1,0 +1,150 @@
+{% set itemscount = 0 %}
+{% set enabledItemcount = 0 %}
+{% set disabledItemcount = 0 %}
+{% set inStoreSubItemcount = 0 %}
+{% set subItemscount = 0 %}
+{% set enabledSubItemscount = 0 %}
+{% set disabledSubItemscount = 0 %}
+{% set stockcount = 0 %}
+{% set cssHeadStyle = "" %}
+{% set cssBodyStyle = "" %}
+{% set icon = "fas fa-info-circle" %}
+
+{% for item in items %}
+  {% set itemscount = itemscount + 1 %}
+  {% if item.enabled == true %}
+    {% set enabledItemcount = enabledItemcount + 1 %}
+  {% else %}
+    {% set disabledItemcount = disabledItemcount + 1 %}
+  {% endif %}
+  {% for subItem in item.subItems %}
+  {% set subItemscount = subItemscount + 1 %}
+    {% if subItem.enabled == true %}
+      {% set enabledSubItemscount = enabledSubItemscount + 1 %}
+    {% else %}
+      {% set disabledSubItemscount = disabledSubItemscount + 1 %}
+    {% endif %}
+    {% if subItem.inStore == true %}
+    {% set inStoreSubItemcount = inStoreSubItemcount + 1 %}
+    {% endif %}
+  {% endfor %}
+{% endfor %}
+
+{% set perCentEnabledItemcount = (100 / itemscount) * enabledItemcount %}
+{% set perCentEnabledSubItemcount = (100 / subItemscount) * enabledSubItemscount %}
+
+{% for stock in stocks %}
+  {% set stockcount = stockcount + 1 %}
+{% endfor %}
+<div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+  <div class="card-body">
+    <div id="dashboard-container"class="container">
+      <div class="row">
+        <div class="col-lg-3 col-md-3 col-sm-6">
+          <div class="widget">
+            <div class="widget-heading clearfix">
+              <div class="float-left">{{ "Items Enabled"|trans }}</div>
+              <div class="float-right">
+                <i class="fas fa-warehouse"></i>
+                {{ perCentEnabledItemcount|round(1, 'floor') }}<sup>%</sup>
+              </div>
+            </div>
+            <div class="widget-body clearfix">
+              <div class="float-left">
+                <i class="fas fa-warehouse"></i>
+              </div>
+              <div class="float-right ">{{ enabledItemcount }}</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6">
+          <div class="widget">
+            <div class="widget-heading clearfix">
+              <div class="float-left">{{ "Sub Items Enabled"|trans }}</div>
+              <div class="float-right">
+                <i class="fas fa-warehouse"></i>
+                {{ perCentEnabledSubItemcount|round(1, 'floor') }}<sup>%</sup>
+              </div>
+            </div>
+            <div class="widget-body clearfix">
+              <div class="float-left">
+                <i class="fas fa-list-alt"></i>
+              </div>
+              <div class="float-right number">{{ enabledSubItemscount }}</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6">
+          <div class="widget">
+            <div class="widget-heading clearfix">
+              <div class="float-left">{{ "Active Stocks"|trans }}</div>
+              <div class="float-right">
+                <i class="fas fa-info-circle"></i>
+                100<sup>%</sup>
+              </div>
+            </div>
+            <div class="widget-body clearfix">
+              <div class="float-left">
+                <i class="fab fa-stack-overflow"></i>
+              </div>
+              <div class="float-right number">{{ stockcount }}</div>
+            </div>
+          </div>
+        </div>
+        {% for stock in stocks %}
+        {% if stock.definedAs == null %}
+          {% set cssHeadStyle = "col-head-blue" %}
+          {% set cssBodyStyle = "col-body-blue" %}
+          {% set icon = "fas fa-sign-in-alt" %}
+        {% endif %}
+        {% if stock.definedAs is defined %}
+          {% if stock.definedAs == constant('App\\Entity\\Stock::MAINSTOCK') %}
+            {% set cssHeadStyle = "col-head-green" %}
+            {% set cssBodyStyle = "col-body-green" %}
+            {% set icon = "fas fa-shopping-cart" %}
+          {% endif %}
+          {% if stock.definedAs == constant('App\\Entity\\Stock::OUTER') %}
+            {% set cssHeadStyle = "col-head-red" %}
+            {% set cssBodyStyle = "col-body-red" %}
+            {% set icon = "fas fa-sign-out-alt" %}
+          {% endif %}
+          {% if stock.definedAs == constant('App\\Entity\\Stock::TRASH') or stock.definedAs == constant('App\\Entity\\Stock::LOST') or stock.definedAs == constant('App\\Entity\\Stock::BROKEN')%}
+            {% set cssHeadStyle = "col-head-orange" %}
+            {% set cssBodyStyle = "col-body-orange" %}
+            {% set icon = "fas fa-thumbs-down" %}
+          {% endif %}
+          {% if stock.definedAs == constant('App\\Entity\\Stock::SALED') %}
+            {% set cssHeadStyle = "col-head-blue" %}
+            {% set cssBodyStyle = "col-body-blue" %}
+            {% set icon = "fas fa-thumbs-up" %}
+          {% endif %}
+          {% if stock.definedAs == constant('App\\Entity\\Stock::DONATION')  %}
+            {% set cssHeadStyle = "col-head-blue" %}
+            {% set cssBodyStyle = "col-body-blue" %}
+            {% set icon = "fas fa-sign-in-alt" %}
+          {% endif %}
+        {% endif %}
+        {% set subItemsInStockCount = stock.subItems.count %}
+        {% set perCentSubItemsInStock = (100 / subItemscount) * subItemsInStockCount %}
+        <div id="stock-{{ stock.id}}" class="col-lg-3 col-md-3 col-sm-6">
+          <div class="widget">
+            <div class="{{ cssHeadStyle }} widget-heading clearfix">
+              <div class="float-left">{{ stock.stockName }}</div>
+              <div class="float-right" id="percent-stock-{{ stock.id}}">
+                <i class="fas fa-warehouse"></i>
+                {{ perCentSubItemsInStock|round(1, 'floor') }}<sup>%</sup>
+              </div>
+            </div>
+            <div class="{{ cssBodyStyle }} widget-body clearfix">
+              <div class="float-left">
+                <i class="{{ icon }}"></i>
+              </div>
+              <div class="float-right number" id="count-stock-{{ stock.id }}">{{ stock.subItems.count }}</div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>

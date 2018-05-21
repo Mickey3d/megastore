@@ -2,7 +2,7 @@
   <div class="row">
     <div id="items-list" class="searchable-container row">
       {% for item in items %}
-        <div id="heading-item-{{ item.id }}" class="items col-md-12 clearfix center">
+        <div id="heading-item-{{ item.id }}" class="{% if item.enabled == false %}disabled-tag{% endif %} items col-md-12 clearfix center">
           <div class="info-block block-info clearfix row">
             <div class="{% if item.enabled == false %}disabled{% endif %} col-sm-6 col-md-2 center p-0 m-0 border center">
               <div class="center">
@@ -36,24 +36,7 @@
                 </h4>
               {% endif %}
             </div>
-            <div class="{% if item.enabled == false %}disabled{% endif %} col-sm-4 col-md-1 m-0 p-0 border center">
-              <p class="m-0 bold text-uppercase">{{ "Total"|trans }}</p>
-              <div class="border m-0">
-                <p class="m-0 bold">{{ item.subItems.count }}</p>
-              </div>
-            </div>
-            <div class="{% if item.enabled == false %}disabled{% endif %}  col-sm-4 col-md-1 m-0 p-0 border center">
-              <p class="m-0 bold text-uppercase">{{ "In Store"|trans }}</p>
-              <div class="border m-0">
-                <p class="m-0 bold">{{ item.subItems.count }}</p>
-              </div>
-            </div>
-            <div class="{% if item.enabled == false %}disabled{% endif %} col-sm-4 col-md-1 m-0 p-0 border center">
-              <p class="m-0 bold text-uppercase">{{ "Out"|trans }}</p>
-              <div class="border m-0">
-                <p class="m-0 bold">{{ item.subItems.count }}</p>
-              </div>
-            </div>
+            {{ include('Admin/Inventory/item/_counter.html.twig') }}
             <div class="col-sm-12 col-md-4 center">
               <div class="float-right  mt-0">
                 {{ include('Admin/Inventory/item/_delete_form_list.html.twig') }}
@@ -97,7 +80,7 @@
                 <div id="subItems-item-{{ item.id }}" class="searchable-container tab-pane">
                   <p class="fs-14 float-left text-uppercase">{{ "Sub-Items"|trans}}</p>
                   {% for subItem in item.subItems %}
-                    <div id="heading-item-{{ subItem.id }}" class="items col-md-10 float-right clearfix center">
+                    <div id="heading-item-{{ subItem.id }}" class="{% if subItem.enabled == false %}disabled-tag{% endif %} {% if subItem.stock.definedAs is defined and subItem.stock.definedAs == constant('App\\Entity\\Stock::OUTER') %}outer-tag{% endif %} items col-md-10 float-right clearfix center">
                       <div class="info-block block-info clearfix row">
                         <div class="{% if subItem.enabled == false %}disabled{% endif %} col-sm-12 col-md-3 center m-0 p-0">
                           <div class="center border">

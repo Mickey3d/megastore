@@ -2,7 +2,7 @@
   <div class="row">
     <div id="status-list" class="searchable-container row">
       {% for status in statuses %}
-        <div id="heading-status-{{ status.id }}" class="items col-md-6 clearfix center">
+        <div id="heading-status-{{ status.id }}" class="{% if status.enabled == false %}disabled-tag{% endif %} items col-md-6 clearfix center">
           <div class="info-block block-info clearfix row">
             <div class="{% if status.enabled == false %}disabled{% endif %}  col-sm-12 col-md-4 center">
               <div class="center p-1  bg-{{ status.statusType }} text-white ">

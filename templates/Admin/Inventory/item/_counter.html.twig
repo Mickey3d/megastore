@@ -1,0 +1,32 @@
+
+{% set selfEnabledSubItemscount = 0 %}
+{% set selfInStoreSubItemscount = 0 %}
+{% set selfOutSubItemscount = 0 %}
+{% for subItem in item.subItems %}
+{% if subItem.enabled == true %}
+  {% set selfEnabledSubItemscount = selfEnabledSubItemscount + 1 %}
+{% endif %}
+{% if subItem.inStore == true %}
+  {% set selfInStoreSubItemscount = selfInStoreSubItemscount + 1 %}
+{% endif %}
+{% endfor %}
+{% set selfOutSubItemscount = selfEnabledSubItemscount - selfInStoreSubItemscount %}
+
+<div class="{% if item.enabled == false %}disabled{% endif %} col-sm-4 col-md-1 m-0 p-0 border center">
+  <p class="badge-primary m-0 bold text-uppercase">{{ "Total"|trans }}</p>
+  <div class="border m-0">
+    <p class="m-0 bold">{{ selfEnabledSubItemscount }}</p>
+  </div>
+</div>
+<div class="{% if item.enabled == false %}disabled{% endif %}  col-sm-4 col-md-1 m-0 p-0 border center">
+  <p class="badge-success m-0 bold text-uppercase">{{ "In Store"|trans }}</p>
+  <div class="border m-0">
+    <p class="m-0 bold">{{ selfInStoreSubItemscount }}</p>
+  </div>
+</div>
+<div class="{% if item.enabled == false %}disabled{% endif %} col-sm-4 col-md-1 m-0 p-0 border center">
+  <p class="badge-danger m-0 bold text-uppercase">{{ "Out"|trans }}</p>
+  <div class="border m-0">
+    <p class="m-0 bold">{{ selfOutSubItemscount }}</p>
+  </div>
+</div>

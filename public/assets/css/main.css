@@ -287,7 +287,10 @@
 *               GENERAL              *
 ************************************/
 
-body {}
+body {
+  font-family: "Roboto", "Helvetica", "Montserrat", "Arial", sans-serif;
+
+}
 
 section {
   padding: 40px 0;
@@ -801,6 +804,11 @@ h3.big-title6:after, h2.big-title6:after {
 /**********
 *          DACHBOAORD WIDGET :       *
 ************************************/
+
+#dashboard-container {
+  overflow: auto;
+  max-height: 450px;
+}
 
 .widget {
   margin: 0 0 25px 0;

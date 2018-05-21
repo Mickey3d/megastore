@@ -76,7 +76,7 @@ $(document).ready(function() {
 
 
   /*****************************************************************************
-   *               SubCItems Adder
+   *               SubItems Adder
    *****************************************************************************/
   var $subItemContainer = $('div#item_subItems');
   var indexSubItem = $subItemContainer.find(':input').length;
@@ -111,6 +111,46 @@ $(document).ready(function() {
     });
   }
 
+
+  /*****************************************************************************
+   *               Disabled & OUTER Shower
+   *****************************************************************************/
+  var $itemListContainer = $('div#items-list');
+  $('#hide_disabled').hide();
+  $('.disabled-tag').hide();
+  $('#show_outer').hide();
+
+  $('#hide_disabled').click(function(e) {
+    $('.disabled-tag').hide();
+    $('#hide_disabled').hide();
+    $('#show_disabled').show();
+    e.preventDefault();
+    return false;
+  });
+
+  $('#show_disabled').click(function(e) {
+    $('.disabled-tag').show();
+    $('#show_disabled').hide();
+    $('#hide_disabled').show();
+    e.preventDefault();
+    return false;
+  });
+
+  $('#hide_outer').click(function(e) {
+    $('.outer-tag').hide();
+    $('#hide_outer').hide();
+    $('#show_outer').show();
+    e.preventDefault();
+    return false;
+  });
+
+  $('#show_outer').click(function(e) {
+    $('.outer-tag').show();
+    $('#show_outer').hide();
+    $('#hide_outer').show();
+    e.preventDefault();
+    return false;
+  });
 
 
 });

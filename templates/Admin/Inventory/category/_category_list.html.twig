@@ -2,7 +2,7 @@
   <div class="row">
     <div id="categories_list" class="searchable-container row">
       {% for category in categories %}
-        <div id="heading-cat-{{ category.id }}" class="items col-md-12 clearfix center">
+        <div id="heading-cat-{{ category.id }}" class="{% if category.enabled == false %}disabled-tag{% endif %} items col-md-12 clearfix center">
           <div class="info-block block-info clearfix row">
             <div class="{% if category.enabled == false %}disabled{% endif %} col-sm-12 col-md-3 center">
               <div class="center">
@@ -63,7 +63,7 @@
                 <div id="subCategories-cat-{{ category.id }}" class="searchable-container tab-pane">
                   <p class="fs-14 float-left text-uppercase">{{ "Sub-Categories"|trans}}</p>
                   {% for sub_category in category.subCategories %}
-                    <div id="heading-cat-{{ sub_category.id }}" class="items col-md-10 float-right clearfix center">
+                    <div id="heading-cat-{{ sub_category.id }}" class="{% if sub_category.enabled == false %}disabled-tag{% endif %}  items col-md-10 float-right clearfix center">
                       <div class="info-block block-info clearfix row">
                         <div class="{% if sub_category.enabled == false %}disabled{% endif %} col-sm-12 col-md-3 center">
                           <div class="center">
