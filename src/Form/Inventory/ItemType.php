@@ -53,7 +53,7 @@ class ItemType extends AbstractType
     }
 
     protected function addElements(FormInterface $form, Category $category = null) {
-        // 4. Add the province element
+        
         $form->add('category', EntityType::class, array(
             'required' => false,
             'data' => $category,
@@ -73,6 +73,7 @@ class ItemType extends AbstractType
             $subCategories = $repoSubCategories->createQueryBuilder("q")
                 ->where("q.category = :categoryid")
                 ->setParameter("categoryid", $category->getId())
+                ->andWhere('q.enabled = true')
                 ->getQuery()
                 ->getResult();
         }

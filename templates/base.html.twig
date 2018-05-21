@@ -2,6 +2,8 @@
 <html>
   <head>
     <meta charset="UTF-8">
+    <meta name=”viewport” content=”width=device-width, initial-scale=1, shrink-to-fit=no”>
+    <meta http-equiv=”x-ua-compatible” content=”ie=edge”>
     <title>
       {% block title %}{{ "Welcome"|trans }}!{% endblock %}
     </title>
@@ -42,7 +44,7 @@
           </div>
         {% endfor %}
       {% endfor %}
-      <aside >
+
         {% block sidebar %}{% endblock %}
         <section >
           <!-- /#page-content-wrapper -->
@@ -50,7 +52,7 @@
             <!-- CONTENT -->
           {% endblock %}
         </section>
-      </aside>
+
     {% endblock %}
     {% block javascripts %}
       <!-- SCRIPTS -->

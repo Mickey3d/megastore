@@ -29,6 +29,7 @@ class SubCategoryController extends Controller
         $subCategories = $subCategoriesRepository->createQueryBuilder("q")
             ->where("q.category = :categoryid")
             ->setParameter("categoryid", $request->query->get("categoryid"))
+            ->andWhere('q.enabled = true')
             ->getQuery()
             ->getResult();
 
