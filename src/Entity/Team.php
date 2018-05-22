@@ -47,13 +47,13 @@ class Team
     private $enabled = true;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="team")
+     * @ORM\OneToMany(targetEntity="App\Entity\Profile", mappedBy="team")
      */
-    private $users;
+    private $profiles;
 
     public function __construct()
     {
-        $this->users = new ArrayCollection();
+        $this->profiles = new ArrayCollection();
     }
 
 
@@ -140,30 +140,30 @@ class Team
     }
 
     /**
-     * @return Collection|User[]
+     * @return Collection|Profile[]
      */
-    public function getUsers(): Collection
+    public function getProfiles(): Collection
     {
-        return $this->users;
+        return $this->profiles;
     }
 
-    public function addUser(User $user): self
+    public function addProfile(Profile $profile): self
     {
-        if (!$this->users->contains($user)) {
-            $this->users[] = $user;
-            $user->setTeam($this);
+        if (!$this->profiles->contains($profile)) {
+            $this->profiles[] = $profile;
+            $profile->setTeam($this);
         }
 
         return $this;
     }
 
-    public function removeUser(User $user): self
+    public function removeProfile(Profile $profile): self
     {
-        if ($this->users->contains($user)) {
-            $this->users->removeElement($user);
+        if ($this->profiles->contains($profile)) {
+            $this->profiles->removeElement($profile);
             // set the owning side to null (unless already changed)
-            if ($user->getTeam() === $this) {
-                $user->setTeam(null);
+            if ($profile->getTeam() === $this) {
+                $profile->setTeam(null);
             }
         }
 

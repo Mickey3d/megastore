@@ -1,0 +1,96 @@
+<!-- Card -->
+<div class="card">
+  <!-- Card body -->
+  <div class="card-body">
+    {{ form_start(form) }}
+    {{ form_widget(form._token) }}
+    {% if not form.vars.valid %}
+      <div class="alert alert-danger">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <span>
+          <strong>{{ form_errors(form) }}</strong>
+        </span>
+      </div>
+    {% endif %}
+    <form>
+      <div class="row">
+        <div class="col-sm-12">
+          {% if new is defined %}
+            <h1 class="h4 text-center py-4">{{ "New Profile"|trans }}</h1>
+          {% else %}
+            <h1 class="h4 text-center py-4">{{ "Edit Profile"|trans }}</h1>
+          {% endif %}
+        </div>
+        <div class="col-md-6">
+          <!-- Material input text -->
+          <div class="md-form">
+            <i class="fas fa-info-circle prefix grey-text"></i>
+            {{ form_errors(form.profileName) }}
+            {{ form_widget(form.profileName, {'attr': {'id': 'profileName', 'name': 'profileName', 'class': 'form-control', 'aria-label': 'Large', 'aria-describedby': 'inputGroup-sizing-sm' }}) }}
+            <label for="profileName" class="font-weight-light">{{ "Profile Name"|trans }}</label>
+          </div>
+          <div class="md-form">
+            <i class="fas fa-user prefix grey-text"></i>
+            {{ form_errors(form.firstName) }}
+            {{ form_widget(form.firstName, {'attr': {'id': 'firstname', 'name': 'firstName', 'class': 'form-control', 'aria-label': 'Large', 'aria-describedby': 'inputGroup-sizing-sm' }}) }}
+            <label for="firstname" class="font-weight-light">{{ "Fistname"|trans }}</label>
+          </div>
+          <div class="md-form">
+            <i class="fas fa-user prefix grey-text"></i>
+            {{ form_errors(form.lastName) }}
+            {{ form_widget(form.lastName, {'attr': {'id': 'lastname', 'name': 'lastName', 'class': 'form-control', 'aria-label': 'Large', 'aria-describedby': 'inputGroup-sizing-sm' }}) }}
+            <label for="lastaname" class="font-weight-light">{{ "Lastname"|trans }}</label>
+          </div>
+          <!-- Material input email -->
+          <div class="md-form">
+            <i class="fa fa-envelope prefix grey-text"></i>
+            {{ form_errors(form.email) }}
+            {{ form_widget(form.email, {'attr': {'id': 'email', 'type': 'email', 'name': 'email', 'class': 'form-control', 'aria-label': 'Large', 'aria-describedby': 'inputGroup-sizing-sm' }}) }}
+            <label for="email" class="font-weight-light">{{ "Email"|trans }}</label>
+          </div>
+          <div class="md-form">
+            <i class="fa fa-phone prefix grey-text"></i>
+            {{ form_errors(form.phone) }}
+            {{ form_widget(form.phone, {'attr': {'id': 'phone', 'name': 'phone', 'class': 'form-control', 'aria-label': 'Large', 'aria-describedby': 'inputGroup-sizing-sm' }}) }}
+            <label for="phone" class="font-weight-light">{{ "Phone"|trans }}</label>
+          </div>
+        </div>
+        <div class="col-md-6 p-5">
+          <div class="md-form  p-1  m-1 center">
+            <label class="form-check-label p-2" for="team">{{ "Team"|trans }}</label>
+            {{ form_errors(form.team) }}
+            {{ form_widget(form.team, {'attr': {'id': 'team', 'name': 'team', 'class': 'p-3 m-1', 'aria-label': 'Large'}}) }}
+          </div>
+          <div class="md-form  p-1  m-1 center">
+            <label class="form-check-label p-2" for="user">{{ "User"|trans }}</label>
+            {{ form_errors(form.user) }}
+            {{ form_widget(form.user, {'attr': {'id': 'user', 'name': 'user', 'class': 'p-3 m-1', 'aria-label': 'Large'}}) }}
+          </div>
+          <div class="center p-4">
+            <label class="btn btn-success">
+              {{ form_widget(form.enabled, {'attr': {'id': 'enabled', 'name': 'enabled','autocomplete': 'off', 'class': 'filled-in form-check-input', 'aria-label': 'Large', 'aria-describedby': 'inputGroup-sizing-sm' }}) }}
+              {{ "Enabled"|trans }}
+            </label>
+            <label class="btn btn-warning">
+              {{ form_widget(form.restricted, {'attr': {'id': 'restricted', 'name': 'restricted','autocomplete': 'off', 'class': 'filled-in form-check-input', 'aria-label': 'Large', 'aria-describedby': 'inputGroup-sizing-sm' }}) }}
+              {{ "Restricted"|trans }}
+            </label>
+          </div>
+          {{ form_rest(form) }}
+        </div>
+        <div class="text-center">
+          <button class="btn btn-green center" type="submit">{{ button_label|default('Save') }}</button>
+        </div>
+      </div>
+    </form>
+    {{ form_end(form) }}
+    {% if new is not defined %}
+      <div class="float-right">
+        <div class="float-right">
+          {{ include('Admin/Community/profile/_delete_form.html.twig') }}
+        </div>
+      </div>
+    {% endif %}
+  </div>
+  <!-- Card body -->
+</div>

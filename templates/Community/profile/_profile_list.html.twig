@@ -1,7 +1,7 @@
 <div class="container white">
   <div class="row">
     <div class="searchable-container row">
-      {% for user in users %}
+      {% for profile in profiles %}
         <div class="items col-md-12 clearfix center">
           <div class="info-block block-info clearfix row">
             <div class="col-sm-12 col-md-5">
@@ -11,59 +11,48 @@
                     <span class="square-box fas fa-user fa-2x"></span>
                   </div>
                   <div class="center">
-                    {% if user.enabled == true %}
+                    {% if profile.enabled == true %}
                       <span class="fs-60-pc badge badge-success badge-sm">{{ "Enabled"|trans }}</span>
                     {% else %}
                       <span class="fs-60-pc badge badge-danger badge-sm">{{ "Disabled"|trans }}</span>
                     {% endif %}
-                    {% if user.restricted == true %}
+                    {% if profile.restricted == true %}
                       <span class="fs-60-pc badge badge-danger badge-sm">{{ "Restricted"|trans }}</span>
                     {% endif %}
                   </div>
                 </div>
                 <div class="col-sm-12 col-md-7">
-                  <h5>{{ user.username }}</h5>
+                  <h5>{{ profile.profileName }}</h5>
                     <hr class="m-0 mb-1 p-0">
-                  <h4 class="title">
-                    {% if user.profile != null %}
-                      {{ user.profile.firstName }} {{ user.profile.lastName }}
-                    {% endif %}
-                    </h4>
+                  <h4 class="title">{{ profile.firstName }}
+                    {{ profile.lastName }}</h4>
                   <h5 class="title">
                     <span class="fas fa-envelope">
-                      {% if user.profile != null %}
-                        {{ user.profile.email }}
-                      {% endif %}
-                    </span></h5>
+                      {{ profile.email }}</span></h5>
                   <h5 class="title">
                     <span class="fas fa-phone">
-                      {% if user.profile != null %}
-                        {{ user.profile.phone }}
-                      {% endif %}
-                    </span></h5>
+                      {{ profile.phone }}</span></h5>
                 </div>
               </div>
             </div>
             <div class="col-sm-12 col-md-4">
               <span class="mt-2 badge badge-dark text-uppercase">{{ "Team"|trans}}</span>
-              {% if user.profile != null %}
-                {% if user.profile.team != null %}
-                  <p class="m-1">
-                    <i class="fas fa-people-carry m-1"></i>
-                    <a href="{{ path('team_show', {'id': user.profile.team.id}) }}">
-                      {{ user.profile.team.teamName }}</a>
-                  </p>
-                {% else %}
-                  <p class="m-1">
-                    <i class="fas fa-people-carry m-1"></i>{{ 'No Team'|trans }}
-                  </p>
-                {% endif %}
+              {% if profile.team != null  %}
+                <p class="m-1">
+                  <i class="fas fa-people-carry m-1"></i>
+                  <a href="{{ path('team_show', {'id': profile.team.id}) }}">
+                    {{ profile.team.teamName }}</a>
+                </p>
               {% else %}
-              <p class="m-1">
-                <i class="fas fa-people-carry m-1"></i>{{ 'No Team'|trans }}
-              </p>
+                <p class="m-1">
+                  <i class="fas fa-people-carry m-1"></i>{{ 'No Team'|trans }}</p>
               {% endif %}
-              {% for role in user.roles %}
+              {% if profile.user != null %}
+              <p class="title">
+                {{ "Active User on the ¨Platform"|trans}}
+              </p>
+              <a class="float-right btn btn-outline-success btn-sm m-1" href="{{ path('user_show', {'id': profile.user.id}) }}">{{ "Show User"|trans }}</a>
+              {% for role in profile.user.roles %}
                 {% if role == "ROLE_ADMIN" %}
                   <span class="btn btn-outline-danger badge-pill btn-sm p-1">{{ "ADMIN"|trans}}</span>
                 {% endif %}
@@ -71,27 +60,28 @@
                   <span class="btn btn-outline-success badge-pill btn-sm p-1">{{ "MANAGER"|trans}}</span>
                 {% endif %}
               {% endfor %}
+              {% endif %}
             </div>
             <div class="col-sm-12 col-md-3 center">
               {% if is_granted("ROLE_ADMIN") %}
               <div class="float-right mt-1">
-                {{ include('Admin/Community/user/_delete_form_list.html.twig') }}
+                {{ include('Admin/Community/profile/_delete_form_list.html.twig') }}
               </div>
-                <a class="float-right btn btn-outline-info btn-sm p-1 mt-1" href="{{ path('admin_user_edit', {'id': user.id}) }}">{{ "Edit"|trans }}</a>
+                <a class="float-right btn btn-outline-info btn-sm p-1 mt-1" href="{{ path('profile_edit', {'id': profile.id}) }}">{{ "Edit"|trans }}</a>
               {% endif %}
-              <a class="float-right btn btn-outline-success btn-sm m-1" href="{{ path('user_show', {'id': user.id}) }}">{{ "Show"|trans }}</a>
+              <a class="float-right btn btn-outline-success btn-sm m-1" href="{{ path('profile_show', {'id': profile.id}) }}">{{ "Show"|trans }}</a>
             </div>
             <div class="col-sm-12 col-md-12">
               <div class="shadowed-2  row d-flex justify-content-center">
                 <div class="col-sm-12 col-md-6 float-left media-meta">
                   <i class="p-1 fas fa-calendar"></i>{{ "Created at"|trans }}
                   :
-                  {{ user.CreatedAt ? user.CreatedAt|date('Y-m-d H:i:s') : '' }}
+                  {{ profile.CreatedAt ? profile.CreatedAt|date('Y-m-d H:i:s') : '' }}
                 </div>
                 <div class="col-sm-12 col-md-6 m-left-5 float-left  media-meta">
                   <i class="p-1 fas fa-calendar"></i>{{ "Updated at"|trans }}
                   :
-                  {{ user.UpdatedAt ? user.UpdatedAt|date('Y-m-d H:i:s') : '' }}
+                  {{ profile.UpdatedAt ? profile.UpdatedAt|date('Y-m-d H:i:s') : '' }}
                 </div>
               </div>
             </div>
@@ -99,7 +89,7 @@
         </div>
       {% else %}
         <div>
-          <h1>{{ "No User found"|trans }}</h1>
+          <h1>{{ "No Profile found"|trans }}</h1>
         </div>
       {% endfor %}
     </div>

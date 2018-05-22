@@ -39,36 +39,17 @@
             </div>
           {% endif %}
           <div class="md-form">
-            <i class="fa fa-user prefix grey-text"></i>
-            {{ form_errors(form.firstName) }}
-            {{ form_widget(form.firstName, {'attr': {'id': 'materialFormCardName2', 'name': 'firstName', 'class': 'form-control', 'aria-label': 'Large', 'aria-describedby': 'inputGroup-sizing-sm' }}) }}
-            <label for="materialFormCardNameEx" class="font-weight-light">Fistname</label>
-          </div>
-          <div class="md-form">
-            <i class="fa fa-user prefix grey-text"></i>
-            {{ form_errors(form.lastName) }}
-            {{ form_widget(form.lastName, {'attr': {'id': 'materialFormCardName3', 'name': 'lastName', 'class': 'form-control', 'aria-label': 'Large', 'aria-describedby': 'inputGroup-sizing-sm' }}) }}
-            <label for="materialFormCardNameEx" class="font-weight-light">{{ "Lastname"|trans }}</label>
-          </div>
-          <!-- Material input email -->
-          <div class="md-form">
             <i class="fa fa-envelope prefix grey-text"></i>
             {{ form_errors(form.email) }}
             {{ form_widget(form.email, {'attr': {'id': 'materialFormCardEmailEx', 'type': 'email', 'email': 'username', 'class': 'form-control', 'aria-label': 'Large', 'aria-describedby': 'inputGroup-sizing-sm' }}) }}
             <label for="materialFormCardEmailEx" class="font-weight-light">{{ "Email"|trans }}</label>
           </div>
-          <div class="md-form">
-            <i class="fa fa-phone prefix grey-text"></i>
-            {{ form_errors(form.phone) }}
-            {{ form_widget(form.phone, {'attr': {'id': 'materialFormCardName3', 'name': 'phone', 'class': 'form-control', 'aria-label': 'Large', 'aria-describedby': 'inputGroup-sizing-sm' }}) }}
-            <label for="materialFormCardNameEx" class="font-weight-light">{{ "Phone"|trans }}</label>
-          </div>
         </div>
         <div class="col-md-6 p-5">
           <div class="md-form  p-1  m-1 center">
-            <label class="form-check-label p-2" for="team">{{ "Team"|trans }}</label>
-            {{ form_errors(form.team) }}
-            {{ form_widget(form.team, {'attr': {'id': 'team', 'name': 'team', 'class': 'p-3 m-1', 'aria-label': 'Large'}}) }}
+            <label class="form-check-label p-2" for="profile">{{ "Profile"|trans }}</label>
+            {{ form_errors(form.profile) }}
+            {{ form_widget(form.profile, {'attr': {'id': 'profile', 'name': 'profile', 'class': 'p-3 m-1', 'aria-label': 'Large'}}) }}
           </div>
           <div class="form-check checkbox-success-filled-in p-1  m-1 center">
             <label class="form-check-label p-2" for="roles">{{ "Roles"|trans }}</label>

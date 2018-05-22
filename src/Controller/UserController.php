@@ -8,6 +8,7 @@ use App\Form\User\NewUserAdminType;
 use App\Form\User\UserAdminType;
 use App\Form\User\UserPasswordType;
 use App\Repository\UserRepository;
+use App\Repository\ProfileRepository;
 use App\Repository\TeamRepository;
 use App\Events;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -26,10 +27,11 @@ class UserController extends Controller
     /**
      * @Route("/", name="user_index", methods="GET")
      */
-    public function index(UserRepository $userRepository, TeamRepository $teamRepository): Response
+    public function index(UserRepository $userRepository, ProfileRepository $profileRepository, TeamRepository $teamRepository): Response
     {
         return $this->render('Community/index.html.twig', [
-            'users' => $userRepository->findAllTheUsers(),
+            'users' => $userRepository->findAll(),
+            'profiles' => $profileRepository->findAll(),
             'teams' => $teamRepository->findAll()
           ]);
 

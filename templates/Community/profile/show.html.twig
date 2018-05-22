@@ -1,27 +1,27 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ "Team"|trans }}
-  -
-  {{ team.teamName }}
-{% endblock %}
+{% block title %}{{ "Profile"|trans }} - {{ profile.profileName }}{% endblock %}
 
 {% block content %}
   <div class="container">
-    <div class="m-3 row">
-      <div class="col-sm-12 col-md-12 user-details p-2">
+    <div  class="m-2 row">
+      <div class="col-sm-12 col-md-12 user-details">
+        <div class="user-image pt-5">
+          <img src="{{ asset('assets/img/user-pic.png') }}" class="rounded-circle z-depth-0" alt="avatar image">
+        </div>
         <div class="user-info-block">
           <div class="user-heading">
-            <h3 class="showViewTitle">{{ team.teamname }}</h3>
+            <h1 class="showViewTitle mt-0 pt-0">{{ profile.profileName }}</h1>
           </div>
           <ul class="navigation nav nav-tabs">
             <li class="nav-item">
               <a class="nav-link active" data-toggle="tab" href="#information">
-                <span class="fas fa-info"></span>
+                <span class="fas fa-user"></span>
               </a>
             </li>
             <li>
-              <a data-toggle="tab" href="#members">
-                <span class="fas fa-users"></span>
+              <a data-toggle="tab" href="#contact">
+                <span class="fas fa-envelope"></span>
               </a>
             </li>
             <li>
@@ -38,22 +38,30 @@
           <div class="user-body">
             <div class="tab-content">
               <div id="information" class="tab-pane active">
-                <h4>{{ "Team Information"|trans }}</h4>
+                <h4>{{ "Account Information"|trans }}</h4>
                 <div class="row">
                   <div class="col-md-10">
                     <table class="table">
                       <tbody>
                         <tr>
-                          <th>{{ "Team Name"|trans }}</th>
-                          <td>{{ team.teamName }}</td>
+                          <th>{{ "Profile Name"|trans }}</th>
+                          <td>{{ profile.profileName }}</td>
                         </tr>
                         <tr>
-                          <th>{{ "Description"|trans }}</th>
-                          <td>{{ team.teamDescription }}</td>
+                          <th>{{ "Team"|trans }}</th>
+                          {% if profile.team != null %}
+                          <td><a href="{{ path('team_show', {'id': profile.team.id}) }}"> {{ profile.team.teamName }}</a></td>
+                          {% else %}
+                          <td>{{ "NO TEAM"|trans }}</td>
+                          {% endif %}
                         </tr>
                         <tr>
-                          <th>{{ "Members Count"|trans }}</th>
-                          <td>{{ team.profiles.count }}</td>
+                          <th>{{ "Firstname"|trans }}</th>
+                          <td>{{ profile.firstName }}</td>
+                        </tr>
+                        <tr>
+                          <th>{{ "Lastname"|trans }}</th>
+                          <td>{{ profile.lastName }}</td>
                         </tr>
                       </tbody>
                     </table>
@@ -65,38 +73,38 @@
                   <div class="col-md-10">
                     <table class="table">
                       <tbody>
+                        {% if profile.user != null %}
+                        <tr>
+                          <th>{{ "Roles"|trans }}</th>
+                          <td>{{ profile.user.roles|join(', ')  }}</td>
+                        </tr>
+                        {% endif %}
                         <tr>
                           <th>{{ "Enabled"|trans }}</th>
-                          <td>{{ team.enabled ? 'Yes' : 'No' }}</td>
+                          <td>{{ profile.enabled ? 'Yes' : 'No' }}</td>
+                        </tr>
+                        <tr>
+                          <th>{{ "Restricted"|trans }}</th>
+                          <td>{{ profile.restricted ? 'Yes' : 'No' }}</td>
                         </tr>
                       </tbody>
                     </table>
                   </div>
                 </div>
               </div>
-              <div id="members" class="tab-pane">
+              <div id="contact" class="tab-pane">
                 <div class="row">
                   <div class="col-md-10">
                     <table class="table">
                       <tbody>
-                      {% if team.profiles != null %}
-                        {% for profile in team.profiles %}
-                          <tr>
-                            <th> <a href="{{ path('profile_show', {'id': profile.id}) }}"> {{ profile.profileName }}</a></th>
-                            <td>
-                              <span class="fas fa-phone"></span> :
-                              {{ profile.phone }}
-                              -
-                              <span class="fas fa-envelope"></span> :
-                              {{ profile.email }}</td>
-                          </tr>
-                        {% endfor %}
-                        {% else %}
                         <tr>
-                          <th>{{ "No Members in this Team"|trans }}</th>
-                          <td></td>
+                          <th>{{ "Email"|trans }}</th>
+                          <td>{{ profile.email }}</td>
                         </tr>
-                      {% endif %}
+                        <tr>
+                          <th>{{ "Phone"|trans }}</th>
+                          <td>{{ profile.phone }}</td>
+                        </tr>
                       </tbody>
                     </table>
                   </div>
@@ -109,11 +117,11 @@
                       <tbody>
                         <tr>
                           <th>{{ "Created at"|trans }}</th>
-                          <td>{{ team.createdAt ? team.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                          <td>{{ profile.CreatedAt ? profile.CreatedAt|date('Y-m-d H:i:s') : '' }}</td>
                         </tr>
                         <tr>
                           <th>{{ "Updated at"|trans }}</th>
-                          <td>{{ team.updatedAt ? team.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                          <td>{{ profile.UpdatedAt ? profile.UpdatedAt|date('Y-m-d H:i:s') : '' }}</td>
                         </tr>
                       </tbody>
                     </table>
@@ -130,8 +138,8 @@
     <div class="col-md-12 center">
       <div class="col-md-12 d-flex justify-content-center">
         {% if is_granted("ROLE_ADMIN") %}
-          <a class="btn btn-info btn-md" href="{{ path('team_edit', {'id': team.id}) }}">{{ "Administrator Edit"|trans }}</a>
-          {{ include('Admin/Community/team/_delete_form.html.twig') }}
+          <a class="btn btn-info btn-md" href="{{ path('profile_edit', {'id': profile.id}) }}">{{ "Edit"|trans }}</a>
+          {{ include('Admin/Community/profile/_delete_form.html.twig') }}
         {% endif %}
       </div>
     </div>

@@ -1,0 +1,86 @@
+<!-- Card -->
+<div class="card">
+
+  <!-- Card body -->
+  <div class="card-body">
+
+    {{ form_start(form) }}
+    {{ form_widget(form._token) }}
+    {% if not form.vars.valid %}
+      <div class="alert alert-danger">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <span>
+          <strong>{{ form_errors(form) }}</strong>
+        </span>
+      </div>
+    {% endif %}
+
+    <!-- Material form register -->
+    <form>
+      <div class="row">
+        <div class="col-sm-12">
+          <h1 class="showViewTitle center">{{ "Edit my Profile"|trans }}</h1>
+          <hr>
+        </div>
+        <div class="col-md-6">
+          <!-- Material input text -->
+          <div class="md-form">
+            <i class="fa fa-user prefix grey-text"></i>
+            {{ form_errors(form.profileName) }}
+            {{ form_widget(form.profileName, {'attr': {'id': 'profileName', 'name': 'profileName', 'class': 'form-control', 'aria-label': 'Large', 'aria-describedby': 'inputGroup-sizing-sm' }}) }}
+            <label for="profileName" class="font-weight-light">{{ "Profile Name"|trans }}</label>
+          </div>
+          <div class="md-form">
+            <i class="fa fa-user prefix grey-text"></i>
+            {{ form_errors(form.firstName) }}
+            {{ form_widget(form.firstName, {'attr': {'id': 'materialFormCardName2', 'name': 'firstName', 'class': 'form-control', 'aria-label': 'Large', 'aria-describedby': 'inputGroup-sizing-sm' }}) }}
+            <label for="materialFormCardNameEx" class="font-weight-light">{{ "Firstname"|trans }}</label>
+          </div>
+          <div class="md-form">
+            <i class="fa fa-user prefix grey-text"></i>
+            {{ form_errors(form.lastName) }}
+            {{ form_widget(form.lastName, {'attr': {'id': 'materialFormCardName3', 'name': 'lastName', 'class': 'form-control', 'aria-label': 'Large', 'aria-describedby': 'inputGroup-sizing-sm' }}) }}
+            <label for="materialFormCardNameEx" class="font-weight-light">{{ "Lastname"|trans }}</label>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <!-- Material input email -->
+          <div class="md-form">
+            <i class="fa fa-envelope prefix grey-text"></i>
+            {{ form_errors(form.email) }}
+            {{ form_widget(form.email, {'attr': {'id': 'materialFormCardEmailEx', 'type': 'email', 'email': 'username', 'class': 'form-control', 'aria-label': 'Large', 'aria-describedby': 'inputGroup-sizing-sm' }}) }}
+            <label for="materialFormCardEmailEx" class="font-weight-light">{{ "Email"|trans }}</label>
+          </div>
+          <div class="md-form">
+            <i class="fa fa-phone prefix grey-text"></i>
+            {{ form_errors(form.phone) }}
+            {{ form_widget(form.phone, {'attr': {'id': 'materialFormCardName3', 'name': 'phone', 'class': 'form-control', 'aria-label': 'Large', 'aria-describedby': 'inputGroup-sizing-sm' }}) }}
+            <label for="materialFormCardNameEx" class="font-weight-light">{{ "Phone"|trans }}</label>
+          </div>
+          <div class="md-form  p-1  m-1 center">
+            <label class="form-check-label p-2" for="team">{{ "Team"|trans }}</label>
+            {{ form_errors(form.team) }}
+            {{ form_widget(form.team, {'attr': {'id': 'team', 'name': 'team', 'class': 'p-3 m-1', 'aria-label': 'Large'}}) }}
+          </div>
+          {% if is_granted("ROLE_ADMIN")or is_granted("ROLE_MANAGER") %}
+          <div class="md-form  p-1  m-1 center">
+            <label class="form-check-label p-2" for="user">{{ "User"|trans }}</label>
+            {{ form_errors(form.user) }}
+            {{ form_widget(form.user, {'attr': {'id': 'user', 'name': 'user', 'class': 'p-3 m-1', 'aria-label': 'Large'}}) }}
+          </div>
+          {% endif %}
+        </div>
+        <div class="text-center mt-3">
+          <button class="btn btn-green center" type="submit">{{ button_label|default('Save') }}</button>
+        </div>
+      </div>
+    </form>
+    {{ form_end(form) }}
+    {% if is_granted('ROLE_ADMIN') %}
+      <div class="float-right">
+        {{ include('Admin/Community/profile/_delete_form.html.twig') }}
+      </div>
+    {% endif %}
+  </div>
+  <!-- Card body -->
+</div>

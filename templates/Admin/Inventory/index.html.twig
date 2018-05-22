@@ -4,7 +4,7 @@
 {% endblock %}
 
 {% block content %}
-  {% if is_granted("ROLE_ADMIN")or is_granted("ROLE_MANAGER") %}
+  {% if is_granted("ROLE_ADMIN") or is_granted("ROLE_MANAGER") %}
 
     <div id="accordion">
       <div id="subMenu" class="card">

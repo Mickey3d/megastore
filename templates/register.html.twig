@@ -8,12 +8,6 @@
         <div class="form-signin">
           <h1 class="m-5 h3 mb-3 font-weight-normal">{{ "Please Register"|trans }}</h1>
           {{ form_start(form) }}
-          {{ form_label(form.firstName)}}
-          {{ form_widget(form.firstName,
-                {'attr': {'class': 'form-control','placeholder': 'First Name', 'autofocus': 'autofocus' }}) }}
-          {{ form_label(form.lastName)}}
-          {{ form_widget(form.lastName,
-                {'attr': {'class': 'form-control','placeholder': 'Last Name', 'autofocus': 'autofocus' }}) }}
           {{ form_label(form.username)}}
           {{ form_widget(form.username,
                 {'attr': {'class': 'form-control','placeholder': 'Username', 'autofocus': 'autofocus' }}) }}

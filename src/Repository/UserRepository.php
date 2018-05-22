@@ -27,8 +27,8 @@ class UserRepository extends ServiceEntityRepository
     function findAllTheUsers($format = 'html')
     {
         $qb = $this->createQueryBuilder('u')
-            ->leftJoin('u.team', 'team')
-            ->addSelect('team')
+            ->leftJoin('u.profile', 'profile')
+            ->addSelect('profile')
             ->where('u.enabled = 1')
             ->orderBy('u.username', 'DESC')
         ;
@@ -55,8 +55,8 @@ class UserRepository extends ServiceEntityRepository
     function findAllTheUsersEnabled($format = 'html')
     {
         $qb = $this->createQueryBuilder('u')
-            ->leftJoin('u.team', 'team')
-            ->addSelect('team')
+            ->leftJoin('u.profile', 'profile')
+            ->addSelect('profile')
             ->where('u.enabled = 1')
             ->orderBy('u.username', 'DESC')
         ;
@@ -83,8 +83,8 @@ class UserRepository extends ServiceEntityRepository
     function findAllTheUsersRestricted($format = 'html')
     {
         $qb = $this->createQueryBuilder('u')
-            ->leftJoin('u.team', 'team')
-            ->addSelect('team')
+            ->leftJoin('u.profile', 'profile')
+            ->addSelect('profile')
             ->where('u.restricted = 1')
             ->orderBy('u.username', 'DESC')
         ;

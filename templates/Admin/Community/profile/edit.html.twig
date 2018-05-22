@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ "Edit User"|trans }}
+{% block title %}{{ "Edit Profile"|trans }}
 {% endblock %}
 
 {% block content %}
   {% if is_granted('ROLE_ADMIN')%}
-    {{ include('Admin/Community/user/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('Admin/Community/profile/_form.html.twig', {'button_label': 'Update'}) }}
   {% else %}
     <div class="alert alert-danger">
       <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -15,5 +15,5 @@
     </div>
   {% endif %}
   <a class="btn btn-primary btn-lg" href="{{ path('community_index') }}">{{ "Back to list"|trans }}</a>
-  <a class="btn btn-dark btn-md" href="{{ path('user_show', {'id': user.id}) }}">{{ "Back to User"|trans }}</a>
+  <a class="btn btn-dark btn-md" href="{{ path('profile_show', {'id': profile.id}) }}">{{ "Back to Profile"|trans }}</a>
 {% endblock %}

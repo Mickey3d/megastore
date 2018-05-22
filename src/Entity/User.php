@@ -27,16 +27,6 @@ class User implements UserInterface, \Serializable
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $firstName;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $lastName;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
     private $email;
 
     /**
@@ -50,9 +40,10 @@ class User implements UserInterface, \Serializable
     private $roles;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\OneToOne(targetEntity="App\Entity\Profile", mappedBy="user", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=true)
      */
-    private $phone;
+    private $profile;
 
     /**
      * @ORM\Column(type="datetime")
@@ -74,10 +65,7 @@ class User implements UserInterface, \Serializable
      */
     private $restricted;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Team", inversedBy="users")
-     */
-    private $team;
+
 
 
     public function getId()
@@ -97,29 +85,6 @@ class User implements UserInterface, \Serializable
         return $this;
     }
 
-    public function getFirstName(): ?string
-    {
-        return $this->firstName;
-    }
-
-    public function setFirstName(?string $firstName): self
-    {
-        $this->firstName = $firstName;
-
-        return $this;
-    }
-
-    public function getLastName(): ?string
-    {
-        return $this->lastName;
-    }
-
-    public function setLastName(?string $lastName): self
-    {
-        $this->lastName = $lastName;
-
-        return $this;
-    }
 
     public function getEmail(): ?string
     {
@@ -160,18 +125,6 @@ class User implements UserInterface, \Serializable
     public function setRoles($roles): self
     {
         $this->roles = $roles;
-
-        return $this;
-    }
-
-    public function getPhone(): ?string
-    {
-        return $this->phone;
-    }
-
-    public function setPhone(?string $phone): self
-    {
-        $this->phone = $phone;
 
         return $this;
     }
@@ -283,19 +236,16 @@ class User implements UserInterface, \Serializable
   }
 
 
-  public function getTeam(): ?Team
+  public function getProfile(): ?Profile
   {
-      return $this->team;
+      return $this->profile;
   }
 
-  public function setTeam(?Team $team): self
+  public function setProfile(?Profile $profile): self
   {
-      $this->team = $team;
+      $this->profile = $profile;
       return $this;
   }
-
-
-
 
 
 }

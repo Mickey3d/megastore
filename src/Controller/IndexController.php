@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller;
 
+use App\Repository\ProfileRepository;
 use App\Repository\UserRepository;
 use App\Repository\TeamRepository;
 use App\Repository\ItemRepository;
@@ -33,10 +34,11 @@ class IndexController extends Controller
     /**
      * @Route("/community", name="community_index", methods="GET")
      */
-    public function community(UserRepository $userRepository, TeamRepository $teamRepository): Response
+    public function community(ProfileRepository $profileRepository, UserRepository $userRepository, TeamRepository $teamRepository): Response
     {
         return $this->render('Community/index.html.twig', [
-          'users' => $userRepository->findAllTheUsers(),
+          'profiles' => $profileRepository->findAll(),
+          'users' => $userRepository->findAll(),
           'teams' => $teamRepository->findAll(),
         ]);
     }

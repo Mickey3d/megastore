@@ -49,19 +49,39 @@
                         </tr>
                         <tr>
                           <th>{{ "Team"|trans }}</th>
-                          {% if user.team.id is defined %}
-                          <td><a href="{{ path('team_show', {'id': user.team.id}) }}"> {{ user.team.teamName }}</a></td>
+                          {% if user.profile != null %}
+                            {% if user.profile.team != null %}
+                            <td><a href="{{ path('team_show', {'id': user.profile.team.id}) }}"> {{ user.profile.team.teamName }}</a></td>
+                            {% else %}
+                            <td>{{ "NO TEAM"|trans }}</td>
+                            {% endif %}
                           {% else %}
                           <td>{{ "NO TEAM"|trans }}</td>
                           {% endif %}
                         </tr>
+                        {% if user.profile != null %}
+                        <tr>
+                          <th>{{ "Profile Name"|trans }}</th>
+                          <td>
+                            <a href="{{ path('profile_show', {'id': user.profile.id}) }}">{{ user.profile.profileName }}</a>
+                          </td>
+                        </tr>
+                        {% endif %}
                         <tr>
                           <th>{{ "Firstname"|trans }}</th>
-                          <td>{{ user.firstName }}</td>
+                          <td>
+                          {% if user.profile != null %}
+                            {{ user.profile.firstName }}
+                          {% endif %}
+                          </td>
                         </tr>
                         <tr>
                           <th>{{ "Lastname"|trans }}</th>
-                          <td>{{ user.lastName }}</td>
+                          <td>
+                          {% if user.profile != null %}
+                            {{ user.profile.lastName }}
+                          {% endif %}
+                          </td>
                         </tr>
                       </tbody>
                     </table>
@@ -97,11 +117,19 @@
                       <tbody>
                         <tr>
                           <th>{{ "Email"|trans }}</th>
-                          <td>{{ user.email }}</td>
+                          <td>
+                            {% if user.profile != null %}
+                              {{ user.profile.email }}
+                            {% endif %}
+                          </td>
                         </tr>
                         <tr>
                           <th>{{ "Phone"|trans }}</th>
-                          <td>{{ user.phone }}</td>
+                          <td>
+                          {% if user.profile != null %}
+                            {{ user.profile.phone }}
+                          {% endif %}
+                          </td>
                         </tr>
                       </tbody>
                     </table>
@@ -137,7 +165,10 @@
       <div class="col-md-12 d-flex justify-content-center">
         {% if user.id == app.user.id %}
           <a class="btn btn-success btn-md" href="{{ path('user_edit_password', {'id': app.user.id}) }}">{{ "New Password"|trans }}</a>
-          <a class="btn btn-success btn-md" href="{{ path('user_edit', {'id': app.user.id}) }}">{{ "Edit my Profile"|trans }}</a>
+          <a class="btn btn-success btn-md" href="{{ path('user_edit', {'id': app.user.id}) }}">{{ "Edit my account"|trans }}</a>
+          {% if user.profile != null %}
+            <a class="btn btn-success btn-md" href="{{ path('profile_edit', {'id': app.user.profile.id}) }}">{{ "Edit my Profile"|trans }}</a>
+          {% endif %}
         {% endif %}
         {% if is_granted("ROLE_ADMIN") %}
           <a class="btn btn-info btn-md" href="{{ path('admin_user_edit', {'id': user.id}) }}">{{ "Administrator Edit"|trans }}</a>

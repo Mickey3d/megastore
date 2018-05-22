@@ -3,7 +3,7 @@
 namespace App\Form\User;
 
 use App\Entity\User;
-use App\Entity\Team;
+use App\Entity\Profile;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -27,8 +27,6 @@ class NewUserAdminType extends AbstractType
     {
         $builder
             ->add('username')
-            ->add('firstName')
-            ->add('lastName')
             ->add('password', PasswordType::class, array(
               'required'   => false,
               'empty_data' => 'pass',
@@ -36,16 +34,13 @@ class NewUserAdminType extends AbstractType
             ->add('email', EmailType::class, array(
               'required'   => false,
             ))
-            ->add('phone', TelType::class, array(
-              'required'   => false,
-            ))
             ->add('enabled')
             ->add('restricted')
-            ->add('team', EntityType::class, array(
+            ->add('profile', EntityType::class, array(
               // looks for choices from this entity
-              'class' => Team::class,
-              // uses the User.username property as the visible option string
-              'choice_label' => 'teamName',
+              'class' => Profile::class,
+              // uses the profile.profileName property as the visible option string
+              'choice_label' => 'profileName',
               'required'   => false,
             ))
             ->add('roles', ChoiceType::class, array(

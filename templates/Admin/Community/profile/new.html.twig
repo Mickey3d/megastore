@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+  {{ "New Profile"|trans }}
+{% endblock %}
+
+{% block content %}
+{% set new = true %}
+{% if is_granted('ROLE_ADMIN')%}
+  {{ include('admin/Community/profile/_form.html.twig') }}
+{% else %}
+  <div class="alert alert-danger">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+    <span>
+      <strong>{{ "You are not Administrator! You are not allowed to access !"|trans }}</strong>
+    </span>
+  </div>
+{% endif %}
+<a class="btn btn-primary btn-lg" href="{{ path('community_index') }}">{{ "Back to list"|trans }}</a>
+
+{% endblock %}
